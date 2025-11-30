@@ -1,1 +1,33 @@
-{\n  \"buildCommand\": \"pnpm run build\",\n  \"outputDirectory\": \"dist/public\"\n}
+{
+  "buildCommand": "pnpm build",
+  "outputDirectory": "dist/public",
+  "functions": {
+    "dist/index.js": {
+      "runtime": "nodejs20.x"
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/dist/index.js"
+    },
+    {
+      "src": "/trpc/(.*)",
+      "dest": "/dist/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    },
+    {
+      "source": "/trpc/(.*)",
+      "destination": "/api/trpc/$1"
+    }
+  ]
+}
