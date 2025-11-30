@@ -106,32 +106,25 @@ export const appRouter = router({
         extensionSlug: z.string(),
       }))
       .mutation(async ({ input }) => {
-        // Get or create user
         const extension = await db.getExtensionBySlug(input.extensionSlug);
         if (!extension) {
           throw new Error("Extension not found");
         }
 
-        // Generate license key
-        const licenseKey = `TRIAL-${crypto.randomBytes(16).toString("hex").toUpperCase()}`;
-
-        // Calculate expiration (7 days from now)
-        const expiresAt = new Date();
-        expiresAt.setDate(expiresAt.getDate() + (extension.trialDays || 7));
-
-        // Create trial license
-        await db.createLicense({
-          userId: 0, // Temporary - will be linked when user signs up
-          extensionId: extension.id,
-          licenseKey,
-          status: "trial",
-          expiresAt,
-          activatedAt: new Date(),
-        });
+        // Just notify owner about trial request - extension handles its own licensing
+        try {
+          const { notifyOwner } = await import("./_core/notification");
+          await notifyOwner({
+            title: "Trial Request",
+            content: `Email: ${input.email}\nExtension: ${extension.name}\nRequested trial access`
+          });
+        } catch (error) {
+          console.warn("Failed to send notification:", error);
+        }
 
         return {
-          licenseKey,
-          expiresAt,
+          success: true,
+          message: "Trial request submitted. You will receive instructions via email.",
           downloadUrl: extension.downloadUrl,
         };
       }),

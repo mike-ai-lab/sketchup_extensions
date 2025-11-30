@@ -1,19 +1,12 @@
 {
   "version": "7",
-  "dialect": "mysql",
+  "dialect": "postgresql",
   "entries": [
     {
       "idx": 0,
-      "version": "5",
-      "when": 1763589688678,
-      "tag": "0000_omniscient_veda",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1763665319566,
-      "tag": "0001_fantastic_karnak",
+      "version": "7",
+      "when": 1764472681407,
+      "tag": "0000_short_frightful_four",
       "breakpoints": true
     }
   ]

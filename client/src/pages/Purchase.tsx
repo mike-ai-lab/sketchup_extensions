@@ -29,20 +29,19 @@ export default function Purchase() {
       }
     },
     onError: (error: any) => {
-      toast.error("Failed to create order. Please try again.");
-      console.error(error);
+      console.error("PayPal order creation failed:", error);
+      const errorMessage = error?.message || "Failed to create order. Please try again.";
+      toast.error(errorMessage);
       setIsProcessing(false);
     }
   });
 
   const startTrial = trpc.licenses.generateTrial.useMutation({
-    onSuccess: (data: { licenseKey: string; expiresAt: Date; downloadUrl: string | null }) => {
-      toast.success("Trial license generated! Check your email.");
-      // Redirect to dashboard
-      window.location.href = "/dashboard";
+    onSuccess: (data: { success: boolean; message: string; downloadUrl: string | null }) => {
+      toast.success(data.message);
     },
     onError: (error: any) => {
-      toast.error("Failed to generate trial. Please try again.");
+      toast.error("Failed to submit trial request. Please try again.");
       console.error(error);
     }
   });
@@ -95,11 +94,23 @@ export default function Purchase() {
             <span className="text-2xl font-bold cursor-pointer">Studiø</span>
           </Link>
           <div className="flex items-center gap-6">
+            <Link href="/">
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Home</span>
+            </Link>
             <Link href="/tools">
               <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tools</span>
             </Link>
-            <Link href="/dashboard">
-              <Button variant="outline" size="sm">Dashboard</Button>
+            <Link href="/tutorials">
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tutorials</span>
+            </Link>
+            <Link href="/pricing">
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Pricing</span>
+            </Link>
+            <Link href="/download">
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Download</span>
+            </Link>
+            <Link href="/faq">
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">FAQ</span>
             </Link>
           </div>
         </div>
@@ -139,6 +150,21 @@ export default function Purchase() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
+                  {!user?.email && (
+                    <div className="mb-4">
+                      <label htmlFor="email" className="block text-sm font-medium mb-2">
+                        Email Address
+                      </label>
+                      <input
+                        id="email"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Enter your email"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      />
+                    </div>
+                  )}
                   <Button 
                     size="lg" 
                     className="w-full"

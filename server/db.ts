@@ -1,5 +1,6 @@
 import { eq } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/mysql2";
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
 import { InsertUser, users, leads, InsertLead, licenses, InsertLicense, extensions, InsertExtension, transactions, InsertTransaction } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -7,11 +8,14 @@ let _db: ReturnType<typeof drizzle> | null = null;
 
 // Lazily create the drizzle instance so local tooling can run without a DB.
 export async function getDb() {
-  if (!_db && process.env.DATABASE_URL) {
+  if (!_db) {
     try {
-      _db = drizzle(process.env.DATABASE_URL);
+      console.log("[Database] Attempting to connect to Supabase...");
+      const client = postgres(ENV.databaseUrl);
+      _db = drizzle(client);
+      console.log("[Database] Connected to Supabase successfully");
     } catch (error) {
-      console.warn("[Database] Failed to connect:", error);
+      console.error("[Database] Failed to connect:", error);
       _db = null;
     }
   }
@@ -68,7 +72,8 @@ export async function upsertUser(user: InsertUser): Promise<void> {
       updateSet.lastSignedIn = new Date();
     }
 
-    await db.insert(users).values(values).onDuplicateKeyUpdate({
+    await db.insert(users).values(values).onConflictDoUpdate({
+      target: users.openId,
       set: updateSet,
     });
   } catch (error) {
@@ -132,10 +137,18 @@ export async function getUserLicenses(userId: number) {
 // Extension management functions
 export async function getExtensionBySlug(slug: string) {
   const db = await getDb();
-  if (!db) throw new Error("Database not available");
+  if (!db) {
+    console.error("[Database] Database not available for getExtensionBySlug");
+    throw new Error("Database not available");
+  }
 
-  const result = await db.select().from(extensions).where(eq(extensions.slug, slug)).limit(1);
-  return result.length > 0 ? result[0] : undefined;
+  try {
+    const result = await db.select().from(extensions).where(eq(extensions.slug, slug)).limit(1);
+    return result.length > 0 ? result[0] : undefined;
+  } catch (error) {
+    console.error("[Database] Error in getExtensionBySlug:", error);
+    throw error;
+  }
 }
 
 export async function getAllExtensions() {
@@ -149,7 +162,8 @@ export async function upsertExtension(extension: InsertExtension) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
-  await db.insert(extensions).values(extension).onDuplicateKeyUpdate({
+  await db.insert(extensions).values(extension).onConflictDoUpdate({
+    target: extensions.slug,
     set: {
       name: extension.name,
       description: extension.description,

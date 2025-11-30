@@ -99,11 +99,23 @@ export default function Dashboard() {
             <span className="text-2xl font-bold cursor-pointer">Studiø</span>
           </Link>
           <div className="flex items-center gap-6">
+            <Link href="/">
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Home</span>
+            </Link>
             <Link href="/tools">
               <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tools</span>
             </Link>
-            <Link href="/contact">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Contact</span>
+            <Link href="/tutorials">
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tutorials</span>
+            </Link>
+            <Link href="/pricing">
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Pricing</span>
+            </Link>
+            <Link href="/download">
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Download</span>
+            </Link>
+            <Link href="/faq">
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">FAQ</span>
             </Link>
             <Button 
               variant="outline" 
