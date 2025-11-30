@@ -1,27 +1,5 @@
 {
   "buildCommand": "pnpm build",
   "outputDirectory": "dist/public",
-  "installCommand": "pnpm install",
-  "functions": {
-    "dist/index.js": {
-      "runtime": "nodejs20.x"
-    }
-  },
-  "routes": [
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/index.js"
-    },
-    {
-      "src": "/trpc/(.*)",
-      "dest": "/api/index.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ]
+  "installCommand": "pnpm install"
 }
