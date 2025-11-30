@@ -1,0 +1,1 @@
+{\n  \"buildCommand\": \"pnpm run build\",\n  \"outputDirectory\": \"dist/public\",\n  \"functions\": {\n    \"dist/index.js\": {\n      \"runtime\": \"nodejs20.x\"\n    }\n  },\n  \"rewrites\": [\n    {\n      \"source\": \"/api/(.*)\",\n      \"destination\": \"/dist/index.js\"\n    },\n    {\n      \"source\": \"/(.*)\",\n      \"destination\": \"/index.html\"\n    }\n  ]\n}
