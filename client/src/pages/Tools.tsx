@@ -10,13 +10,22 @@ interface ProductCardProps {
   index: number;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ id, name, description, index }) => {
+const ProductCard: React.FC<ProductCardProps> = ({
+  id,
+  name,
+  description,
+  index,
+}) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -5, boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)" }}
+      whileHover={{
+        y: -5,
+        boxShadow:
+          "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+      }}
       className="bg-card border border-border rounded-xl overflow-hidden flex flex-col"
     >
       <div className="bg-secondary aspect-video flex items-center justify-center">
@@ -24,7 +33,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ id, name, description, index 
       </div>
       <div className="p-6 flex-grow flex flex-col">
         <h3 className="text-xl font-semibold text-card-foreground">{name}</h3>
-        <p className="mt-2 text-muted-foreground text-sm flex-grow line-clamp-3">{description}</p>
+        <p className="mt-2 text-muted-foreground text-sm flex-grow line-clamp-3">
+          {description}
+        </p>
         <Link href={`/tools/${id}`}>
           <Button variant="secondary" className="mt-6 w-full">
             View Details
@@ -48,22 +59,34 @@ export default function Tools() {
           </Link>
           <div className="flex items-center gap-6">
             <Link href="/">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Home</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Home
+              </span>
             </Link>
             <Link href="/tools">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tools</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Tools
+              </span>
             </Link>
             <Link href="/tutorials">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tutorials</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Tutorials
+              </span>
             </Link>
             <Link href="/pricing">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Pricing</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Pricing
+              </span>
             </Link>
             <Link href="/download">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Download</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Download
+              </span>
             </Link>
             <Link href="/faq">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">FAQ</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                FAQ
+              </span>
             </Link>
           </div>
         </div>
@@ -73,18 +96,19 @@ export default function Tools() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold tracking-tight">Our Tools</h1>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            Professional SketchUp extensions designed to streamline your workflow
+            Professional SketchUp extensions designed to streamline your
+            workflow
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map(([key, product], index) => (
-            <ProductCard 
-              key={key} 
-              id={key} 
-              name={product.name} 
-              description={product.description} 
-              index={index} 
+            <ProductCard
+              key={key}
+              id={key}
+              name={product.name}
+              description={product.description}
+              index={index}
             />
           ))}
         </div>

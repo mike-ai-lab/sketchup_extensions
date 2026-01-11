@@ -14,7 +14,7 @@ export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    message: ""
+    message: "",
   });
 
   const submitLead = trpc.leads.submit.useMutation({
@@ -22,10 +22,10 @@ export default function Contact() {
       toast.success("Message sent successfully! We'll get back to you soon.");
       setFormData({ name: "", email: "", message: "" });
     },
-    onError: (error) => {
+    onError: error => {
       toast.error("Failed to send message. Please try again.");
       console.error(error);
-    }
+    },
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -43,22 +43,34 @@ export default function Contact() {
           </Link>
           <div className="flex items-center gap-6">
             <Link href="/">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Home</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Home
+              </span>
             </Link>
             <Link href="/tools">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tools</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Tools
+              </span>
             </Link>
             <Link href="/tutorials">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tutorials</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Tutorials
+              </span>
             </Link>
             <Link href="/pricing">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Pricing</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Pricing
+              </span>
             </Link>
             <Link href="/download">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Download</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Download
+              </span>
             </Link>
             <Link href="/faq">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">FAQ</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                FAQ
+              </span>
             </Link>
           </div>
         </div>
@@ -76,7 +88,7 @@ export default function Contact() {
               Get in Touch
             </h1>
             <p className="text-lg text-muted-foreground">
-              Have questions about our extensions? Need custom development? 
+              Have questions about our extensions? Need custom development?
               We're here to help.
             </p>
           </motion.div>
@@ -103,7 +115,9 @@ export default function Contact() {
                         type="text"
                         required
                         value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        onChange={e =>
+                          setFormData({ ...formData, name: e.target.value })
+                        }
                         placeholder="Your full name"
                         className="mt-2"
                       />
@@ -115,7 +129,9 @@ export default function Contact() {
                         type="email"
                         required
                         value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        onChange={e =>
+                          setFormData({ ...formData, email: e.target.value })
+                        }
                         placeholder="your@email.com"
                         className="mt-2"
                       />
@@ -126,14 +142,16 @@ export default function Contact() {
                         id="message"
                         required
                         value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        onChange={e =>
+                          setFormData({ ...formData, message: e.target.value })
+                        }
                         placeholder="Tell us about your project or question..."
                         className="mt-2 min-h-[150px]"
                       />
                     </div>
-                    <Button 
-                      type="submit" 
-                      size="lg" 
+                    <Button
+                      type="submit"
+                      size="lg"
                       className="w-full"
                       disabled={submitLead.isPending}
                     >
@@ -155,8 +173,9 @@ export default function Contact() {
               <div>
                 <h2 className="text-2xl font-bold mb-4">Let's Talk</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  Whether you need help with an existing extension, want to discuss custom development, 
-                  or have questions about licensing, we're here to assist you.
+                  Whether you need help with an existing extension, want to
+                  discuss custom development, or have questions about licensing,
+                  we're here to assist you.
                 </p>
               </div>
 
@@ -185,7 +204,8 @@ export default function Contact() {
                     <div>
                       <h3 className="font-semibold mb-1">Custom Development</h3>
                       <p className="text-sm text-muted-foreground">
-                        Need a custom SketchUp extension? Let's discuss your requirements
+                        Need a custom SketchUp extension? Let's discuss your
+                        requirements
                       </p>
                     </div>
                   </div>
@@ -197,7 +217,9 @@ export default function Contact() {
                 <ul className="text-sm text-muted-foreground space-y-2">
                   <li>• Check our documentation for common questions</li>
                   <li>• Include your SketchUp version for technical issues</li>
-                  <li>• Describe your workflow for custom development inquiries</li>
+                  <li>
+                    • Describe your workflow for custom development inquiries
+                  </li>
                 </ul>
               </div>
             </motion.div>

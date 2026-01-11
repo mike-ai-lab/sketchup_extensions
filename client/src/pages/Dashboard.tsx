@@ -1,5 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
@@ -14,14 +20,12 @@ export default function Dashboard() {
   const logout = trpc.auth.logout.useMutation({
     onSuccess: () => {
       window.location.href = "/";
-    }
+    },
   });
 
   // Fetch user's licenses
-  const { data: licenses, isLoading: licensesLoading } = trpc.licenses.myLicenses.useQuery(
-    undefined,
-    { enabled: isAuthenticated }
-  );
+  const { data: licenses, isLoading: licensesLoading } =
+    trpc.licenses.myLicenses.useQuery(undefined, { enabled: isAuthenticated });
 
   if (loading || licensesLoading) {
     return (
@@ -42,10 +46,14 @@ export default function Dashboard() {
             </Link>
             <div className="flex items-center gap-6">
               <Link href="/tools">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tools</span>
+                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                  Tools
+                </span>
               </Link>
               <Link href="/contact">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Contact</span>
+                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                  Contact
+                </span>
               </Link>
             </div>
           </div>
@@ -61,7 +69,10 @@ export default function Dashboard() {
               </CardDescription>
             </CardHeader>
             <CardContent className="text-center">
-              <Button size="lg" onClick={() => window.location.href = getLoginUrl()}>
+              <Button
+                size="lg"
+                onClick={() => (window.location.href = getLoginUrl())}
+              >
                 Sign In
               </Button>
             </CardContent>
@@ -76,18 +87,25 @@ export default function Dashboard() {
     return new Date(date).toLocaleDateString("en-US", {
       year: "numeric",
       month: "long",
-      day: "numeric"
+      day: "numeric",
     });
   };
 
   const getStatusBadge = (status: string) => {
-    const variants: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
+    const variants: Record<
+      string,
+      "default" | "secondary" | "destructive" | "outline"
+    > = {
       active: "default",
       trial: "secondary",
       expired: "destructive",
-      revoked: "destructive"
+      revoked: "destructive",
     };
-    return <Badge variant={variants[status] || "outline"}>{status.toUpperCase()}</Badge>;
+    return (
+      <Badge variant={variants[status] || "outline"}>
+        {status.toUpperCase()}
+      </Badge>
+    );
   };
 
   return (
@@ -100,25 +118,37 @@ export default function Dashboard() {
           </Link>
           <div className="flex items-center gap-6">
             <Link href="/">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Home</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Home
+              </span>
             </Link>
             <Link href="/tools">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tools</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Tools
+              </span>
             </Link>
             <Link href="/tutorials">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tutorials</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Tutorials
+              </span>
             </Link>
             <Link href="/pricing">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Pricing</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Pricing
+              </span>
             </Link>
             <Link href="/download">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Download</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Download
+              </span>
             </Link>
             <Link href="/faq">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">FAQ</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                FAQ
+              </span>
             </Link>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
               onClick={() => logout.mutate()}
               disabled={logout.isPending}
@@ -159,7 +189,9 @@ export default function Dashboard() {
               <Card>
                 <CardContent className="p-12 text-center">
                   <AlertCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">No Licenses Yet</h3>
+                  <h3 className="text-xl font-semibold mb-2">
+                    No Licenses Yet
+                  </h3>
                   <p className="text-muted-foreground mb-6">
                     Start with a free trial or purchase a license to get started
                   </p>
@@ -185,7 +217,8 @@ export default function Dashboard() {
                               {license.extension?.name || "Extension"}
                             </CardTitle>
                             <CardDescription>
-                              {license.extension?.description || "SketchUp Extension"}
+                              {license.extension?.description ||
+                                "SketchUp Extension"}
                             </CardDescription>
                           </div>
                           {getStatusBadge(license.status)}
@@ -196,7 +229,9 @@ export default function Dashboard() {
                           <div className="flex items-start space-x-3">
                             <Key className="h-5 w-5 text-primary mt-0.5" />
                             <div>
-                              <p className="text-sm font-medium mb-1">License Key</p>
+                              <p className="text-sm font-medium mb-1">
+                                License Key
+                              </p>
                               <p className="text-sm text-muted-foreground font-mono break-all">
                                 {license.licenseKey}
                               </p>
@@ -205,7 +240,9 @@ export default function Dashboard() {
                           <div className="flex items-start space-x-3">
                             <Calendar className="h-5 w-5 text-primary mt-0.5" />
                             <div>
-                              <p className="text-sm font-medium mb-1">Activated</p>
+                              <p className="text-sm font-medium mb-1">
+                                Activated
+                              </p>
                               <p className="text-sm text-muted-foreground">
                                 {formatDate(license.activatedAt)}
                               </p>
@@ -215,10 +252,14 @@ export default function Dashboard() {
                             <Calendar className="h-5 w-5 text-primary mt-0.5" />
                             <div>
                               <p className="text-sm font-medium mb-1">
-                                {license.status === "trial" ? "Trial Expires" : "Expires"}
+                                {license.status === "trial"
+                                  ? "Trial Expires"
+                                  : "Expires"}
                               </p>
                               <p className="text-sm text-muted-foreground">
-                                {license.expiresAt ? formatDate(license.expiresAt) : "Never"}
+                                {license.expiresAt
+                                  ? formatDate(license.expiresAt)
+                                  : "Never"}
                               </p>
                             </div>
                           </div>
@@ -226,10 +267,13 @@ export default function Dashboard() {
 
                         <div className="flex gap-3 flex-wrap">
                           {license.extension?.downloadUrl && (
-                            <Button 
+                            <Button
                               variant="default"
                               onClick={() => {
-                                window.open(license.extension.downloadUrl, "_blank");
+                                window.open(
+                                  license.extension.downloadUrl,
+                                  "_blank"
+                                );
                                 toast.success("Download started");
                               }}
                             >
@@ -258,8 +302,8 @@ export default function Dashboard() {
             <CardContent className="p-8">
               <h3 className="text-lg font-semibold mb-4">Need Help?</h3>
               <p className="text-muted-foreground mb-4">
-                If you have any questions about your licenses or need technical support, 
-                we're here to help.
+                If you have any questions about your licenses or need technical
+                support, we're here to help.
               </p>
               <Link href="/contact">
                 <Button variant="outline">Contact Support</Button>

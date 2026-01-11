@@ -1,4 +1,11 @@
-import { integer, text, pgTable, serial, timestamp, boolean } from "drizzle-orm/pg-core";
+import {
+  integer,
+  text,
+  pgTable,
+  serial,
+  timestamp,
+  boolean,
+} from "drizzle-orm/pg-core";
 
 /**
  * Core user table backing auth flow.

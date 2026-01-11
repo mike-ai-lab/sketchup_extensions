@@ -1,14 +1,40 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { Box, Lock, Zap, Settings2, ArrowRight, Star, Sparkles, CheckCircle2, ShieldCheck } from "lucide-react";
+import {
+  Box,
+  Lock,
+  Zap,
+  Settings2,
+  ArrowRight,
+  Star,
+  Sparkles,
+  CheckCircle2,
+  ShieldCheck,
+} from "lucide-react";
 
 export default function Home() {
   const valueProps = [
-    { icon: Box, title: "Lightning Fast", description: "Optimized for performance and speed" },
-    { icon: Lock, title: "Reliable & Secure", description: "Built with best practices and security in mind" },
-    { icon: Zap, title: "Powerful Automation", description: "Automate repetitive tasks and boost productivity" },
-    { icon: Settings2, title: "Expert Support", description: "Dedicated support when you need it" },
+    {
+      icon: Box,
+      title: "Lightning Fast",
+      description: "Optimized for performance and speed",
+    },
+    {
+      icon: Lock,
+      title: "Reliable & Secure",
+      description: "Built with best practices and security in mind",
+    },
+    {
+      icon: Zap,
+      title: "Powerful Automation",
+      description: "Automate repetitive tasks and boost productivity",
+    },
+    {
+      icon: Settings2,
+      title: "Expert Support",
+      description: "Dedicated support when you need it",
+    },
   ];
 
   const containerVariants = {
@@ -16,14 +42,14 @@ export default function Home() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
+    visible: { opacity: 1, y: 0 },
   };
 
   return (
@@ -36,22 +62,34 @@ export default function Home() {
           </Link>
           <div className="flex items-center gap-6">
             <Link href="/">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Home</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Home
+              </span>
             </Link>
             <Link href="/tools">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tools</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Tools
+              </span>
             </Link>
             <Link href="/tutorials">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tutorials</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Tutorials
+              </span>
             </Link>
             <Link href="/pricing">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Pricing</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Pricing
+              </span>
             </Link>
             <Link href="/download">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Download</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Download
+              </span>
             </Link>
             <Link href="/faq">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">FAQ</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                FAQ
+              </span>
             </Link>
           </div>
         </div>
@@ -60,25 +98,27 @@ export default function Home() {
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <section className="text-center py-20 sm:py-32">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="text-4xl md:text-6xl font-bold tracking-tighter leading-tight"
           >
-            Professional SketchUp Extensions<br />
+            Professional SketchUp Extensions
+            <br />
             <span className="text-primary">for Modern Workflows</span>
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground"
           >
-            Powerful tools designed for architects, designers, and construction professionals. 
-            Streamline your workflow and create stunning designs faster than ever before.
+            Powerful tools designed for architects, designers, and construction
+            professionals. Streamline your workflow and create stunning designs
+            faster than ever before.
           </motion.p>
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -100,7 +140,7 @@ export default function Home() {
 
         {/* Featured Spotlight */}
         <section className="py-12">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -111,12 +151,17 @@ export default function Home() {
               <div className="p-8 md:p-16 flex flex-col justify-center">
                 <div className="flex items-center space-x-2 text-primary-foreground/80 mb-4">
                   <Star className="w-5 h-5 fill-current" />
-                  <span className="text-sm font-semibold uppercase tracking-wider">Featured Extension</span>
+                  <span className="text-sm font-semibold uppercase tracking-wider">
+                    Featured Extension
+                  </span>
                 </div>
-                <h2 className="text-3xl md:text-5xl font-bold mb-6">PARAMETRIX</h2>
+                <h2 className="text-3xl md:text-5xl font-bold mb-6">
+                  PARAMETRIX
+                </h2>
                 <p className="text-lg md:text-xl text-primary-foreground/80 mb-8 leading-relaxed">
-                  Professional Parametric Cladding Layout Generator for SketchUp. Generate complex 
-                  multi-face layouts with advanced trimming, rail systems, and pattern synchronization.
+                  Professional Parametric Cladding Layout Generator for
+                  SketchUp. Generate complex multi-face layouts with advanced
+                  trimming, rail systems, and pattern synchronization.
                 </p>
                 <div>
                   <Link href="/tools/parametrix">
@@ -137,7 +182,7 @@ export default function Home() {
 
         {/* Latest Release */}
         <section className="py-8">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -148,22 +193,23 @@ export default function Home() {
                 <Sparkles className="w-3 h-3 mr-1" />
                 New Release
               </div>
-              <h3 className="text-2xl font-bold mb-2">AutoNestCut Now Available</h3>
+              <h3 className="text-2xl font-bold mb-2">
+                AutoNestCut Now Available
+              </h3>
               <p className="text-muted-foreground">
-                Intelligent cut list generation and nesting optimization for efficient material usage
+                Intelligent cut list generation and nesting optimization for
+                efficient material usage
               </p>
             </div>
             <Link href="/tools">
-              <Button variant="outline">
-                Explore Tools
-              </Button>
+              <Button variant="outline">Explore Tools</Button>
             </Link>
           </motion.div>
         </section>
 
         {/* Value Propositions */}
         <section className="py-16 border-t border-border/40">
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
             variants={containerVariants}
             initial="hidden"
@@ -171,12 +217,18 @@ export default function Home() {
             viewport={{ once: true, amount: 0.5 }}
           >
             {valueProps.map((prop, index) => (
-              <motion.div key={index} variants={itemVariants} className="flex flex-col items-center text-center p-4">
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                className="flex flex-col items-center text-center p-4"
+              >
                 <div className="flex items-center justify-center h-12 w-12 rounded-full bg-secondary mb-4">
                   <prop.icon className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="text-lg font-medium">{prop.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{prop.description}</p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  {prop.description}
+                </p>
               </motion.div>
             ))}
           </motion.div>
@@ -184,9 +236,12 @@ export default function Home() {
 
         {/* CTA Section */}
         <section className="py-16 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Workflow?</h2>
+          <h2 className="text-3xl font-bold mb-4">
+            Ready to Transform Your Workflow?
+          </h2>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Join professionals worldwide using our extensions to create better designs faster
+            Join professionals worldwide using our extensions to create better
+            designs faster
           </p>
           <Link href="/tools">
             <Button size="lg">

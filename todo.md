@@ -1,6 +1,7 @@
 # Project TODO - Migration to Unified Platform
 
 ## MIGRATION PHASE (Current Focus)
+
 - [x] Integrate modern design system (colors, fonts, animations)
 - [x] Migrate Parametrix content from GitHub repo
 - [x] Build multi-extension architecture
@@ -17,6 +18,7 @@
 - [x] Verify database operations work
 
 ## Website Core Features (Completed)
+
 - [x] Homepage with hero section and extensions showcase
 - [x] Product page for AutoNestCut (CutList) extension
 - [x] Product page for Parametrix extension
@@ -25,6 +27,7 @@
 - [x] Fast loading performance optimization
 
 ## Database Schema (Completed)
+
 - [x] Users table (authentication, profile)
 - [x] Licenses table (license keys, status, expiry)
 - [x] Extensions table (metadata, versions, download URLs)
@@ -33,6 +36,7 @@
 - [x] Transactions table (PayPal payment records)
 
 ## Licensing System (Completed - Must Stay Intact)
+
 - [x] PayPal API integration (tested and working)
 - [x] PayPal order creation and capture
 - [x] Trial license generation (7-day free trial)
@@ -42,6 +46,7 @@
 - [ ] Automatic license delivery via email
 
 ## User Dashboard (Pending)
+
 - [ ] User authentication (login/logout)
 - [ ] My Licenses page (view active licenses)
 - [ ] Download extension files
@@ -49,6 +54,7 @@
 - [ ] Purchase history
 
 ## Lead Command Center (SEPARATE PHASE - After Migration)
+
 - [ ] Lead discovery dashboard with 50 daily leads
 - [ ] Intelligent lead hunter (LinkedIn, Google, directories)
 - [ ] Lead enrichment (email, phone, company, LinkedIn)
@@ -60,12 +66,14 @@
 - [ ] Export leads to CSV
 
 ## Deployment (Final Steps)
+
 - [ ] GitHub repository setup
 - [ ] Vercel deployment configuration
 - [ ] Custom domain (mimevents.com) setup
 - [ ] Archive old Vercel deployments
 
 ## DESIGN REVERSION (Current Priority - HANDOFF TO LOCAL)
+
 - [x] Revert Home page to match original reference design (IN PROGRESS)
 - [x] Revert Tools page to match original reference design (IN PROGRESS)
 - [ ] Revert Contact page to match original reference design

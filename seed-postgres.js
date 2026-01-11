@@ -1,12 +1,12 @@
-import postgres from 'postgres';
-import 'dotenv/config';
+import postgres from "postgres";
+import "dotenv/config";
 
 const sql = postgres(process.env.DATABASE_URL);
 
 async function seed() {
   try {
-    console.log('Seeding Supabase database...');
-    
+    console.log("Seeding Supabase database...");
+
     // Insert extensions
     await sql`
       INSERT INTO extensions (slug, name, description, version, price, "trialDays", features)
@@ -21,10 +21,10 @@ async function seed() {
         "trialDays" = EXCLUDED."trialDays",
         features = EXCLUDED.features
     `;
-    
-    console.log('Database seeded successfully!');
+
+    console.log("Database seeded successfully!");
   } catch (error) {
-    console.error('Seeding failed:', error);
+    console.error("Seeding failed:", error);
   } finally {
     await sql.end();
   }

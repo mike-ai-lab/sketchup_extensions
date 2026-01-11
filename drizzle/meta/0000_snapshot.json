@@ -99,9 +99,7 @@
         "extensions_slug_unique": {
           "name": "extensions_slug_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "slug"
-          ]
+          "columns": ["slug"]
         }
       },
       "policies": {},
@@ -355,9 +353,7 @@
         "licenses_licenseKey_unique": {
           "name": "licenses_licenseKey_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "licenseKey"
-          ]
+          "columns": ["licenseKey"]
         }
       },
       "policies": {},
@@ -453,9 +449,7 @@
         "transactions_paypalOrderId_unique": {
           "name": "transactions_paypalOrderId_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "paypalOrderId"
-          ]
+          "columns": ["paypalOrderId"]
         }
       },
       "policies": {},
@@ -532,9 +526,7 @@
         "users_openId_unique": {
           "name": "users_openId_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "openId"
-          ]
+          "columns": ["openId"]
         }
       },
       "policies": {},

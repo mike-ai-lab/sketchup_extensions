@@ -3,9 +3,16 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { 
-  ArrowRight, CheckCircle2, Download, Box, Layers, 
-  Grid3x3, Scissors, Settings, Star 
+import {
+  ArrowRight,
+  CheckCircle2,
+  Download,
+  Box,
+  Layers,
+  Grid3x3,
+  Scissors,
+  Settings,
+  Star,
 } from "lucide-react";
 
 export default function ParametrixDetail() {
@@ -13,30 +20,34 @@ export default function ParametrixDetail() {
     {
       icon: Layers,
       title: "Multi-Face Layouts",
-      description: "Generate synchronized layouts across multiple selected faces with seamless pattern continuation"
+      description:
+        "Generate synchronized layouts across multiple selected faces with seamless pattern continuation",
     },
     {
       icon: Scissors,
       title: "Advanced Trimming",
-      description: "Automatic boolean trimming ensures perfect fit within complex face boundaries"
+      description:
+        "Automatic boolean trimming ensures perfect fit within complex face boundaries",
     },
     {
       icon: Grid3x3,
       title: "Rail Systems",
-      description: "Integrated top and bottom rail generation with customizable dimensions and materials"
+      description:
+        "Integrated top and bottom rail generation with customizable dimensions and materials",
     },
     {
       icon: Settings,
       title: "Pattern Control",
-      description: "Running bond and stack bond patterns with randomization and start position control"
-    }
+      description:
+        "Running bond and stack bond patterns with randomization and start position control",
+    },
   ];
 
   const specifications = [
     { label: "Version", value: "1.0.0" },
     { label: "SketchUp Compatibility", value: "2019 and later" },
     { label: "License Type", value: "Perpetual with 7-day trial" },
-    { label: "Support", value: "Email & Documentation" }
+    { label: "Support", value: "Email & Documentation" },
   ];
 
   return (
@@ -49,22 +60,34 @@ export default function ParametrixDetail() {
           </Link>
           <div className="flex items-center gap-6">
             <Link href="/">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Home</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Home
+              </span>
             </Link>
             <Link href="/tools">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tools</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Tools
+              </span>
             </Link>
             <Link href="/tutorials">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tutorials</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Tutorials
+              </span>
             </Link>
             <Link href="/pricing">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Pricing</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Pricing
+              </span>
             </Link>
             <Link href="/download">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Download</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Download
+              </span>
             </Link>
             <Link href="/faq">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">FAQ</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                FAQ
+              </span>
             </Link>
           </div>
         </div>
@@ -81,12 +104,17 @@ export default function ParametrixDetail() {
           >
             <div>
               <Badge className="mb-4">Featured Extension</Badge>
-              <h1 className="text-5xl font-bold tracking-tight mb-4">PARAMETRIX</h1>
+              <h1 className="text-5xl font-bold tracking-tight mb-4">
+                PARAMETRIX
+              </h1>
               <p className="text-xl text-muted-foreground mb-6 leading-relaxed">
                 Professional Parametric Cladding Layout Generator for SketchUp
               </p>
               <p className="text-lg mb-8 leading-relaxed">
-                PARAMETRIX is designed for architects, designers, and construction professionals who need to create precise parametric cladding layouts. Generate complex multi-face layouts with advanced trimming, rail systems, and pattern synchronization.
+                PARAMETRIX is designed for architects, designers, and
+                construction professionals who need to create precise parametric
+                cladding layouts. Generate complex multi-face layouts with
+                advanced trimming, rail systems, and pattern synchronization.
               </p>
               <div className="flex gap-4 flex-wrap">
                 <Link href="/purchase/parametrix">
@@ -125,7 +153,8 @@ export default function ParametrixDetail() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Powerful Features</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Everything you need to create professional parametric cladding layouts
+              Everything you need to create professional parametric cladding
+              layouts
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -142,8 +171,12 @@ export default function ParametrixDetail() {
                     <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10 mb-4">
                       <feature.icon className="h-6 w-6 text-primary" />
                     </div>
-                    <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
+                    <h3 className="text-xl font-semibold mb-2">
+                      {feature.title}
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {feature.description}
+                    </p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -157,34 +190,51 @@ export default function ParametrixDetail() {
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold mb-6">Why Choose PARAMETRIX?</h2>
+              <h2 className="text-3xl font-bold mb-6">
+                Why Choose PARAMETRIX?
+              </h2>
               <div className="space-y-4">
                 <div className="flex items-start">
                   <CheckCircle2 className="h-6 w-6 text-primary mr-3 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold mb-1">Time-Saving Automation</h4>
-                    <p className="text-muted-foreground">Generate complex layouts in seconds that would take hours manually</p>
+                    <h4 className="font-semibold mb-1">
+                      Time-Saving Automation
+                    </h4>
+                    <p className="text-muted-foreground">
+                      Generate complex layouts in seconds that would take hours
+                      manually
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <CheckCircle2 className="h-6 w-6 text-primary mr-3 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold mb-1">Precision Engineering</h4>
-                    <p className="text-muted-foreground">Exact measurements and perfect alignment every time</p>
+                    <h4 className="font-semibold mb-1">
+                      Precision Engineering
+                    </h4>
+                    <p className="text-muted-foreground">
+                      Exact measurements and perfect alignment every time
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <CheckCircle2 className="h-6 w-6 text-primary mr-3 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold mb-1">Flexible Customization</h4>
-                    <p className="text-muted-foreground">Full control over dimensions, patterns, and materials</p>
+                    <h4 className="font-semibold mb-1">
+                      Flexible Customization
+                    </h4>
+                    <p className="text-muted-foreground">
+                      Full control over dimensions, patterns, and materials
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <CheckCircle2 className="h-6 w-6 text-primary mr-3 mt-1 flex-shrink-0" />
                   <div>
                     <h4 className="font-semibold mb-1">Professional Results</h4>
-                    <p className="text-muted-foreground">Production-ready layouts trusted by industry professionals</p>
+                    <p className="text-muted-foreground">
+                      Production-ready layouts trusted by industry professionals
+                    </p>
                   </div>
                 </div>
               </div>
@@ -194,9 +244,16 @@ export default function ParametrixDetail() {
                 <h3 className="text-2xl font-bold mb-6">Specifications</h3>
                 <div className="space-y-4">
                   {specifications.map((spec, index) => (
-                    <div key={index} className="flex justify-between items-center py-3 border-b last:border-0">
-                      <span className="text-muted-foreground">{spec.label}</span>
-                      <span className="font-medium text-right">{spec.value}</span>
+                    <div
+                      key={index}
+                      className="flex justify-between items-center py-3 border-b last:border-0"
+                    >
+                      <span className="text-muted-foreground">
+                        {spec.label}
+                      </span>
+                      <span className="font-medium text-right">
+                        {spec.value}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -216,13 +273,15 @@ export default function ParametrixDetail() {
               </div>
               <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Try PARAMETRIX free for 7 days. No credit card required. 
+                Try PARAMETRIX free for 7 days. No credit card required.
                 Experience the power of professional parametric layouts.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <div className="text-center sm:text-left">
                   <p className="text-4xl font-bold mb-1">$49</p>
-                  <p className="text-sm text-muted-foreground">One-time purchase</p>
+                  <p className="text-sm text-muted-foreground">
+                    One-time purchase
+                  </p>
                 </div>
                 <Link href="/purchase/parametrix">
                   <Button size="lg" className="text-base px-8">

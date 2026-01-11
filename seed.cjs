@@ -1,6 +1,6 @@
-const Database = require('better-sqlite3');
+const Database = require("better-sqlite3");
 
-const db = new Database('local.db');
+const db = new Database("local.db");
 
 // Insert extensions
 const insertExtension = db.prepare(`
@@ -9,34 +9,34 @@ const insertExtension = db.prepare(`
 `);
 
 insertExtension.run(
-  'parametrix',
-  'PARAMETRIX',
-  'Professional Parametric Cladding Layout Generator',
-  '1.0.0',
+  "parametrix",
+  "PARAMETRIX",
+  "Professional Parametric Cladding Layout Generator",
+  "1.0.0",
   4900, // $49.00 in cents
   7,
   JSON.stringify([
-    'Parametric cladding layouts',
-    'Advanced geometry tools',
-    'Material optimization',
-    'Export to CAD formats'
+    "Parametric cladding layouts",
+    "Advanced geometry tools",
+    "Material optimization",
+    "Export to CAD formats",
   ])
 );
 
 insertExtension.run(
-  'autonestcut',
-  'AutoNestCut',
-  'Intelligent Cut List and Nesting Optimization',
-  '1.0.0',
+  "autonestcut",
+  "AutoNestCut",
+  "Intelligent Cut List and Nesting Optimization",
+  "1.0.0",
   4900, // $49.00 in cents
   7,
   JSON.stringify([
-    'Automatic cut list generation',
-    'Material nesting optimization',
-    'Cost calculation',
-    'Export to manufacturing'
+    "Automatic cut list generation",
+    "Material nesting optimization",
+    "Cost calculation",
+    "Export to manufacturing",
   ])
 );
 
-console.log('Database seeded successfully!');
+console.log("Database seeded successfully!");
 db.close();

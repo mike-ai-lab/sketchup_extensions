@@ -1,5 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
@@ -13,14 +19,14 @@ export default function Pricing() {
       description: "Professional Parametric Cladding Layout Generator",
       features: [
         "Multi-face layout generation",
-        "Advanced trimming system", 
+        "Advanced trimming system",
         "Rail system integration",
         "Pattern synchronization",
         "Lifetime updates",
-        "Email support"
+        "Email support",
       ],
       popular: true,
-      slug: "parametrix"
+      slug: "parametrix",
     },
     {
       name: "AutoNestCut",
@@ -31,12 +37,12 @@ export default function Pricing() {
         "Material optimization",
         "Nesting algorithms",
         "Export to various formats",
-        "Lifetime updates", 
-        "Email support"
+        "Lifetime updates",
+        "Email support",
       ],
       popular: false,
-      slug: "autonestcut"
-    }
+      slug: "autonestcut",
+    },
   ];
 
   return (
@@ -49,22 +55,34 @@ export default function Pricing() {
           </Link>
           <div className="flex items-center gap-6">
             <Link href="/">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Home</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Home
+              </span>
             </Link>
             <Link href="/tools">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tools</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Tools
+              </span>
             </Link>
             <Link href="/tutorials">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tutorials</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Tutorials
+              </span>
             </Link>
             <Link href="/pricing">
-              <span className="text-sm font-medium cursor-pointer text-primary">Pricing</span>
+              <span className="text-sm font-medium cursor-pointer text-primary">
+                Pricing
+              </span>
             </Link>
             <Link href="/download">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Download</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Download
+              </span>
             </Link>
             <Link href="/faq">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">FAQ</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                FAQ
+              </span>
             </Link>
           </div>
         </div>
@@ -72,9 +90,12 @@ export default function Pricing() {
 
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">Simple, Transparent Pricing</h1>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
+            Simple, Transparent Pricing
+          </h1>
           <p className="max-w-2xl mx-auto text-xl text-muted-foreground">
-            One-time purchase, lifetime access. No subscriptions, no hidden fees.
+            One-time purchase, lifetime access. No subscriptions, no hidden
+            fees.
           </p>
         </div>
 
@@ -86,7 +107,9 @@ export default function Pricing() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Card className={`relative h-full ${plan.popular ? 'border-2 border-primary' : ''}`}>
+              <Card
+                className={`relative h-full ${plan.popular ? "border-2 border-primary" : ""}`}
+              >
                 {plan.popular && (
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                     <Badge className="bg-primary text-primary-foreground px-3 py-1">
@@ -96,8 +119,12 @@ export default function Pricing() {
                   </div>
                 )}
                 <CardHeader className="text-center pb-8">
-                  <CardTitle className="text-2xl font-bold">{plan.name}</CardTitle>
-                  <CardDescription className="text-base">{plan.description}</CardDescription>
+                  <CardTitle className="text-2xl font-bold">
+                    {plan.name}
+                  </CardTitle>
+                  <CardDescription className="text-base">
+                    {plan.description}
+                  </CardDescription>
                   <div className="mt-4">
                     <span className="text-5xl font-bold">${plan.price}</span>
                     <span className="text-muted-foreground ml-2">one-time</span>
@@ -114,9 +141,9 @@ export default function Pricing() {
                   </ul>
                   <div className="space-y-3 pt-4">
                     <Link href={`/purchase/${plan.slug}`}>
-                      <Button 
-                        size="lg" 
-                        className={`w-full ${plan.popular ? 'bg-primary hover:bg-primary/90' : ''}`}
+                      <Button
+                        size="lg"
+                        className={`w-full ${plan.popular ? "bg-primary hover:bg-primary/90" : ""}`}
                       >
                         Start Free Trial
                       </Button>
@@ -133,24 +160,41 @@ export default function Pricing() {
 
         {/* FAQ Section */}
         <div className="mt-20 max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Frequently Asked Questions
+          </h2>
           <div className="space-y-6">
             <Card>
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-2">What's included in the trial?</h3>
-                <p className="text-muted-foreground">Full access to all features for 7 days. No limitations, no credit card required.</p>
+                <h3 className="font-semibold mb-2">
+                  What's included in the trial?
+                </h3>
+                <p className="text-muted-foreground">
+                  Full access to all features for 7 days. No limitations, no
+                  credit card required.
+                </p>
               </CardContent>
             </Card>
             <Card>
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-2">Do I get lifetime updates?</h3>
-                <p className="text-muted-foreground">Yes! Your one-time purchase includes all future updates and bug fixes at no additional cost.</p>
+                <h3 className="font-semibold mb-2">
+                  Do I get lifetime updates?
+                </h3>
+                <p className="text-muted-foreground">
+                  Yes! Your one-time purchase includes all future updates and
+                  bug fixes at no additional cost.
+                </p>
               </CardContent>
             </Card>
             <Card>
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-2">What SketchUp versions are supported?</h3>
-                <p className="text-muted-foreground">Our extensions work with SketchUp 2019 and all newer versions, including SketchUp Pro and SketchUp Shop.</p>
+                <h3 className="font-semibold mb-2">
+                  What SketchUp versions are supported?
+                </h3>
+                <p className="text-muted-foreground">
+                  Our extensions work with SketchUp 2019 and all newer versions,
+                  including SketchUp Pro and SketchUp Shop.
+                </p>
               </CardContent>
             </Card>
           </div>
