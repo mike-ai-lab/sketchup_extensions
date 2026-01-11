@@ -1,8 +1,19 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
-import { InsertUser, users, leads, InsertLead, licenses, InsertLicense, extensions, InsertExtension, transactions, InsertTransaction } from "../drizzle/schema";
-import { ENV } from './_core/env';
+import {
+  InsertUser,
+  users,
+  leads,
+  InsertLead,
+  licenses,
+  InsertLicense,
+  extensions,
+  InsertExtension,
+  transactions,
+  InsertTransaction,
+} from "../drizzle/schema";
+import { ENV } from "./_core/env";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
@@ -60,8 +71,8 @@ export async function upsertUser(user: InsertUser): Promise<void> {
       values.role = user.role;
       updateSet.role = user.role;
     } else if (user.openId === ENV.ownerOpenId) {
-      values.role = 'admin';
-      updateSet.role = 'admin';
+      values.role = "admin";
+      updateSet.role = "admin";
     }
 
     if (!values.lastSignedIn) {
@@ -89,7 +100,11 @@ export async function getUserByOpenId(openId: string) {
     return undefined;
   }
 
-  const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
+  const result = await db
+    .select()
+    .from(users)
+    .where(eq(users.openId, openId))
+    .limit(1);
 
   return result.length > 0 ? result[0] : undefined;
 }
@@ -123,7 +138,11 @@ export async function getLicenseByKey(licenseKey: string) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
-  const result = await db.select().from(licenses).where(eq(licenses.licenseKey, licenseKey)).limit(1);
+  const result = await db
+    .select()
+    .from(licenses)
+    .where(eq(licenses.licenseKey, licenseKey))
+    .limit(1);
   return result.length > 0 ? result[0] : undefined;
 }
 
@@ -143,7 +162,11 @@ export async function getExtensionBySlug(slug: string) {
   }
 
   try {
-    const result = await db.select().from(extensions).where(eq(extensions.slug, slug)).limit(1);
+    const result = await db
+      .select()
+      .from(extensions)
+      .where(eq(extensions.slug, slug))
+      .limit(1);
     return result.length > 0 ? result[0] : undefined;
   } catch (error) {
     console.error("[Database] Error in getExtensionBySlug:", error);
@@ -162,20 +185,23 @@ export async function upsertExtension(extension: InsertExtension) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
-  await db.insert(extensions).values(extension).onConflictDoUpdate({
-    target: extensions.slug,
-    set: {
-      name: extension.name,
-      description: extension.description,
-      version: extension.version,
-      downloadUrl: extension.downloadUrl,
-      iconUrl: extension.iconUrl,
-      price: extension.price,
-      trialDays: extension.trialDays,
-      isActive: extension.isActive,
-      features: extension.features,
-    }
-  });
+  await db
+    .insert(extensions)
+    .values(extension)
+    .onConflictDoUpdate({
+      target: extensions.slug,
+      set: {
+        name: extension.name,
+        description: extension.description,
+        version: extension.version,
+        downloadUrl: extension.downloadUrl,
+        iconUrl: extension.iconUrl,
+        price: extension.price,
+        trialDays: extension.trialDays,
+        isActive: extension.isActive,
+        features: extension.features,
+      },
+    });
 }
 
 // Transaction management functions
@@ -191,6 +217,10 @@ export async function getTransactionByPayPalOrderId(orderId: string) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
-  const result = await db.select().from(transactions).where(eq(transactions.paypalOrderId, orderId)).limit(1);
+  const result = await db
+    .select()
+    .from(transactions)
+    .where(eq(transactions.paypalOrderId, orderId))
+    .limit(1);
   return result.length > 0 ? result[0] : undefined;
 }

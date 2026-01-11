@@ -6,7 +6,7 @@ describe("PayPal Integration", () => {
     // This test validates that the PayPal credentials are correct
     // by attempting to get an access token
     const accessToken = await getPayPalAccessToken();
-    
+
     expect(accessToken).toBeDefined();
     expect(typeof accessToken).toBe("string");
     expect(accessToken.length).toBeGreaterThan(0);

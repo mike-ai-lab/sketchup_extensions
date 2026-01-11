@@ -17,7 +17,7 @@ export function registerOAuthRoutes(app: Express) {
 
     try {
       // Create or update user
-      const userId = `local_${email.replace('@', '_').replace('.', '_')}`;
+      const userId = `local_${email.replace("@", "_").replace(".", "_")}`;
       await db.upsertUser({
         openId: userId,
         name: name || null,
@@ -28,13 +28,19 @@ export function registerOAuthRoutes(app: Express) {
 
       // Create session token
       const secretKey = new TextEncoder().encode(ENV.cookieSecret);
-      const sessionToken = await new SignJWT({ openId: userId, name: name || "" })
+      const sessionToken = await new SignJWT({
+        openId: userId,
+        name: name || "",
+      })
         .setProtectedHeader({ alg: "HS256", typ: "JWT" })
         .setExpirationTime(Math.floor((Date.now() + ONE_YEAR_MS) / 1000))
         .sign(secretKey);
 
       const cookieOptions = getSessionCookieOptions(req);
-      res.cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: ONE_YEAR_MS });
+      res.cookie(COOKIE_NAME, sessionToken, {
+        ...cookieOptions,
+        maxAge: ONE_YEAR_MS,
+      });
 
       res.json({ success: true });
     } catch (error) {

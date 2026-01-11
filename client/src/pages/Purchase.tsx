@@ -1,9 +1,21 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link, useParams } from "wouter";
 import { motion } from "framer-motion";
-import { CheckCircle2, Shield, CreditCard, Download, ArrowLeft } from "lucide-react";
+import {
+  CheckCircle2,
+  Shield,
+  CreditCard,
+  Download,
+  ArrowLeft,
+} from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import { useState } from "react";
@@ -30,20 +42,25 @@ export default function Purchase() {
     },
     onError: (error: any) => {
       console.error("PayPal order creation failed:", error);
-      const errorMessage = error?.message || "Failed to create order. Please try again.";
+      const errorMessage =
+        error?.message || "Failed to create order. Please try again.";
       toast.error(errorMessage);
       setIsProcessing(false);
-    }
+    },
   });
 
   const startTrial = trpc.licenses.generateTrial.useMutation({
-    onSuccess: (data: { success: boolean; message: string; downloadUrl: string | null }) => {
+    onSuccess: (data: {
+      success: boolean;
+      message: string;
+      downloadUrl: string | null;
+    }) => {
       toast.success(data.message);
     },
     onError: (error: any) => {
       toast.error("Failed to submit trial request. Please try again.");
       console.error(error);
-    }
+    },
   });
 
   const handlePurchase = () => {
@@ -58,9 +75,9 @@ export default function Purchase() {
       toast.error("Please enter your email address");
       return;
     }
-    startTrial.mutate({ 
+    startTrial.mutate({
       extensionSlug: extension.slug,
-      email: user?.email || email 
+      email: user?.email || email,
     });
   };
 
@@ -95,22 +112,34 @@ export default function Purchase() {
           </Link>
           <div className="flex items-center gap-6">
             <Link href="/">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Home</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Home
+              </span>
             </Link>
             <Link href="/tools">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tools</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Tools
+              </span>
             </Link>
             <Link href="/tutorials">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tutorials</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Tutorials
+              </span>
             </Link>
             <Link href="/pricing">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Pricing</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Pricing
+              </span>
             </Link>
             <Link href="/download">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Download</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                Download
+              </span>
             </Link>
             <Link href="/faq">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">FAQ</span>
+              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+                FAQ
+              </span>
             </Link>
           </div>
         </div>
@@ -134,7 +163,9 @@ export default function Purchase() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <h1 className="text-4xl font-bold mb-4">Get {extension.name}</h1>
+                <h1 className="text-4xl font-bold mb-4">
+                  Get {extension.name}
+                </h1>
                 <p className="text-lg text-muted-foreground">
                   {extension.description}
                 </p>
@@ -146,32 +177,38 @@ export default function Purchase() {
                   <Badge className="w-fit mb-2">Recommended</Badge>
                   <CardTitle>Start with a Free Trial</CardTitle>
                   <CardDescription>
-                    Try {extension.name} free for {extension.trialDays} days. No credit card required.
+                    Try {extension.name} free for {extension.trialDays} days. No
+                    credit card required.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   {!user?.email && (
                     <div className="mb-4">
-                      <label htmlFor="email" className="block text-sm font-medium mb-2">
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium mb-2"
+                      >
                         Email Address
                       </label>
                       <input
                         id="email"
                         type="email"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={e => setEmail(e.target.value)}
                         placeholder="Enter your email"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                   )}
-                  <Button 
-                    size="lg" 
+                  <Button
+                    size="lg"
                     className="w-full"
                     onClick={handleStartTrial}
                     disabled={startTrial.isPending}
                   >
-                    {startTrial.isPending ? "Generating..." : "Start Free Trial"}
+                    {startTrial.isPending
+                      ? "Generating..."
+                      : "Start Free Trial"}
                   </Button>
                   <p className="text-sm text-muted-foreground mt-4 text-center">
                     Full access for {extension.trialDays} days • Cancel anytime
@@ -190,17 +227,21 @@ export default function Purchase() {
                 <CardContent>
                   <div className="mb-6">
                     <p className="text-4xl font-bold mb-2">${price}</p>
-                    <p className="text-muted-foreground">One-time purchase • Lifetime updates</p>
+                    <p className="text-muted-foreground">
+                      One-time purchase • Lifetime updates
+                    </p>
                   </div>
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
+                  <Button
+                    size="lg"
+                    variant="outline"
                     className="w-full"
                     onClick={handlePurchase}
                     disabled={isProcessing || createOrder.isPending}
                   >
                     <CreditCard className="mr-2 h-5 w-5" />
-                    {isProcessing || createOrder.isPending ? "Processing..." : "Purchase Now"}
+                    {isProcessing || createOrder.isPending
+                      ? "Processing..."
+                      : "Purchase Now"}
                   </Button>
                   <div className="flex items-center justify-center mt-4 text-sm text-muted-foreground">
                     <Shield className="h-4 w-4 mr-2" />
@@ -216,14 +257,16 @@ export default function Purchase() {
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-3">
-                    {extension.features && typeof extension.features === 'string' && 
-                      JSON.parse(extension.features).map((feature: string, idx: number) => (
-                        <li key={idx} className="flex items-start">
-                          <CheckCircle2 className="h-5 w-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
-                          <span>{feature}</span>
-                        </li>
-                      ))
-                    }
+                    {extension.features &&
+                      typeof extension.features === "string" &&
+                      JSON.parse(extension.features).map(
+                        (feature: string, idx: number) => (
+                          <li key={idx} className="flex items-start">
+                            <CheckCircle2 className="h-5 w-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                            <span>{feature}</span>
+                          </li>
+                        )
+                      )}
                     <li className="flex items-start">
                       <CheckCircle2 className="h-5 w-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
                       <span>Lifetime updates and bug fixes</span>

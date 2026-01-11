@@ -8,7 +8,7 @@ import crypto from "crypto";
 
 export const appRouter = router({
   system: systemRouter,
-  
+
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
     logout: publicProcedure.mutation(({ ctx }) => {
@@ -23,14 +23,16 @@ export const appRouter = router({
   // Lead capture and management
   leads: router({
     submit: publicProcedure
-      .input(z.object({
-        name: z.string().optional(),
-        email: z.string().email(),
-        company: z.string().optional(),
-        phone: z.string().optional(),
-        message: z.string().optional(),
-        source: z.string().optional().default("website"),
-      }))
+      .input(
+        z.object({
+          name: z.string().optional(),
+          email: z.string().email(),
+          company: z.string().optional(),
+          phone: z.string().optional(),
+          message: z.string().optional(),
+          source: z.string().optional().default("website"),
+        })
+      )
       .mutation(async ({ input }) => {
         await db.createLead({
           name: input.name || null,
@@ -44,13 +46,12 @@ export const appRouter = router({
         return { success: true };
       }),
 
-    list: protectedProcedure
-      .query(async ({ ctx }) => {
-        if (ctx.user.role !== "admin") {
-          throw new Error("Unauthorized");
-        }
-        return await db.getAllLeads();
-      }),
+    list: protectedProcedure.query(async ({ ctx }) => {
+      if (ctx.user.role !== "admin") {
+        throw new Error("Unauthorized");
+      }
+      return await db.getAllLeads();
+    }),
   }),
 
   // Extension management
@@ -61,23 +62,24 @@ export const appRouter = router({
         return await db.getExtensionBySlug(input.slug);
       }),
 
-    list: publicProcedure
-      .query(async () => {
-        return await db.getAllExtensions();
-      }),
+    list: publicProcedure.query(async () => {
+      return await db.getAllExtensions();
+    }),
   }),
 
   // License management
   licenses: router({
     // Validate a license key (called by SketchUp extension)
     validate: publicProcedure
-      .input(z.object({
-        licenseKey: z.string(),
-        extensionSlug: z.string(),
-      }))
+      .input(
+        z.object({
+          licenseKey: z.string(),
+          extensionSlug: z.string(),
+        })
+      )
       .query(async ({ input }) => {
         const license = await db.getLicenseByKey(input.licenseKey);
-        
+
         if (!license) {
           return { valid: false, reason: "License not found" };
         }
@@ -101,10 +103,12 @@ export const appRouter = router({
 
     // Generate a trial license
     generateTrial: publicProcedure
-      .input(z.object({
-        email: z.string().email(),
-        extensionSlug: z.string(),
-      }))
+      .input(
+        z.object({
+          email: z.string().email(),
+          extensionSlug: z.string(),
+        })
+      )
       .mutation(async ({ input }) => {
         const extension = await db.getExtensionBySlug(input.extensionSlug);
         if (!extension) {
@@ -116,7 +120,7 @@ export const appRouter = router({
           const { notifyOwner } = await import("./_core/notification");
           await notifyOwner({
             title: "Trial Request",
-            content: `Email: ${input.email}\nExtension: ${extension.name}\nRequested trial access`
+            content: `Email: ${input.email}\nExtension: ${extension.name}\nRequested trial access`,
           });
         } catch (error) {
           console.warn("Failed to send notification:", error);
@@ -124,24 +128,26 @@ export const appRouter = router({
 
         return {
           success: true,
-          message: "Trial request submitted. You will receive instructions via email.",
+          message:
+            "Trial request submitted. You will receive instructions via email.",
           downloadUrl: extension.downloadUrl,
         };
       }),
 
     // Get user's licenses
-    myLicenses: protectedProcedure
-      .query(async ({ ctx }) => {
-        return await db.getUserLicenses(ctx.user.id);
-      }),
+    myLicenses: protectedProcedure.query(async ({ ctx }) => {
+      return await db.getUserLicenses(ctx.user.id);
+    }),
   }),
 
   // PayPal integration
   paypal: router({
     createOrder: publicProcedure
-      .input(z.object({
-        extensionSlug: z.string(),
-      }))
+      .input(
+        z.object({
+          extensionSlug: z.string(),
+        })
+      )
       .mutation(async ({ input }) => {
         const extension = await db.getExtensionBySlug(input.extensionSlug);
         if (!extension) {
@@ -169,7 +175,9 @@ export const appRouter = router({
         });
 
         // Find approval URL from links
-        const approvalLink = order.links.find((link: any) => link.rel === "approve");
+        const approvalLink = order.links.find(
+          (link: any) => link.rel === "approve"
+        );
 
         return {
           orderId: order.id,
@@ -178,10 +186,12 @@ export const appRouter = router({
       }),
 
     captureOrder: publicProcedure
-      .input(z.object({
-        orderId: z.string(),
-        extensionSlug: z.string(),
-      }))
+      .input(
+        z.object({
+          orderId: z.string(),
+          extensionSlug: z.string(),
+        })
+      )
       .mutation(async ({ input }) => {
         const { capturePayPalOrder } = await import("./paypal");
         const capture = await capturePayPalOrder(input.orderId);
@@ -206,7 +216,9 @@ export const appRouter = router({
         });
 
         // Update transaction
-        const transaction = await db.getTransactionByPayPalOrderId(input.orderId);
+        const transaction = await db.getTransactionByPayPalOrderId(
+          input.orderId
+        );
         if (transaction) {
           // Transaction update logic would go here
         }

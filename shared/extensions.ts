@@ -25,8 +25,9 @@ export const EXTENSIONS: Record<string, ExtensionMetadata> = {
     slug: "parametrix",
     name: "PARAMETRIX",
     tagline: "Professional Parametric Cladding Layout Generator",
-    description: "PARAMETRIX is a professional SketchUp extension designed for architects, designers, and construction professionals who need to create precise parametric cladding layouts. Generate complex multi-face layouts with advanced trimming, rail systems, and pattern synchronization.",
-    price: 49.00,
+    description:
+      "PARAMETRIX is a professional SketchUp extension designed for architects, designers, and construction professionals who need to create precise parametric cladding layouts. Generate complex multi-face layouts with advanced trimming, rail systems, and pattern synchronization.",
+    price: 49.0,
     trialDays: 7,
     features: [
       "Multi-Face Layouts - Synchronized layouts across multiple faces",
@@ -35,17 +36,18 @@ export const EXTENSIONS: Record<string, ExtensionMetadata> = {
       "Pattern Control - Running bond and stack bond patterns",
       "Preset Management - Save and load configuration presets",
       "Single-Row Mode - Generate single horizontal rows",
-      "Professional Components - Proper 2D behavior and wall cutting"
+      "Professional Components - Proper 2D behavior and wall cutting",
     ],
     githubUrl: "https://github.com/mike-ai-lab/parametrix",
-    screenshots: []
+    screenshots: [],
   },
   autonestcut: {
     slug: "autonestcut",
     name: "AutoNestCut",
     tagline: "Intelligent Cut List and Nesting Optimization",
-    description: "AutoNestCut is a powerful SketchUp extension that generates optimized cutting lists and automatically nests parts for efficient material usage. Perfect for woodworkers, furniture makers, and fabricators.",
-    price: 49.00,
+    description:
+      "AutoNestCut is a powerful SketchUp extension that generates optimized cutting lists and automatically nests parts for efficient material usage. Perfect for woodworkers, furniture makers, and fabricators.",
+    price: 49.0,
     trialDays: 7,
     features: [
       "Automatic Cut List Generation - Extract all components with dimensions",
@@ -53,11 +55,11 @@ export const EXTENSIONS: Record<string, ExtensionMetadata> = {
       "Material Management - Track different materials and thicknesses",
       "Export Options - CSV, PDF, and interactive HTML reports",
       "Assembly Viewer - Visualize component relationships",
-      "Grain Direction - Respect wood grain orientation"
+      "Grain Direction - Respect wood grain orientation",
     ],
     githubUrl: "https://github.com/mike-ai-lab/cutlist",
-    screenshots: []
-  }
+    screenshots: [],
+  },
 };
 
 /**

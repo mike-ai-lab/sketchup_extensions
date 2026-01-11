@@ -9,8 +9,12 @@ import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime()];
+const plugins = [
+  react(),
+  tailwindcss(),
+  jsxLocPlugin(),
+  vitePluginManusRuntime(),
+];
 
 export default defineConfig({
   plugins,

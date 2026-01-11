@@ -8,6 +8,7 @@
 ---
 
 ## 📋 Table of Contents
+
 1. [Project Overview](#project-overview)
 2. [Repository Information](#repository-information)
 3. [Environment Variables & Secrets](#environment-variables--secrets)
@@ -29,6 +30,7 @@
 **Domain:** mimevents.com (GoDaddy)
 
 **Current Features:**
+
 - ✅ Professional website with modern design
 - ✅ PayPal payment integration (tested and working)
 - ✅ License management system
@@ -43,29 +45,36 @@
 ## 🔗 Repository Information
 
 ### Main Project Repository
+
 **GitHub URL:** https://github.com/mike-ai-lab/sketchup_extensions  
 **Branch:** main  
 **Clone Command:**
+
 ```bash
 git clone https://github.com/mike-ai-lab/sketchup_extensions.git
 cd sketchup_extensions
 ```
 
 ### Reference Design Repository
+
 **GitHub URL:** https://github.com/mike-ai-lab/extension_website_admin_integrated_page  
 **Purpose:** Design reference for minimalist styling  
 **Clone Command:**
+
 ```bash
 git clone https://github.com/mike-ai-lab/extension_website_admin_integrated_page.git
 cd extension_website_admin_integrated_page
 ```
 
 ### Extension Repositories
+
 **PARAMETRIX:**
+
 - URL: https://github.com/mike-ai-lab/parametrix.git
 - Status: Main focus for licensing system implementation
 
 **AutoNestCut (CutList):**
+
 - URL: https://github.com/mike-ai-lab/cutlist.git
 - Status: Already has licensing system (reference)
 
@@ -114,6 +123,7 @@ DOMAIN_SECRET=CE7nGsGywKjTrrPraFpSzq
 ```
 
 **Note:** Get actual values from:
+
 - Manus Dashboard (OAuth, Forge API)
 - PayPal Developer Console
 - Your database provider
@@ -124,12 +134,14 @@ DOMAIN_SECRET=CE7nGsGywKjTrrPraFpSzq
 ## 🚀 Local Setup Instructions
 
 ### Step 1: Clone Repository
+
 ```bash
 git clone https://github.com/mike-ai-lab/sketchup_extensions.git
 cd sketchup_extensions
 ```
 
 ### Step 2: Install Node.js & pnpm
+
 ```bash
 # Check Node version (should be 22.13.0 or higher)
 node --version
@@ -139,11 +151,13 @@ npm install -g pnpm@10.4.1
 ```
 
 ### Step 3: Install Dependencies
+
 ```bash
 pnpm install
 ```
 
 ### Step 4: Create Environment File
+
 ```bash
 # Copy the .env.local template
 cp .env.example .env.local
@@ -153,6 +167,7 @@ nano .env.local
 ```
 
 ### Step 5: Database Setup
+
 ```bash
 # Push schema to database
 pnpm db:push
@@ -163,6 +178,7 @@ pnpm db:push
 ```
 
 ### Step 6: Start Development Server
+
 ```bash
 pnpm run dev
 ```
@@ -173,15 +189,15 @@ pnpm run dev
 
 ## 🛠️ Development Commands
 
-| Command | Purpose |
-|---------|---------|
-| `pnpm run dev` | Start development server with hot reload |
-| `pnpm run build` | Build for production |
-| `pnpm run start` | Start production server |
-| `pnpm run check` | TypeScript type checking |
-| `pnpm run format` | Format code with Prettier |
-| `pnpm run test` | Run Vitest test suite |
-| `pnpm db:push` | Push database schema changes |
+| Command           | Purpose                                  |
+| ----------------- | ---------------------------------------- |
+| `pnpm run dev`    | Start development server with hot reload |
+| `pnpm run build`  | Build for production                     |
+| `pnpm run start`  | Start production server                  |
+| `pnpm run check`  | TypeScript type checking                 |
+| `pnpm run format` | Format code with Prettier                |
+| `pnpm run test`   | Run Vitest test suite                    |
+| `pnpm db:push`    | Push database schema changes             |
 
 ---
 
@@ -190,6 +206,7 @@ pnpm run dev
 ### Database Schema Tables
 
 **Users Table**
+
 ```sql
 CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -205,6 +222,7 @@ CREATE TABLE users (
 ```
 
 **Licenses Table**
+
 ```sql
 CREATE TABLE licenses (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -222,6 +240,7 @@ CREATE TABLE licenses (
 ```
 
 **Extensions Table**
+
 ```sql
 CREATE TABLE extensions (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -238,6 +257,7 @@ CREATE TABLE extensions (
 ```
 
 **Leads Table**
+
 ```sql
 CREATE TABLE leads (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -252,6 +272,7 @@ CREATE TABLE leads (
 ```
 
 **Transactions Table**
+
 ```sql
 CREATE TABLE transactions (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -269,6 +290,7 @@ CREATE TABLE transactions (
 ```
 
 ### Seed Initial Data
+
 ```bash
 # Insert extensions
 INSERT INTO extensions (slug, name, description, version, price, trialDays) VALUES
@@ -281,6 +303,7 @@ INSERT INTO extensions (slug, name, description, version, price, trialDays) VALU
 ## 🎨 Design Reference
 
 ### Current Status
+
 - ✅ Home page: Minimalist design (IN PROGRESS)
 - ✅ Tools page: Product cards (IN PROGRESS)
 - ⏳ Contact page: Needs reversion
@@ -289,6 +312,7 @@ INSERT INTO extensions (slug, name, description, version, price, trialDays) VALU
 - ⏳ Parametrix detail page: Needs reversion
 
 ### Reference Design Files Location
+
 ```
 /home/ubuntu/extension_website_admin_integrated_page/pages/
 ├── HomePage.tsx          (REFERENCE)
@@ -300,6 +324,7 @@ INSERT INTO extensions (slug, name, description, version, price, trialDays) VALU
 ```
 
 ### Design Principles (IMPORTANT)
+
 1. **Minimalist:** Small text sizes (text-sm, text-base, text-lg)
 2. **Compact Spacing:** py-8, py-12 (NOT py-20, py-32)
 3. **Simple Cards:** Minimal padding and borders
@@ -308,6 +333,7 @@ INSERT INTO extensions (slug, name, description, version, price, trialDays) VALU
 6. **Responsive:** Mobile-first design approach
 
 ### Pages to Update Locally
+
 1. **Contact.tsx** - Copy styling from reference ContactPage.tsx
 2. **Purchase.tsx** - Create simple payment form
 3. **Dashboard.tsx** - Minimalist license display
@@ -318,12 +344,14 @@ INSERT INTO extensions (slug, name, description, version, price, trialDays) VALU
 ## 🌐 Deployment to mimevents.com
 
 ### Prerequisites
+
 - Vercel account (free tier works)
 - GoDaddy account with mimevents.com domain
 - Domain keys: `h2JrEhNnqMR8_DcWhbjSBfWer5MTHjFYv3s`
 - Domain secret: `CE7nGsGywKjTrrPraFpSzq`
 
 ### Step 1: Push to GitHub
+
 ```bash
 git add .
 git commit -m "Design reversion and local development ready"
@@ -331,6 +359,7 @@ git push origin main
 ```
 
 ### Step 2: Deploy to Vercel
+
 ```bash
 # Install Vercel CLI
 npm i -g vercel
@@ -345,6 +374,7 @@ vercel --prod
 ```
 
 ### Step 3: Configure DNS in GoDaddy
+
 1. Log in to GoDaddy account
 2. Go to DNS Management for mimevents.com
 3. Add CNAME record:
@@ -359,6 +389,7 @@ vercel --prod
    - **76.76.19.135**
 
 ### Step 4: Verify Domain
+
 ```bash
 # Check DNS propagation
 nslookup mimevents.com
@@ -367,6 +398,7 @@ nslookup mimevents.com
 ```
 
 ### Step 5: Update Environment Variables in Vercel
+
 1. Go to Vercel Dashboard
 2. Select sketchup_extensions project
 3. Settings → Environment Variables
@@ -378,14 +410,18 @@ nslookup mimevents.com
 ## 🐛 Troubleshooting
 
 ### Issue: "Cannot find module" errors
+
 **Solution:**
+
 ```bash
 pnpm install
 pnpm run check
 ```
 
 ### Issue: Database connection fails
+
 **Solution:**
+
 ```bash
 # Verify DATABASE_URL is correct
 echo $DATABASE_URL
@@ -395,7 +431,9 @@ mysql -u [user] -p -h [host] [database]
 ```
 
 ### Issue: PayPal integration not working
+
 **Solution:**
+
 ```bash
 # Run PayPal test
 pnpm test paypal
@@ -405,7 +443,9 @@ pnpm test paypal
 ```
 
 ### Issue: OAuth login fails
+
 **Solution:**
+
 ```bash
 # Verify VITE_APP_ID and OAUTH_SERVER_URL
 # Check Manus Dashboard for correct values
@@ -413,7 +453,9 @@ pnpm test paypal
 ```
 
 ### Issue: Hot reload not working
+
 **Solution:**
+
 ```bash
 # Kill dev server
 Ctrl+C
@@ -424,7 +466,9 @@ pnpm run dev
 ```
 
 ### Issue: TypeScript errors
+
 **Solution:**
+
 ```bash
 # Type check
 pnpm run check
@@ -486,6 +530,7 @@ sketchup_extensions/
 ## 🆘 Support
 
 **Issues?** Check:
+
 1. Environment variables are set correctly
 2. Database connection is working
 3. PayPal credentials are valid
@@ -493,6 +538,7 @@ sketchup_extensions/
 5. pnpm version is 10.4.1+
 
 **Questions?** Refer to:
+
 - Reference design: `/home/ubuntu/extension_website_admin_integrated_page/`
 - Manus docs: https://docs.manus.im
 - PayPal docs: https://developer.paypal.com
