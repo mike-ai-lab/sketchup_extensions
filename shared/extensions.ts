@@ -57,6 +57,26 @@ export const EXTENSIONS: Record<string, ExtensionMetadata> = {
     ],
     githubUrl: "https://github.com/mike-ai-lab/cutlist",
     screenshots: []
+  },
+  constructlm: {
+    slug: "constructlm",
+    name: "SPECBASE",
+    tagline: "Privacy-First AI Document Chat with RAG",
+    description: "SPECBASE is a browser-based AI workspace that lets you upload documents and ask questions with intelligent source citations. All embeddings are generated locally for complete privacy - no data sent to external servers.",
+    price: 0,
+    trialDays: 0,
+    features: [
+      "Privacy-First - Local browser embeddings, no data sent to servers",
+      "Multi-Document RAG - Upload TXT, MD, CSV, JSON, and PDF files",
+      "Dual AI Models - Toggle between Gemini and Cerebras AI",
+      "Source Citations - Every answer includes exact source references",
+      "Markdown Support - Rich formatting in responses and citations",
+      "Chat History - Manage multiple conversation sessions",
+      "Offline Capable - Works without internet after initial model download"
+    ],
+    downloadUrl: "https://specbase.mimevents.com",
+    githubUrl: "https://github.com/mike-ai-lab/constructlm",
+    screenshots: []
   }
 };
 
