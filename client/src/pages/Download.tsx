@@ -24,6 +24,16 @@ export default function Download() {
       documentationUrl: "#", 
       size: "1.8 MB",
       slug: "autonestcut"
+    },
+    {
+      name: "ConstructLM",
+      version: "1.0.0",
+      description: "AI-Powered Document Analysis & Multi-Model Chat Assistant",
+      downloadUrl: "/downloads/ConstructLM-Setup-1.0.0.exe",
+      documentationUrl: "#",
+      size: "~150 MB",
+      slug: "constructlm",
+      isStandalone: true
     }
   ];
 
@@ -72,10 +82,9 @@ export default function Download() {
             <div className="flex items-start space-x-4">
               <Shield className="h-6 w-6 text-blue-600 dark:text-blue-400 mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">License Required</h3>
+                <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">License Information</h3>
                 <p className="text-blue-800 dark:text-blue-200 text-sm">
-                  Downloads are available after purchase or during your free trial period. 
-                  Each extension requires a valid license key to activate.
+                  SketchUp extensions require purchase or trial activation. ConstructLM is free to download and requires only an AI provider API key (free options available).
                 </p>
               </div>
             </div>
@@ -135,12 +144,21 @@ export default function Download() {
                   </div>
 
                   <div className="space-y-3 pt-4 border-t">
-                    <Link href={`/purchase/${extension.slug}`}>
-                      <Button size="lg" className="w-full">
-                        <DownloadIcon className="mr-2 h-5 w-5" />
-                        Get Extension
-                      </Button>
-                    </Link>
+                    {extension.isStandalone ? (
+                      <a href={extension.downloadUrl} download>
+                        <Button size="lg" className="w-full">
+                          <DownloadIcon className="mr-2 h-5 w-5" />
+                          Download for Windows
+                        </Button>
+                      </a>
+                    ) : (
+                      <Link href={`/purchase/${extension.slug}`}>
+                        <Button size="lg" className="w-full">
+                          <DownloadIcon className="mr-2 h-5 w-5" />
+                          Get Extension
+                        </Button>
+                      </Link>
+                    )}
                     <Button variant="outline" size="sm" className="w-full">
                       <FileText className="mr-2 h-4 w-4" />
                       View Documentation
