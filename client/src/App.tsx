@@ -11,7 +11,7 @@ import Pricing from "./pages/Pricing";
 import Download from "./pages/Download";
 import FAQ from "./pages/FAQ";
 import ParametrixDetail from "./pages/ParametrixDetail";
-import ConstructLMDetail from "./pages/ConstructLMDetail";
+import SpecbaseDetail from "./pages/SpecbaseDetail";
 import ProductPage from "./pages/ProductPage";
 import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
@@ -27,7 +27,7 @@ function Router() {
       <Route path="/download" component={Download} />
       <Route path="/faq" component={FAQ} />
       <Route path="/tools/parametrix" component={ParametrixDetail} />
-      <Route path="/tools/constructlm" component={ConstructLMDetail} />
+      <Route path="/tools/specbase" component={SpecbaseDetail} />
       <Route path="/products/:slug" component={ProductPage} />
       <Route path="/contact" component={Contact} />
       <Route path="/dashboard" component={Dashboard} />

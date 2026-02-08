@@ -58,8 +58,8 @@ export const EXTENSIONS: Record<string, ExtensionMetadata> = {
     githubUrl: "https://github.com/mike-ai-lab/cutlist",
     screenshots: []
   },
-  constructlm: {
-    slug: "constructlm",
+  specbase: {
+    slug: "specbase",
     name: "SPECBASE",
     tagline: "Privacy-First AI Document Chat with RAG",
     description: "SPECBASE is a browser-based AI workspace that lets you upload documents and ask questions with intelligent source citations. All embeddings are generated locally for complete privacy - no data sent to external servers.",
