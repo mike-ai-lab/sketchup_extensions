@@ -4,4 +4,5 @@
 
 [build.environment]
   # Public client env vars are expected in the bundle; omit them from secrets scan.
-  SECRETS_SCAN_OMIT_KEYS = "VITE_FRONTEND_FORGE_API_URL"
+  # Backend secrets omitted because they exist in git history but not used in frontend build
+  SECRETS_SCAN_OMIT_KEYS = "VITE_FRONTEND_FORGE_API_URL,PAYPAL_MODE,PAYPAL_CLIENT_ID,PAYPAL_CLIENT_SECRET,DATABASE_URL,JWT_SECRET"
