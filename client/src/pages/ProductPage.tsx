@@ -137,12 +137,15 @@ export default function ProductPage() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-4 bg-slate-900 text-slate-400">
-        <div className="container mx-auto text-center">
-          <p className="mb-2">© 2025 Studiø. All rights reserved.</p>
-          <p className="text-sm">Developed by Int. Arch. M.Shkeir</p>
-        </div>
-      </footer>
+      <div className="flex justify-center py-8">
+        <footer className="bg-background/80 backdrop-blur-lg border border-border rounded-full px-6 py-3 shadow-lg">
+          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+            <span>© 2025 Studiø</span>
+            <span className="text-border">•</span>
+            <span>Developed by Int. Arch. M.Shkeir</span>
+          </div>
+        </footer>
+      </div>
     </div>
   );
 }

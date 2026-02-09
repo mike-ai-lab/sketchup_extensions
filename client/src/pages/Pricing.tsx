@@ -41,36 +41,38 @@ export default function Pricing() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Navigation */}
-      <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/">
-            <span className="text-2xl font-bold cursor-pointer">Studiø</span>
-          </Link>
-          <div className="flex items-center gap-6">
+      {/* Floating Navigation */}
+      <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
+        <nav className="bg-background/80 backdrop-blur-lg border border-border rounded-full px-6 py-3 shadow-lg">
+          <div className="flex items-center gap-8">
             <Link href="/">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Home</span>
+              <span className="text-xl font-bold cursor-pointer">Studiø</span>
             </Link>
-            <Link href="/tools">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tools</span>
-            </Link>
-            <Link href="/tutorials">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tutorials</span>
-            </Link>
-            <Link href="/pricing">
-              <span className="text-sm font-medium cursor-pointer text-primary">Pricing</span>
-            </Link>
-            <Link href="/download">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Download</span>
-            </Link>
-            <Link href="/faq">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">FAQ</span>
-            </Link>
+            <div className="flex items-center gap-6">
+              <Link href="/">
+                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Home</span>
+              </Link>
+              <Link href="/tools">
+                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tools</span>
+              </Link>
+              <Link href="/tutorials">
+                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tutorials</span>
+              </Link>
+              <Link href="/pricing">
+                <span className="text-sm font-medium cursor-pointer text-primary">Pricing</span>
+              </Link>
+              <Link href="/download">
+                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Download</span>
+              </Link>
+              <Link href="/faq">
+                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">FAQ</span>
+              </Link>
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </div>
 
-      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 pt-24">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">Simple, Transparent Pricing</h1>
           <p className="max-w-2xl mx-auto text-xl text-muted-foreground">
@@ -158,16 +160,15 @@ export default function Pricing() {
       </div>
 
       {/* Footer */}
-      <footer className="py-8 px-4 border-t bg-background mt-auto">
-        <div className="container mx-auto text-center">
-          <p className="text-sm text-muted-foreground mb-2">
-            © 2025 Studiø. All rights reserved.
-          </p>
-          <p className="text-xs text-muted-foreground">
-            Developed by Int. Arch. M.Shkeir
-          </p>
-        </div>
-      </footer>
+      <div className="flex justify-center py-8 mt-auto">
+        <footer className="bg-background/80 backdrop-blur-lg border border-border rounded-full px-6 py-3 shadow-lg">
+          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+            <span>© 2025 Studiø</span>
+            <span className="text-border">•</span>
+            <span>Developed by Int. Arch. M.Shkeir</span>
+          </div>
+        </footer>
+      </div>
     </div>
   );
 }
