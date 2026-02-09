@@ -72,7 +72,7 @@ export default function Download() {
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">Downloads</h1>
           <p className="max-w-2xl mx-auto text-xl text-muted-foreground">
-            Get the latest versions of our SketchUp extensions and documentation
+            Get the latest versions of extensions and documentation
           </p>
         </div>
 
@@ -84,7 +84,7 @@ export default function Download() {
               <div>
                 <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">License Information</h3>
                 <p className="text-blue-800 dark:text-blue-200 text-sm">
-                  SketchUp extensions require purchase or trial activation. ConstructLM is free to download and requires only an AI provider API key (free options available).
+                  Extensions require purchase or trial activation. ConstructLM is free to download and requires only an AI provider API key (free options available).
                 </p>
               </div>
             </div>
@@ -174,7 +174,7 @@ export default function Download() {
         <Card className="mt-16">
           <CardHeader>
             <CardTitle className="text-2xl">Installation Instructions</CardTitle>
-            <CardDescription>How to install and activate your SketchUp extensions</CardDescription>
+            <CardDescription>How to install and activate your extensions</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

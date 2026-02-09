@@ -34,7 +34,7 @@ export default function ParametrixDetail() {
 
   const specifications = [
     { label: "Version", value: "1.0.0" },
-    { label: "SketchUp Compatibility", value: "2019 and later" },
+    { label: "Compatibility", value: "2019 and later" },
     { label: "License Type", value: "Perpetual with 7-day trial" },
     { label: "Support", value: "Email & Documentation" }
   ];
@@ -83,7 +83,7 @@ export default function ParametrixDetail() {
               <Badge className="mb-4">Featured Extension</Badge>
               <h1 className="text-5xl font-bold tracking-tight mb-4">PARAMETRIX</h1>
               <p className="text-xl text-muted-foreground mb-6 leading-relaxed">
-                Professional Parametric Cladding Layout Generator for SketchUp
+                Professional Parametric Cladding Layout Generator
               </p>
               <p className="text-lg mb-8 leading-relaxed">
                 PARAMETRIX is designed for architects, designers, and construction professionals who need to create precise parametric cladding layouts. Generate complex multi-face layouts with advanced trimming, rail systems, and pattern synchronization.

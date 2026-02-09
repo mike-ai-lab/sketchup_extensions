@@ -5,10 +5,10 @@ import { Box, Lock, Zap, Settings2, ArrowRight, Star, Sparkles, CheckCircle2, Sh
 
 export default function Home() {
   const valueProps = [
-    { icon: Box, title: "Lightning Fast", description: "Optimized for performance and speed" },
-    { icon: Lock, title: "Reliable & Secure", description: "Built with best practices and security in mind" },
-    { icon: Zap, title: "Powerful Automation", description: "Automate repetitive tasks and boost productivity" },
-    { icon: Settings2, title: "Expert Support", description: "Dedicated support when you need it" },
+    { icon: Box, title: "Algorithmic Precision", description: "Mathematical accuracy for complex geometries" },
+    { icon: Zap, title: "Production Ready", description: "Built for real-world architectural projects" },
+    { icon: Settings2, title: "Deep Customization", description: "Extensive parameters for exact control" },
+    { icon: Lock, title: "Reliable Output", description: "Consistent results across complex scenarios" },
   ];
 
   const containerVariants = {
@@ -66,8 +66,8 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="text-4xl md:text-6xl font-bold tracking-tighter leading-tight"
           >
-            Professional SketchUp Extensions<br />
-            <span className="text-primary">for Modern Workflows</span>
+            Tools Built for<br />
+            <span className="text-primary">Precision & Complexity</span>
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -75,8 +75,8 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground"
           >
-            Powerful tools designed for architects, designers, and construction professionals. 
-            Streamline your workflow and create stunning designs faster than ever before.
+            Advanced automation and parametric solutions for architectural workflows. 
+            Handle complex geometry, optimize material usage, and accelerate your design process.
           </motion.p>
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -115,8 +115,8 @@ export default function Home() {
                 </div>
                 <h2 className="text-3xl md:text-5xl font-bold mb-6">PARAMETRIX</h2>
                 <p className="text-lg md:text-xl text-primary-foreground/80 mb-8 leading-relaxed">
-                  Professional Parametric Cladding Layout Generator for SketchUp. Generate complex 
-                  multi-face layouts with advanced trimming, rail systems, and pattern synchronization.
+                  Parametric cladding layout generator. Handle complex multi-face geometries with 
+                  advanced trimming, rail systems, and pattern synchronization across curved surfaces.
                 </p>
                 <div>
                   <Link href="/tools/parametrix">

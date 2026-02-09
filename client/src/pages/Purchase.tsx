@@ -257,7 +257,7 @@ export default function Purchase() {
                     </li>
                     <li className="flex items-start">
                       <CheckCircle2 className="h-4 w-4 text-primary mr-2 mt-0.5 flex-shrink-0" />
-                      <span>Works with SketchUp 2019+</span>
+                      <span>Compatible with 2019+</span>
                     </li>
                   </ul>
                 </CardContent>

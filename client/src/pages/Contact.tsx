@@ -185,7 +185,7 @@ export default function Contact() {
                     <div>
                       <h3 className="font-semibold mb-1">Custom Development</h3>
                       <p className="text-sm text-muted-foreground">
-                        Need a custom SketchUp extension? Let's discuss your requirements
+                        Need a custom extension or tool? Let's discuss your requirements
                       </p>
                     </div>
                   </div>
@@ -196,7 +196,7 @@ export default function Contact() {
                 <h3 className="font-semibold mb-2">Before You Contact Us</h3>
                 <ul className="text-sm text-muted-foreground space-y-2">
                   <li>• Check our documentation for common questions</li>
-                  <li>• Include your SketchUp version for technical issues</li>
+                  <li>• Include your software version for technical issues</li>
                   <li>• Describe your workflow for custom development inquiries</li>
                 </ul>
               </div>

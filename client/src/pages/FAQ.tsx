@@ -25,13 +25,13 @@ export default function FAQ() {
   const faqs: FAQItem[] = [
     {
       category: "General",
-      question: "What are SketchUp extensions?",
-      answer: "SketchUp extensions are add-on tools that extend the functionality of SketchUp. Our extensions automate complex tasks, add new modeling capabilities, and streamline your workflow for architectural and design projects."
+      question: "What are these extensions?",
+      answer: "These are add-on tools that extend functionality and automate complex tasks. They add new modeling capabilities and streamline workflows for architectural and design projects."
     },
     {
       category: "General", 
-      question: "Which SketchUp versions are supported?",
-      answer: "Our extensions support SketchUp 2019 and all newer versions, including SketchUp Pro, SketchUp Shop, and SketchUp for Web (where applicable). We regularly test compatibility with the latest SketchUp releases."
+      question: "Which versions are supported?",
+      answer: "Extensions support SketchUp 2019 and newer versions, including Pro, Shop, and Web (where applicable). Compatibility is regularly tested with the latest releases."
     },
     {
       category: "Licensing",
@@ -112,7 +112,7 @@ export default function FAQ() {
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">Frequently Asked Questions</h1>
           <p className="max-w-2xl mx-auto text-xl text-muted-foreground">
-            Find answers to common questions about our SketchUp extensions
+            Find answers to common questions about the tools and extensions
           </p>
         </div>
 

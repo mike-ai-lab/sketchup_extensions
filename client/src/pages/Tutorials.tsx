@@ -15,7 +15,7 @@ const TutorialSection: React.FC<{ extensionName: string, index: number }> = ({ e
   const steps: TutorialStep[] = [
     {
       title: "Installation & Setup",
-      content: "Download and install the extension from the SketchUp Extension Warehouse or load it manually through the Extension Manager.",
+      content: "Download and install the extension from the Extension Warehouse or load it manually through the Extension Manager.",
       mediaType: "image",
       mediaUrl: `https://picsum.photos/seed/${extensionName}1/600/400`
     },
@@ -137,7 +137,7 @@ export default function Tutorials() {
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">Tutorials</h1>
           <p className="max-w-2xl mx-auto text-xl text-muted-foreground">
-            Step-by-step guides to master our SketchUp extensions and boost your productivity
+            Step-by-step guides to master the tools and boost your productivity
           </p>
         </div>
 

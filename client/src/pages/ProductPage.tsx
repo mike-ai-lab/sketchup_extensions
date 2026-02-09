@@ -30,7 +30,7 @@ export default function ProductPage() {
       <nav className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/">
-            <a className="text-2xl font-bold text-slate-900">SketchUp Extensions</a>
+            <a className="text-2xl font-bold text-slate-900">Studiø</a>
           </Link>
           <div className="flex items-center gap-6">
             <Link href="/contact">
@@ -139,7 +139,7 @@ export default function ProductPage() {
       {/* Footer */}
       <footer className="py-8 px-4 bg-slate-900 text-slate-400">
         <div className="container mx-auto text-center">
-          <p className="mb-2">© 2025 SketchUp Extensions. All rights reserved.</p>
+          <p className="mb-2">© 2025 Studiø. All rights reserved.</p>
           <p className="text-sm">Developed by Int. Arch. M.Shkeir</p>
         </div>
       </footer>

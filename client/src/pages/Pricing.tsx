@@ -149,8 +149,8 @@ export default function Pricing() {
             </Card>
             <Card>
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-2">What SketchUp versions are supported?</h3>
-                <p className="text-muted-foreground">Our extensions work with SketchUp 2019 and all newer versions, including SketchUp Pro and SketchUp Shop.</p>
+                <h3 className="font-semibold mb-2">What versions are supported?</h3>
+                <p className="text-muted-foreground">Extensions work with SketchUp 2019 and newer versions, including Pro and Shop.</p>
               </CardContent>
             </Card>
           </div>
