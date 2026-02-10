@@ -48,7 +48,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col" ref={containerRef}>
+    <div className="min-h-screen flex flex-col" style={{ background: 'var(--neuro-bg)' }} ref={containerRef}>
       <Navigation />
 
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32">
@@ -62,15 +62,17 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="text-4xl md:text-5xl font-bold tracking-tighter leading-tight"
+            style={{ color: 'var(--neuro-text)' }}
           >
             Tools Built for<br />
-            <span className="text-primary">Precision & Complexity</span>
+            <span style={{ color: 'var(--neuro-primary)' }}>Precision & Complexity</span>
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="mt-4 max-w-2xl mx-auto text-base text-muted-foreground"
+            className="mt-4 max-w-2xl mx-auto text-base"
+            style={{ color: 'var(--neuro-text-muted)' }}
           >
             Advanced automation and parametric solutions for architectural workflows. 
             Handle complex geometry, optimize material usage, and accelerate your design process.
@@ -82,15 +84,15 @@ export default function Home() {
             className="mt-6 flex justify-center gap-4"
           >
             <Link href="/tools">
-              <Button size="default">
+              <button className="neuro-button-primary flex items-center">
                 Explore Tools
                 <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              </button>
             </Link>
             <Link href="/pricing">
-              <Button size="default" variant="outline">
+              <button className="neuro-button flex items-center">
                 View Pricing
-              </Button>
+              </button>
             </Link>
           </motion.div>
         </motion.section>
@@ -107,7 +109,7 @@ export default function Home() {
             transition={{ duration: 0.4 }}
             style={{ width: '1185px', height: '530px', maxWidth: '100%' }}
           >
-            <div className="w-full h-full bg-primary text-primary-foreground rounded-3xl overflow-hidden shadow-[15px_15px_30px_rgba(0,0,0,0.2),-15px_-15px_30px_rgba(255,255,255,0.05)] transition-all duration-200 hover:shadow-[0px_10px_20px_rgba(0,0,0,0.15)] hover:-translate-y-1">
+            <div className="w-full h-full rounded-3xl overflow-hidden neuro-card" style={{ background: 'var(--neuro-primary)', color: 'white' }}>
               <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
                 <div className="p-8 md:p-12 flex flex-col justify-center">
                   <div className="flex items-center space-x-2 text-primary-foreground/80 mb-3">
@@ -121,10 +123,26 @@ export default function Home() {
                   </p>
                   <div>
                     <Link href="/tools/parametrix">
-                      <Button size="default" variant="secondary">
+                      <button 
+                        className="flex items-center px-6 py-3 rounded-2xl font-semibold transition-all duration-300"
+                        style={{ 
+                          background: 'white',
+                          color: 'var(--neuro-primary)',
+                          boxShadow: '8px 8px 16px rgba(79, 70, 229, 0.3), -8px -8px 16px rgba(255, 255, 255, 0.8)',
+                          border: 'none'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.boxShadow = '12px 12px 24px rgba(79, 70, 229, 0.4), -12px -12px 24px rgba(255, 255, 255, 0.9)';
+                          e.currentTarget.style.transform = 'translateY(-2px)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.boxShadow = '8px 8px 16px rgba(79, 70, 229, 0.3), -8px -8px 16px rgba(255, 255, 255, 0.8)';
+                          e.currentTarget.style.transform = 'translateY(0)';
+                        }}
+                      >
                         Learn More
                         <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
+                      </button>
                     </Link>
                   </div>
                 </div>
@@ -146,22 +164,22 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="border border-border rounded-2xl p-6 bg-secondary/30 flex flex-col md:flex-row items-center justify-between gap-4"
+            className="neuro-flat rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-4"
           >
             <div className="flex-1">
-              <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100 text-xs font-medium mb-2">
+              <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium mb-2 neuro-badge" style={{ background: 'var(--neuro-primary)', color: 'white' }}>
                 <Sparkles className="w-3 h-3 mr-1" />
                 New Release
               </div>
-              <h3 className="text-xl font-bold mb-1">AutoNestCut Now Available</h3>
-              <p className="text-sm text-muted-foreground">
+              <h3 className="text-xl font-bold mb-1" style={{ color: 'var(--neuro-text)' }}>AutoNestCut Now Available</h3>
+              <p className="text-sm" style={{ color: 'var(--neuro-text-muted)' }}>
                 Intelligent cut list generation and nesting optimization for efficient material usage
               </p>
             </div>
             <Link href="/tools">
-              <Button variant="outline" size="sm">
+              <button className="neuro-button text-sm">
                 Explore Tools
-              </Button>
+              </button>
             </Link>
           </motion.div>
         </motion.section>
@@ -180,11 +198,11 @@ export default function Home() {
           >
             {valueProps.map((prop, index) => (
               <motion.div key={index} variants={itemVariants} className="flex flex-col items-center text-center p-3">
-                <div className="flex items-center justify-center h-10 w-10 rounded-full bg-secondary mb-3">
-                  <prop.icon className="h-5 w-5 text-primary" />
+                <div className="neuro-icon mb-3">
+                  <prop.icon className="h-5 w-5" style={{ color: 'var(--neuro-primary)' }} />
                 </div>
-                <h3 className="text-base font-medium">{prop.title}</h3>
-                <p className="mt-1 text-xs text-muted-foreground">{prop.description}</p>
+                <h3 className="text-base font-medium" style={{ color: 'var(--neuro-text)' }}>{prop.title}</h3>
+                <p className="mt-1 text-xs" style={{ color: 'var(--neuro-text-muted)' }}>{prop.description}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -195,25 +213,25 @@ export default function Home() {
           className="py-12 text-center"
           style={{ y: ctaY, opacity: ctaOpacity }}
         >
-          <h2 className="text-2xl font-bold mb-3">Ready to Transform Your Workflow?</h2>
-          <p className="text-base text-muted-foreground mb-6 max-w-2xl mx-auto">
+          <h2 className="text-2xl font-bold mb-3" style={{ color: 'var(--neuro-text)' }}>Ready to Transform Your Workflow?</h2>
+          <p className="text-base mb-6 max-w-2xl mx-auto" style={{ color: 'var(--neuro-text-muted)' }}>
             Join professionals worldwide using our extensions to create better designs faster
           </p>
           <Link href="/tools">
-            <Button size="default">
+            <button className="neuro-button-primary flex items-center mx-auto">
               Get Started
               <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            </button>
           </Link>
         </motion.section>
       </div>
 
       {/* Footer */}
       <div className="flex justify-center py-8 mt-auto">
-        <footer className="bg-background/80 backdrop-blur-lg border border-border rounded-full px-6 py-3 shadow-lg">
-          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+        <footer className="neuro-nav">
+          <div className="flex items-center gap-4 text-sm" style={{ color: 'var(--neuro-text-muted)' }}>
             <span>© 2025 Studiø</span>
-            <span className="text-border">•</span>
+            <span>•</span>
             <span>Developed by Int. Arch. M.Shkeir</span>
           </div>
         </footer>

@@ -60,14 +60,14 @@ export default function Navigation() {
 
   return (
     <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
-      <nav className="bg-background/80 backdrop-blur-lg border border-border rounded-full px-6 py-3 shadow-lg">
+      <nav className="neuro-nav backdrop-blur-sm">
         <div className="flex items-center gap-8">
           <Link href="/">
-            <span className="text-xl font-bold cursor-pointer">Studiø</span>
+            <span className="text-xl font-bold cursor-pointer text-[var(--neuro-text)]">Studiø</span>
           </Link>
           <div className="flex items-center gap-6">
             <Link href="/">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+              <span className="text-sm font-medium cursor-pointer hover:text-[var(--neuro-primary)] transition-colors text-[var(--neuro-text)]">
                 Home
               </span>
             </Link>
@@ -78,19 +78,19 @@ export default function Navigation() {
               onMouseEnter={handleToolsEnter}
               onMouseLeave={handleToolsLeave}
             >
-              <button className="text-sm font-medium cursor-pointer hover:text-primary transition-colors flex items-center gap-1 py-2">
+              <button className="text-sm font-medium cursor-pointer hover:text-[var(--neuro-primary)] transition-colors flex items-center gap-1 py-2 text-[var(--neuro-text)]">
                 Tools
                 <ChevronDown className={`h-3 w-3 transition-transform ${toolsOpen ? 'rotate-180' : ''}`} />
               </button>
               {toolsOpen && (
                 <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2">
-                  <div className="bg-background border border-border rounded-xl shadow-lg py-2 min-w-[180px]">
+                  <div className="neuro-raised rounded-xl py-2 min-w-[180px]">
                     {tools.map((item, index) => 
                       'divider' in item ? (
-                        <div key={`divider-${index}`} className="h-px bg-border my-2" />
+                        <div key={`divider-${index}`} className="h-px bg-[var(--neuro-shadow-dark)] opacity-20 my-2 mx-4" />
                       ) : (
                         <Link key={index} href={item.path}>
-                          <span className="block px-4 py-2 text-sm hover:bg-muted cursor-pointer transition-colors">
+                          <span className="block px-4 py-2 text-sm hover:bg-[var(--neuro-shadow-light)] hover:bg-opacity-30 cursor-pointer transition-colors text-[var(--neuro-text)]">
                             {item.name}
                           </span>
                         </Link>
@@ -102,7 +102,7 @@ export default function Navigation() {
             </div>
 
             <Link href="/pricing">
-              <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+              <span className="text-sm font-medium cursor-pointer hover:text-[var(--neuro-primary)] transition-colors text-[var(--neuro-text)]">
                 Pricing
               </span>
             </Link>
@@ -113,16 +113,16 @@ export default function Navigation() {
               onMouseEnter={handleResourcesEnter}
               onMouseLeave={handleResourcesLeave}
             >
-              <button className="text-sm font-medium cursor-pointer hover:text-primary transition-colors flex items-center gap-1 py-2">
+              <button className="text-sm font-medium cursor-pointer hover:text-[var(--neuro-primary)] transition-colors flex items-center gap-1 py-2 text-[var(--neuro-text)]">
                 Resources
                 <ChevronDown className={`h-3 w-3 transition-transform ${resourcesOpen ? 'rotate-180' : ''}`} />
               </button>
               {resourcesOpen && (
                 <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2">
-                  <div className="bg-background border border-border rounded-xl shadow-lg py-2 min-w-[180px]">
+                  <div className="neuro-raised rounded-xl py-2 min-w-[180px]">
                     {resources.map((item, index) => (
                       <Link key={index} href={item.path}>
-                        <span className="block px-4 py-2 text-sm hover:bg-muted cursor-pointer transition-colors">
+                        <span className="block px-4 py-2 text-sm hover:bg-[var(--neuro-shadow-light)] hover:bg-opacity-30 cursor-pointer transition-colors text-[var(--neuro-text)]">
                           {item.name}
                         </span>
                       </Link>
