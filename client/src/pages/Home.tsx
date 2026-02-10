@@ -171,9 +171,15 @@ export default function Home() {
               padding-bottom: 50px;
             }
             .featuredToolsSwiper .swiper-slide {
+              padding: 0 10px;
+            }
+            .featuredToolsSwiper .card-wrapper {
               border-radius: 48px;
               overflow: hidden;
-              padding: 0 10px;
+              transform: translateZ(0);
+              -webkit-transform: translateZ(0);
+              backface-visibility: hidden;
+              -webkit-backface-visibility: hidden;
             }
             .featuredToolsSwiper .card-bg-parallax {
               position: absolute;
@@ -183,6 +189,7 @@ export default function Home() {
               height: 100%;
               z-index: 0;
               will-change: transform;
+              border-radius: 48px;
             }
             .featuredToolsSwiper .swiper-pagination {
               bottom: 0 !important;
@@ -214,19 +221,20 @@ export default function Home() {
               <div className="swiper-wrapper">
                 {featuredTools.map((tool, index) => (
                   <div key={index} className="swiper-slide">
-                    <div className="relative min-h-[400px] lg:min-h-[450px]">
-                      <div 
-                        className="card-bg-parallax" 
-                        style={{ background: tool.color }}
-                        data-swiper-parallax="-35%"
-                      ></div>
-                      <div className="relative z-10 w-full rounded-3xl overflow-hidden min-h-[400px] lg:min-h-[450px]" 
-                        style={{ 
-                          background: tool.color, 
-                          color: 'white',
-                          boxShadow: 'none'
-                        }}
-                      >
+                    <div className="card-wrapper">
+                      <div className="relative min-h-[400px] lg:min-h-[450px]">
+                        <div 
+                          className="card-bg-parallax" 
+                          style={{ background: tool.color }}
+                          data-swiper-parallax="-35%"
+                        ></div>
+                        <div className="relative z-10 w-full min-h-[400px] lg:min-h-[450px]" 
+                          style={{ 
+                            background: tool.color, 
+                            color: 'white',
+                            boxShadow: 'none'
+                          }}
+                        >
                         <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
                           <div className="p-6 sm:p-8 md:p-12 flex flex-col justify-center order-1">
                             <div className="flex items-center space-x-2 text-white/80 mb-3" data-swiper-parallax="-100">
@@ -268,6 +276,7 @@ export default function Home() {
                               ⚙
                             </div>
                           </div>
+                        </div>
                         </div>
                       </div>
                     </div>
