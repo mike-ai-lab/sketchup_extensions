@@ -2,12 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Box, Lock, Zap, Settings2, ArrowRight, Star, Sparkles, Scissors, Database } from "lucide-react";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import Navigation from "@/components/Navigation";
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [index, setIndex] = useState(1); // Start at 1 (first real slide)
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -28,7 +27,7 @@ export default function Home() {
   const ctaY = useTransform(scrollYProgress, [0.6, 1], [60, 0]);
   const ctaOpacity = useTransform(scrollYProgress, [0.6, 0.8], [0, 1]);
 
-  const slides = [
+  const featuredTools = [
     {
       name: "PARAMETRIX",
       description: "Parametric cladding layout generator. Handle complex multi-face geometries with advanced trimming, rail systems, and pattern synchronization across curved surfaces.",
@@ -51,34 +50,6 @@ export default function Home() {
       color: "#f59e0b"
     }
   ];
-
-  const slideCount = slides.length;
-  
-  // Create circular array: [C, A, B, C, A]
-  const extended = [
-    slides[slides.length - 1],
-    ...slides,
-    slides[0]
-  ];
-
-  // Instant snap when hitting clones
-  useEffect(() => {
-    if (index === 0) {
-      const timer = setTimeout(() => setIndex(slideCount), 50);
-      return () => clearTimeout(timer);
-    }
-    
-    if (index === slideCount + 1) {
-      const timer = setTimeout(() => setIndex(1), 50);
-      return () => clearTimeout(timer);
-    }
-  }, [index, slideCount]);
-
-  const getRealIndex = () => {
-    if (index === 0) return slideCount - 1;
-    if (index === slideCount + 1) return 0;
-    return index - 1;
-  };
 
   const valueProps = [
     { icon: Box, title: "Algorithmic Precision", description: "Mathematical accuracy for complex geometries" },
@@ -152,7 +123,7 @@ export default function Home() {
           </motion.div>
         </motion.section>
 
-        {/* Featured Spotlight Carousel */}
+        {/* Featured Spotlight - READY FOR CLEAN CAROUSEL IMPLEMENTATION */}
         <motion.section 
           className="py-8 flex justify-center px-4"
           style={{ y: featuredY, scale: featuredScale }}
@@ -164,105 +135,57 @@ export default function Home() {
             transition={{ duration: 0.4 }}
             className="w-full max-w-[1185px] relative"
           >
-            {/* Carousel Container with Drag/Swipe */}
+            {/* CAROUSEL WILL GO HERE */}
             <div className="relative overflow-hidden rounded-3xl">
-              <motion.div 
-                className="flex cursor-grab active:cursor-grabbing"
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.15}
-                dragMomentum={false}
-                onDragEnd={(e, info) => {
-                  const threshold = 80;
-                  
-                  if (info.offset.x < -threshold) {
-                    setIndex((i) => i + 1);
-                  }
-                  
-                  if (info.offset.x > threshold) {
-                    setIndex((i) => i - 1);
-                  }
+              {/* Placeholder for single card - ready for carousel */}
+              <div className="w-full rounded-3xl overflow-hidden min-h-[400px] lg:min-h-[450px]" 
+                style={{ 
+                  background: featuredTools[0].color, 
+                  color: 'white',
+                  boxShadow: 'none'
                 }}
-                animate={{ x: `-${index * 100}%` }}
-                transition={{ type: "spring", stiffness: 500, damping: 45 }}
               >
-                {extended.map((tool, idx) => (
-                  <div 
-                    key={`${tool.name}-${idx}`}
-                    className="w-full flex-shrink-0 px-1"
-                  >
-                    <div 
-                      className="w-full rounded-3xl overflow-hidden min-h-[400px] lg:min-h-[450px]" 
-                      style={{ 
-                        background: tool.color, 
-                        color: 'white',
-                        boxShadow: 'none'
-                      }}
-                    >
-                      <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
-                        <div className="p-6 sm:p-8 md:p-12 flex flex-col justify-center order-1">
-                          <div className="flex items-center space-x-2 text-white/80 mb-3">
-                            <Star className="w-4 h-4 fill-current" />
-                            <span className="text-xs font-semibold uppercase tracking-wider">Featured Extension</span>
-                          </div>
-                          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 tracking-tight">{tool.name}</h2>
-                          <p className="text-sm sm:text-base md:text-lg text-white/80 mb-6 leading-relaxed">
-                            {tool.description}
-                          </p>
-                          <div>
-                            <Link href={tool.path}>
-                              <button 
-                                className="flex items-center px-6 py-3 rounded-2xl font-semibold transition-all duration-300"
-                                style={{ 
-                                  background: 'white',
-                                  color: tool.color,
-                                  boxShadow: '8px 8px 16px rgba(0, 0, 0, 0.2), -8px -8px 16px rgba(255, 255, 255, 0.8)',
-                                  border: 'none'
-                                }}
-                                onMouseEnter={(e) => {
-                                  e.currentTarget.style.boxShadow = '12px 12px 24px rgba(0, 0, 0, 0.25), -12px -12px 24px rgba(255, 255, 255, 0.9)';
-                                  e.currentTarget.style.transform = 'translateY(-2px)';
-                                }}
-                                onMouseLeave={(e) => {
-                                  e.currentTarget.style.boxShadow = '8px 8px 16px rgba(0, 0, 0, 0.2), -8px -8px 16px rgba(255, 255, 255, 0.8)';
-                                  e.currentTarget.style.transform = 'translateY(0)';
-                                }}
-                              >
-                                Learn More
-                                <ArrowRight className="ml-2 h-4 w-4" />
-                              </button>
-                            </Link>
-                          </div>
-                        </div>
-                        <div className="relative h-48 sm:h-64 lg:h-full min-h-[250px] bg-white/10 flex items-center justify-center order-2 lg:rounded-r-3xl overflow-hidden">
-                          <tool.icon className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 text-white/30" />
-                          <div className="absolute inset-0 bg-gradient-to-l from-black/20 to-transparent"></div>
-                        </div>
-                      </div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
+                  <div className="p-6 sm:p-8 md:p-12 flex flex-col justify-center order-1">
+                    <div className="flex items-center space-x-2 text-white/80 mb-3">
+                      <Star className="w-4 h-4 fill-current" />
+                      <span className="text-xs font-semibold uppercase tracking-wider">Featured Extension</span>
+                    </div>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 tracking-tight">{featuredTools[0].name}</h2>
+                    <p className="text-sm sm:text-base md:text-lg text-white/80 mb-6 leading-relaxed">
+                      {featuredTools[0].description}
+                    </p>
+                    <div>
+                      <Link href={featuredTools[0].path}>
+                        <button 
+                          className="flex items-center px-6 py-3 rounded-2xl font-semibold transition-all duration-300"
+                          style={{ 
+                            background: 'white',
+                            color: featuredTools[0].color,
+                            boxShadow: '8px 8px 16px rgba(0, 0, 0, 0.2), -8px -8px 16px rgba(255, 255, 255, 0.8)',
+                            border: 'none'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.boxShadow = '12px 12px 24px rgba(0, 0, 0, 0.25), -12px -12px 24px rgba(255, 255, 255, 0.9)';
+                            e.currentTarget.style.transform = 'translateY(-2px)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.boxShadow = '8px 8px 16px rgba(0, 0, 0, 0.2), -8px -8px 16px rgba(255, 255, 255, 0.8)';
+                            e.currentTarget.style.transform = 'translateY(0)';
+                          }}
+                        >
+                          Learn More
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </button>
+                      </Link>
                     </div>
                   </div>
-                ))}
-              </motion.div>
-            </div>
-
-            {/* Enhanced Dots Indicator */}
-            <div className="flex justify-center gap-3 mt-6">
-              {slides.map((tool, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setIndex(idx + 1)}
-                  className={`h-3 rounded-full transition-all duration-300 ${
-                    getRealIndex() === idx 
-                      ? 'w-10' 
-                      : 'w-3 shadow-[3px_3px_6px_var(--neuro-shadow-dark),-3px_-3px_6px_var(--neuro-shadow-light)] hover:shadow-[inset_2px_2px_4px_var(--neuro-shadow-dark),inset_-2px_-2px_4px_var(--neuro-shadow-light)]'
-                  }`}
-                  style={{ 
-                    background: getRealIndex() === idx ? tool.color : 'var(--neuro-bg)',
-                    boxShadow: getRealIndex() === idx ? `inset 3px 3px 6px rgba(0,0,0,0.3), inset -3px -3px 6px rgba(255,255,255,0.1)` : undefined
-                  }}
-                  aria-label={`Go to slide ${idx + 1}`}
-                />
-              ))}
+                  <div className="relative h-48 sm:h-64 lg:h-full min-h-[250px] bg-white/10 flex items-center justify-center order-2 lg:rounded-r-3xl overflow-hidden">
+                    <Box className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 text-white/30" />
+                    <div className="absolute inset-0 bg-gradient-to-l from-black/20 to-transparent"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </motion.div>
         </motion.section>
