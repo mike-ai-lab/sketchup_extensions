@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Box, Lock, Zap, Settings2, ArrowRight, Star, Sparkles, Scissors, Database } from "lucide-react";
+import { Box, Lock, Zap, Settings2, ArrowRight, Star, Sparkles } from "lucide-react";
 import { useRef, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 
@@ -32,21 +32,18 @@ export default function Home() {
     {
       name: "PARAMETRIX",
       description: "Parametric cladding layout generator. Handle complex multi-face geometries with advanced trimming, rail systems, and pattern synchronization across curved surfaces.",
-      icon: Box,
       path: "/tools/parametrix",
       color: "#3b82f6"
     },
     {
       name: "AutoNestCut",
       description: "Intelligent cut list generation and nesting optimization. Maximize material efficiency with automated layout algorithms and real-time cost calculations.",
-      icon: Scissors,
       path: "/tools/autonestcut",
       color: "#10b981"
     },
     {
       name: "SPECBASE",
       description: "Comprehensive specification database management. Organize materials, products, and technical data with powerful search and integration capabilities.",
-      icon: Database,
       path: "/tools/specbase",
       color: "#f59e0b"
     }
@@ -171,10 +168,12 @@ export default function Home() {
               width: 100%;
               max-width: 1185px;
               overflow: visible;
+              padding-bottom: 50px;
             }
             .featuredToolsSwiper .swiper-slide {
               border-radius: 48px;
               overflow: hidden;
+              padding: 0 10px;
             }
             .featuredToolsSwiper .card-bg-parallax {
               position: absolute;
@@ -184,6 +183,11 @@ export default function Home() {
               height: 100%;
               z-index: 0;
               will-change: transform;
+            }
+            .featuredToolsSwiper .swiper-pagination {
+              bottom: 0 !important;
+              position: relative !important;
+              margin-top: 30px;
             }
             .featuredToolsSwiper .swiper-pagination-bullet {
               width: 12px;
@@ -258,9 +262,11 @@ export default function Home() {
                               </Link>
                             </div>
                           </div>
-                          <div className="relative h-48 sm:h-64 lg:h-full min-h-[250px] bg-white/10 flex items-center justify-center order-2 lg:rounded-r-3xl overflow-hidden" data-swiper-parallax="-500">
-                            <tool.icon className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 text-white/30" />
-                            <div className="absolute inset-0 bg-gradient-to-l from-black/20 to-transparent"></div>
+                          <div className="relative h-48 sm:h-64 lg:h-full min-h-[250px] flex items-center justify-center order-2 pointer-events-none" data-swiper-parallax="-500">
+                            {/* Icon placeholder - will be replaced with tool logo */}
+                            <div className="text-white/25 text-[140px]">
+                              ⚙
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -268,7 +274,7 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-              <div className="swiper-pagination mt-6"></div>
+              <div className="swiper-pagination"></div>
             </div>
           </motion.div>
         </motion.section>
