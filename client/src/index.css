@@ -118,7 +118,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground font-mono;
+    @apply bg-background text-foreground font-sans;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -210,15 +210,15 @@
 
 /* Neumorphic Color Variables */
 :root {
-  /* Light Theme Neumorphic - White/Light Gray Base */
-  --neuro-bg: #f0f0f3;
+  /* Light Theme Neumorphic - Matching Mockup */
+  --neuro-bg: #e0e5ec;
   --neuro-shadow-light: #ffffff;
-  --neuro-shadow-dark: #d1d1d4;
-  --neuro-text: #2d3748;
-  --neuro-text-muted: #718096;
-  --neuro-primary: #4f46e5;
-  --neuro-primary-light: #6366f1;
-  --neuro-primary-dark: #4338ca;
+  --neuro-shadow-dark: #b8bec9;
+  --neuro-text: #334155; /* slate-700 */
+  --neuro-text-muted: #64748b; /* slate-500 */
+  --neuro-primary: #3b82f6; /* blue-500 */
+  --neuro-primary-light: #60a5fa; /* blue-400 */
+  --neuro-primary-dark: #2563eb; /* blue-600 */
 }
 
 .dark {
