@@ -1,0 +1,42 @@
+{
+  "nav": {
+    "home": "الرئيسية",
+    "tools": "الأدوات",
+    "pricing": "الأسعار",
+    "resources": "الموارد",
+    "allTools": "جميع الأدوات",
+    "downloads": "التنزيلات",
+    "tutorials": "الدروس",
+    "faq": "الأسئلة الشائعة",
+    "contact": "اتصل بنا"
+  },
+  "home": {
+    "hero": {
+      "title": "أدوات مصممة",
+      "titleHighlight": "للدقة والتعقيد",
+      "subtitle": "حلول أتمتة وبارامترية متقدمة لسير العمل المعماري.",
+      "exploreTools": "استكشف الأدوات",
+      "viewPricing": "عرض الأسعار"
+    }
+  },
+  "tools": {
+    "title": "الأدوات",
+    "subtitle": "إضافات احترافية مصممة لتبسيط سير عمل التصميم المعقد"
+  },
+  "pricing": {
+    "title": "أسعار بسيطة وشفافة",
+    "subtitle": "شراء لمرة واحدة، وصول مدى الحياة.",
+    "oneTime": "مرة واحدة",
+    "mostPopular": "الأكثر شعبية",
+    "startTrial": "ابدأ التجربة المجانية"
+  },
+  "footer": {
+    "copyright": "© 2025 Studiø",
+    "developer": "تم التطوير بواسطة Int. Arch. M.Shkeir"
+  },
+  "common": {
+    "download": "تحميل",
+    "learnMore": "معرفة المزيد",
+    "getStarted": "ابدأ"
+  }
+}

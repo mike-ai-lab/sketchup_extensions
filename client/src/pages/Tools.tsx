@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { EXTENSIONS } from "@shared/extensions";
 import { Bookmark } from "lucide-react";
 import { useState } from "react";
+import Navigation from "@/components/Navigation";
 
 interface ProductCardProps {
   id: string;
@@ -73,38 +74,9 @@ export default function Tools() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Floating Navigation */}
-      <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
-        <nav className="bg-background/80 backdrop-blur-lg border border-border rounded-full px-6 py-3 shadow-lg">
-          <div className="flex items-center gap-8">
-            <Link href="/">
-              <span className="text-xl font-bold cursor-pointer">Studiø</span>
-            </Link>
-            <div className="flex items-center gap-6">
-              <Link href="/">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Home</span>
-              </Link>
-              <Link href="/tools">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tools</span>
-              </Link>
-              <Link href="/tutorials">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tutorials</span>
-              </Link>
-              <Link href="/pricing">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Pricing</span>
-              </Link>
-              <Link href="/download">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Download</span>
-              </Link>
-              <Link href="/faq">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">FAQ</span>
-              </Link>
-            </div>
-          </div>
-        </nav>
-      </div>
+      <Navigation />
 
-      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 pt-24">
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 pt-32">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold tracking-tight">Tools</h1>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
@@ -112,7 +84,7 @@ export default function Tools() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
           {products.map(([key, product], index) => (
             <ProductCard 
               key={key} 

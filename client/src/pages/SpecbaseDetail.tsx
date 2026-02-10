@@ -2,40 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { ExternalLink, Lock, FileText, Zap, MessageSquare, Brain, Shield } from "lucide-react";
+import Navigation from "@/components/Navigation";
 
 export default function ConstructLMDetail() {
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Floating Navigation */}
-      <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
-        <nav className="bg-background/80 backdrop-blur-lg border border-border rounded-full px-6 py-3 shadow-lg">
-          <div className="flex items-center gap-8">
-            <Link href="/">
-              <span className="text-xl font-bold cursor-pointer">Studiø</span>
-            </Link>
-            <div className="flex items-center gap-6">
-              <Link href="/">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Home</span>
-              </Link>
-              <Link href="/tools">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tools</span>
-              </Link>
-              <Link href="/tutorials">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tutorials</span>
-              </Link>
-              <Link href="/pricing">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Pricing</span>
-              </Link>
-              <Link href="/download">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Download</span>
-              </Link>
-              <Link href="/faq">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">FAQ</span>
-              </Link>
-            </div>
-          </div>
-        </nav>
-      </div>
+      <Navigation />
 
       {/* Hero Section */}
       <section className="py-20 px-4 bg-gradient-to-b from-background to-secondary/20 pt-32">

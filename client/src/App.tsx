@@ -12,6 +12,9 @@ import Download from "./pages/Download";
 import FAQ from "./pages/FAQ";
 import ParametrixDetail from "./pages/ParametrixDetail";
 import SpecbaseDetail from "./pages/SpecbaseDetail";
+import AutoNestCutDetail from "./pages/AutoNestCutDetail";
+import UtilitiesDetail from "./pages/UtilitiesDetail";
+import Resources from "./pages/Resources";
 import ProductPage from "./pages/ProductPage";
 import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
@@ -28,6 +31,9 @@ function Router() {
       <Route path="/faq" component={FAQ} />
       <Route path="/tools/parametrix" component={ParametrixDetail} />
       <Route path="/tools/specbase" component={SpecbaseDetail} />
+      <Route path="/tools/autonestcut" component={AutoNestCutDetail} />
+      <Route path="/tools/utilities" component={UtilitiesDetail} />
+      <Route path="/resources" component={Resources} />
       <Route path="/products/:slug" component={ProductPage} />
       <Route path="/contact" component={Contact} />
       <Route path="/dashboard" component={Dashboard} />

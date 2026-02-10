@@ -5,37 +5,37 @@ import Navigation from "@/components/Navigation";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { 
-  ArrowRight, CheckCircle2, Download, Box, Layers, 
-  Grid3x3, Scissors, Settings, Star 
+  ArrowRight, CheckCircle2, Download, Scissors, 
+  Grid3x3, Layers, Settings, Star 
 } from "lucide-react";
 
-export default function ParametrixDetail() {
+export default function AutoNestCutDetail() {
   const features = [
     {
-      icon: Layers,
-      title: "Multi-Face Layouts",
-      description: "Generate synchronized layouts across multiple selected faces with seamless pattern continuation"
-    },
-    {
       icon: Scissors,
-      title: "Advanced Trimming",
-      description: "Automatic boolean trimming ensures perfect fit within complex face boundaries"
+      title: "Automated Cut Lists",
+      description: "Generate optimized cut lists automatically from your SketchUp components"
     },
     {
       icon: Grid3x3,
-      title: "Rail Systems",
-      description: "Integrated top and bottom rail generation with customizable dimensions and materials"
+      title: "Intelligent Nesting",
+      description: "Smart nesting algorithms minimize material waste and maximize efficiency"
+    },
+    {
+      icon: Layers,
+      title: "Smart Cutting Plans",
+      description: "Visual cutting plans with clear labeling and dimensions for workshop use"
     },
     {
       icon: Settings,
-      title: "Pattern Control",
-      description: "Running bond and stack bond patterns with randomization and start position control"
+      title: "Material Optimization",
+      description: "Optimize material usage across multiple sheet sizes and types"
     }
   ];
 
   const specifications = [
     { label: "Version", value: "1.0.0" },
-    { label: "Compatibility", value: "2019 and later" },
+    { label: "Compatibility", value: "SketchUp 2019 and later" },
     { label: "License Type", value: "Perpetual with 7-day trial" },
     { label: "Support", value: "Email & Documentation" }
   ];
@@ -55,15 +55,15 @@ export default function ParametrixDetail() {
           >
             <div>
               <Badge className="mb-4">Featured Extension</Badge>
-              <h1 className="text-5xl font-bold tracking-tight mb-4">PARAMETRIX</h1>
+              <h1 className="text-5xl font-bold tracking-tight mb-4">AutoNestCut</h1>
               <p className="text-xl text-muted-foreground mb-6 leading-relaxed">
-                Professional Parametric Cladding Layout Generator
+                Intelligent Cut List & Nesting Optimizer
               </p>
               <p className="text-lg mb-8 leading-relaxed">
-                PARAMETRIX is designed for architects, designers, and construction professionals who need to create precise parametric cladding layouts. Generate complex multi-face layouts with advanced trimming, rail systems, and pattern synchronization.
+                AutoNestCut is designed for woodworkers, fabricators, and manufacturers who need to optimize material usage. Generate automated cut lists with intelligent nesting algorithms that minimize waste and maximize efficiency.
               </p>
               <div className="flex gap-4 flex-wrap">
-                <Link href="/purchase/parametrix">
+                <Link href="/purchase/autonestcut">
                   <Button size="lg" className="text-base px-8">
                     Start Free Trial <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
@@ -74,14 +74,14 @@ export default function ParametrixDetail() {
                 </Button>
               </div>
               <p className="text-sm text-muted-foreground mt-4">
-                7-day free trial • No credit card required • $49 after trial
+                7-day free trial • No credit card required • $39 after trial
               </p>
             </div>
             <div className="relative">
               <Card className="border-2">
                 <CardContent className="p-8">
                   <div className="aspect-square bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg flex items-center justify-center">
-                    <Box className="w-32 h-32 text-primary/30" />
+                    <Scissors className="w-32 h-32 text-primary/30" />
                   </div>
                   <p className="text-center text-sm text-muted-foreground mt-4">
                     Extension Preview
@@ -99,7 +99,7 @@ export default function ParametrixDetail() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Powerful Features</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Everything you need to create professional parametric cladding layouts
+              Everything you need for efficient material cutting and optimization
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -131,34 +131,34 @@ export default function ParametrixDetail() {
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold mb-6">Why Choose PARAMETRIX?</h2>
+              <h2 className="text-3xl font-bold mb-6">Why Choose AutoNestCut?</h2>
               <div className="space-y-4">
                 <div className="flex items-start">
                   <CheckCircle2 className="h-6 w-6 text-primary mr-3 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold mb-1">Time-Saving Automation</h4>
-                    <p className="text-muted-foreground">Generate complex layouts in seconds that would take hours manually</p>
+                    <h4 className="font-semibold mb-1">Reduce Material Waste</h4>
+                    <p className="text-muted-foreground">Save up to 30% on material costs with intelligent nesting</p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <CheckCircle2 className="h-6 w-6 text-primary mr-3 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold mb-1">Precision Engineering</h4>
-                    <p className="text-muted-foreground">Exact measurements and perfect alignment every time</p>
+                    <h4 className="font-semibold mb-1">Workshop-Ready Plans</h4>
+                    <p className="text-muted-foreground">Clear cutting diagrams with labels and dimensions</p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <CheckCircle2 className="h-6 w-6 text-primary mr-3 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold mb-1">Flexible Customization</h4>
-                    <p className="text-muted-foreground">Full control over dimensions, patterns, and materials</p>
+                    <h4 className="font-semibold mb-1">Multiple Sheet Sizes</h4>
+                    <p className="text-muted-foreground">Support for various material sizes and types</p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <CheckCircle2 className="h-6 w-6 text-primary mr-3 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold mb-1">Professional Results</h4>
-                    <p className="text-muted-foreground">Production-ready layouts trusted by industry professionals</p>
+                    <h4 className="font-semibold mb-1">Export Options</h4>
+                    <p className="text-muted-foreground">Export to CSV, PDF, or print directly from SketchUp</p>
                   </div>
                 </div>
               </div>
@@ -190,15 +190,15 @@ export default function ParametrixDetail() {
               </div>
               <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Try PARAMETRIX free for 7 days. No credit card required. 
-                Experience the power of professional parametric layouts.
+                Try AutoNestCut free for 7 days. No credit card required. 
+                Start optimizing your material usage today.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <div className="text-center sm:text-left">
-                  <p className="text-4xl font-bold mb-1">$49</p>
+                  <p className="text-4xl font-bold mb-1">$39</p>
                   <p className="text-sm text-muted-foreground">One-time purchase</p>
                 </div>
-                <Link href="/purchase/parametrix">
+                <Link href="/purchase/autonestcut">
                   <Button size="lg" className="text-base px-8">
                     Start Free Trial <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
