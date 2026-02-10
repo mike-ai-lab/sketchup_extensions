@@ -149,12 +149,12 @@ export default function Tutorials() {
       </div>
 
       {/* Footer */}
-      <div className="flex justify-center py-8 mt-auto">
-        <footer className="bg-background/80 backdrop-blur-lg border border-border rounded-full px-6 py-3 shadow-lg">
-          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+      <div className="flex justify-center py-8 mt-auto px-4">
+        <footer className="bg-background/80 backdrop-blur-lg border border-border rounded-full px-4 sm:px-6 py-3 shadow-lg max-w-4xl">
+          <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground flex-wrap justify-center">
             <span>© 2025 Studiø</span>
-            <span className="text-border">•</span>
-            <span>Developed by Int. Arch. M.Shkeir</span>
+            <span className="text-border hidden sm:inline">•</span>
+            <span className="text-center">Developed by Int. Arch. M.Shkeir</span>
           </div>
         </footer>
       </div>

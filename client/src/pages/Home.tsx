@@ -99,7 +99,7 @@ export default function Home() {
 
         {/* Featured Spotlight */}
         <motion.section 
-          className="py-8 flex justify-center"
+          className="py-8 flex justify-center px-4"
           style={{ y: featuredY, scale: featuredScale }}
         >
           <motion.div 
@@ -107,17 +107,17 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            style={{ width: '1185px', height: '530px', maxWidth: '100%' }}
+            className="w-full max-w-[1185px]"
           >
-            <div className="w-full h-full rounded-3xl overflow-hidden neuro-card" style={{ background: 'var(--neuro-primary)', color: 'white' }}>
-              <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
-                <div className="p-8 md:p-12 flex flex-col justify-center">
-                  <div className="flex items-center space-x-2 text-primary-foreground/80 mb-3">
+            <div className="w-full rounded-3xl overflow-hidden neuro-card" style={{ background: 'var(--neuro-primary)', color: 'white' }}>
+              <div className="grid grid-cols-1 lg:grid-cols-2">
+                <div className="p-6 sm:p-8 md:p-12 flex flex-col justify-center order-1">
+                  <div className="flex items-center space-x-2 text-white/80 mb-3">
                     <Star className="w-4 h-4 fill-current" />
                     <span className="text-xs font-semibold uppercase tracking-wider">Featured Extension</span>
                   </div>
-                  <h2 className="text-3xl md:text-4xl font-bold mb-4">PARAMETRIX</h2>
-                  <p className="text-base md:text-lg text-primary-foreground/80 mb-6 leading-relaxed">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">PARAMETRIX</h2>
+                  <p className="text-sm sm:text-base md:text-lg text-white/80 mb-6 leading-relaxed">
                     Parametric cladding layout generator. Handle complex multi-face geometries with 
                     advanced trimming, rail systems, and pattern synchronization across curved surfaces.
                   </p>
@@ -146,9 +146,9 @@ export default function Home() {
                     </Link>
                   </div>
                 </div>
-                <div className="relative h-64 lg:h-full bg-primary-foreground/10 flex items-center justify-center">
-                  <Box className="w-24 h-24 text-primary-foreground/30" />
-                  <div className="absolute inset-0 bg-gradient-to-l from-primary/50 to-transparent"></div>
+                <div className="relative h-48 sm:h-64 lg:h-full bg-white/10 flex items-center justify-center order-2">
+                  <Box className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 text-white/30" />
+                  <div className="absolute inset-0 bg-gradient-to-l from-[var(--neuro-primary)]/50 to-transparent"></div>
                 </div>
               </div>
             </div>
@@ -227,12 +227,12 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <div className="flex justify-center py-8 mt-auto">
-        <footer className="neuro-nav">
-          <div className="flex items-center gap-4 text-sm" style={{ color: 'var(--neuro-text-muted)' }}>
+      <div className="flex justify-center py-8 mt-auto px-4">
+        <footer className="neuro-nav max-w-4xl">
+          <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm flex-wrap justify-center" style={{ color: 'var(--neuro-text-muted)' }}>
             <span>© 2025 Studiø</span>
-            <span>•</span>
-            <span>Developed by Int. Arch. M.Shkeir</span>
+            <span className="hidden sm:inline">•</span>
+            <span className="text-center">Developed by Int. Arch. M.Shkeir</span>
           </div>
         </footer>
       </div>
