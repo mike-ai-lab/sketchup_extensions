@@ -2,13 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Box, Lock, Zap, Settings2, ArrowRight, Star, Sparkles, Scissors, Database } from "lucide-react";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [currentSlide, setCurrentSlide] = useState(1); // Start at 1 (first real slide)
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [index, setIndex] = useState(1); // Start at 1 (first real slide)
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -29,7 +28,7 @@ export default function Home() {
   const ctaY = useTransform(scrollYProgress, [0.6, 1], [60, 0]);
   const ctaOpacity = useTransform(scrollYProgress, [0.6, 0.8], [0, 1]);
 
-  const featuredTools = [
+  const slides = [
     {
       name: "PARAMETRIX",
       description: "Parametric cladding layout generator. Handle complex multi-face geometries with advanced trimming, rail systems, and pattern synchronization across curved surfaces.",
@@ -53,41 +52,31 @@ export default function Home() {
     }
   ];
 
-  // Create infinite loop: [last, ...real, first]
-  const extendedTools = [
-    featuredTools[featuredTools.length - 1], // Clone last
-    ...featuredTools,
-    featuredTools[0] // Clone first
+  const slideCount = slides.length;
+  
+  // Create circular array: [C, A, B, C, A]
+  const extended = [
+    slides[slides.length - 1],
+    ...slides,
+    slides[0]
   ];
 
-  const handleTransitionEnd = () => {
-    setIsTransitioning(false);
-    
-    // Jump to real slide without animation
-    if (currentSlide === 0) {
-      setCurrentSlide(featuredTools.length);
-    } else if (currentSlide === extendedTools.length - 1) {
-      setCurrentSlide(1);
+  // Instant snap when hitting clones
+  useEffect(() => {
+    if (index === 0) {
+      const timer = setTimeout(() => setIndex(slideCount), 50);
+      return () => clearTimeout(timer);
     }
-  };
+    
+    if (index === slideCount + 1) {
+      const timer = setTimeout(() => setIndex(1), 50);
+      return () => clearTimeout(timer);
+    }
+  }, [index, slideCount]);
 
-  const goToSlide = (index: number) => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setCurrentSlide(index);
-  };
-
-  const nextSlide = () => {
-    goToSlide(currentSlide + 1);
-  };
-
-  const prevSlide = () => {
-    goToSlide(currentSlide - 1);
-  };
-
-  const getRealIndex = (index: number) => {
-    if (index === 0) return featuredTools.length - 1;
-    if (index === extendedTools.length - 1) return 0;
+  const getRealIndex = () => {
+    if (index === 0) return slideCount - 1;
+    if (index === slideCount + 1) return 0;
     return index - 1;
   };
 
@@ -181,34 +170,25 @@ export default function Home() {
                 className="flex cursor-grab active:cursor-grabbing"
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.2}
-                dragMomentum={true}
+                dragElastic={0.15}
+                dragMomentum={false}
                 onDragEnd={(e, info) => {
-                  if (isTransitioning) return;
+                  const threshold = 80;
                   
-                  const velocity = info.velocity.x;
-                  const offset = info.offset.x;
+                  if (info.offset.x < -threshold) {
+                    setIndex((i) => i + 1);
+                  }
                   
-                  // Velocity-based swipe detection
-                  if (Math.abs(velocity) > 500 || Math.abs(offset) > 100) {
-                    if (velocity > 0 || offset > 100) {
-                      prevSlide();
-                    } else if (velocity < 0 || offset < -100) {
-                      nextSlide();
-                    }
+                  if (info.offset.x > threshold) {
+                    setIndex((i) => i - 1);
                   }
                 }}
-                animate={{ x: `-${currentSlide * 100}%` }}
-                transition={
-                  isTransitioning
-                    ? { type: "spring", stiffness: 300, damping: 35 }
-                    : { duration: 0 }
-                }
-                onAnimationComplete={handleTransitionEnd}
+                animate={{ x: `-${index * 100}%` }}
+                transition={{ type: "spring", stiffness: 500, damping: 45 }}
               >
-                {extendedTools.map((tool, index) => (
+                {extended.map((tool, idx) => (
                   <div 
-                    key={`${tool.name}-${index}`}
+                    key={`${tool.name}-${idx}`}
                     className="w-full flex-shrink-0 px-1"
                   >
                     <div 
@@ -267,20 +247,20 @@ export default function Home() {
 
             {/* Enhanced Dots Indicator */}
             <div className="flex justify-center gap-3 mt-6">
-              {featuredTools.map((tool, index) => (
+              {slides.map((tool, idx) => (
                 <button
-                  key={index}
-                  onClick={() => goToSlide(index + 1)}
+                  key={idx}
+                  onClick={() => setIndex(idx + 1)}
                   className={`h-3 rounded-full transition-all duration-300 ${
-                    getRealIndex(currentSlide) === index 
+                    getRealIndex() === idx 
                       ? 'w-10' 
                       : 'w-3 shadow-[3px_3px_6px_var(--neuro-shadow-dark),-3px_-3px_6px_var(--neuro-shadow-light)] hover:shadow-[inset_2px_2px_4px_var(--neuro-shadow-dark),inset_-2px_-2px_4px_var(--neuro-shadow-light)]'
                   }`}
                   style={{ 
-                    background: getRealIndex(currentSlide) === index ? tool.color : 'var(--neuro-bg)',
-                    boxShadow: getRealIndex(currentSlide) === index ? `inset 3px 3px 6px rgba(0,0,0,0.3), inset -3px -3px 6px rgba(255,255,255,0.1)` : undefined
+                    background: getRealIndex() === idx ? tool.color : 'var(--neuro-bg)',
+                    boxShadow: getRealIndex() === idx ? `inset 3px 3px 6px rgba(0,0,0,0.3), inset -3px -3px 6px rgba(255,255,255,0.1)` : undefined
                   }}
-                  aria-label={`Go to slide ${index + 1}`}
+                  aria-label={`Go to slide ${idx + 1}`}
                 />
               ))}
             </div>
