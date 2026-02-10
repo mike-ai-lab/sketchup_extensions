@@ -2,11 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Box, Lock, Zap, Settings2, ArrowRight, Star, Sparkles, Scissors, Database } from "lucide-react";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const swiperInitialized = useRef(false);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -50,6 +51,43 @@ export default function Home() {
       color: "#f59e0b"
     }
   ];
+
+  // Initialize Swiper.js for carousel
+  useEffect(() => {
+    if (swiperInitialized.current) return;
+    
+    const linkSwiper = document.createElement('link');
+    linkSwiper.rel = 'stylesheet';
+    linkSwiper.href = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css';
+    document.head.appendChild(linkSwiper);
+
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
+    script.async = true;
+    script.onload = () => {
+      if ((window as any).Swiper) {
+        new (window as any).Swiper(".featuredToolsSwiper", {
+          speed: 900,
+          parallax: true,
+          loop: true,
+          grabCursor: true,
+          threshold: 5,
+          resistanceRatio: 0,
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          }
+        });
+        swiperInitialized.current = true;
+      }
+    };
+    document.body.appendChild(script);
+
+    return () => {
+      if (document.head.contains(linkSwiper)) document.head.removeChild(linkSwiper);
+      if (document.body.contains(script)) document.body.removeChild(script);
+    };
+  }, []);
 
   const valueProps = [
     { icon: Box, title: "Algorithmic Precision", description: "Mathematical accuracy for complex geometries" },
@@ -123,69 +161,114 @@ export default function Home() {
           </motion.div>
         </motion.section>
 
-        {/* Featured Spotlight - READY FOR CLEAN CAROUSEL IMPLEMENTATION */}
+        {/* Featured Spotlight Carousel */}
         <motion.section 
           className="py-8 flex justify-center px-4"
           style={{ y: featuredY, scale: featuredScale }}
         >
+          <style>{`
+            .featuredToolsSwiper {
+              width: 100%;
+              max-width: 1185px;
+              overflow: visible;
+            }
+            .featuredToolsSwiper .swiper-slide {
+              border-radius: 48px;
+              overflow: hidden;
+            }
+            .featuredToolsSwiper .card-bg-parallax {
+              position: absolute;
+              top: 0;
+              left: -30%;
+              width: 160%;
+              height: 100%;
+              z-index: 0;
+              will-change: transform;
+            }
+            .featuredToolsSwiper .swiper-pagination-bullet {
+              width: 12px;
+              height: 12px;
+              background: var(--neuro-bg);
+              opacity: 1;
+              box-shadow: 3px 3px 6px var(--neuro-shadow-dark), -3px -3px 6px var(--neuro-shadow-light);
+              transition: all 0.3s ease;
+            }
+            .featuredToolsSwiper .swiper-pagination-bullet-active {
+              width: 40px !important;
+              border-radius: 6px !important;
+            }
+          `}</style>
+
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            className="w-full max-w-[1185px] relative"
+            className="w-full max-w-[1185px]"
           >
-            {/* CAROUSEL WILL GO HERE */}
-            <div className="relative overflow-hidden rounded-3xl">
-              {/* Placeholder for single card - ready for carousel */}
-              <div className="w-full rounded-3xl overflow-hidden min-h-[400px] lg:min-h-[450px]" 
-                style={{ 
-                  background: featuredTools[0].color, 
-                  color: 'white',
-                  boxShadow: 'none'
-                }}
-              >
-                <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
-                  <div className="p-6 sm:p-8 md:p-12 flex flex-col justify-center order-1">
-                    <div className="flex items-center space-x-2 text-white/80 mb-3">
-                      <Star className="w-4 h-4 fill-current" />
-                      <span className="text-xs font-semibold uppercase tracking-wider">Featured Extension</span>
-                    </div>
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 tracking-tight">{featuredTools[0].name}</h2>
-                    <p className="text-sm sm:text-base md:text-lg text-white/80 mb-6 leading-relaxed">
-                      {featuredTools[0].description}
-                    </p>
-                    <div>
-                      <Link href={featuredTools[0].path}>
-                        <button 
-                          className="flex items-center px-6 py-3 rounded-2xl font-semibold transition-all duration-300"
-                          style={{ 
-                            background: 'white',
-                            color: featuredTools[0].color,
-                            boxShadow: '8px 8px 16px rgba(0, 0, 0, 0.2), -8px -8px 16px rgba(255, 255, 255, 0.8)',
-                            border: 'none'
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.boxShadow = '12px 12px 24px rgba(0, 0, 0, 0.25), -12px -12px 24px rgba(255, 255, 255, 0.9)';
-                            e.currentTarget.style.transform = 'translateY(-2px)';
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.boxShadow = '8px 8px 16px rgba(0, 0, 0, 0.2), -8px -8px 16px rgba(255, 255, 255, 0.8)';
-                            e.currentTarget.style.transform = 'translateY(0)';
-                          }}
-                        >
-                          Learn More
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </button>
-                      </Link>
+            <div className="swiper featuredToolsSwiper">
+              <div className="swiper-wrapper">
+                {featuredTools.map((tool, index) => (
+                  <div key={index} className="swiper-slide">
+                    <div className="relative min-h-[400px] lg:min-h-[450px]">
+                      <div 
+                        className="card-bg-parallax" 
+                        style={{ background: tool.color }}
+                        data-swiper-parallax="-35%"
+                      ></div>
+                      <div className="relative z-10 w-full rounded-3xl overflow-hidden min-h-[400px] lg:min-h-[450px]" 
+                        style={{ 
+                          background: tool.color, 
+                          color: 'white',
+                          boxShadow: 'none'
+                        }}
+                      >
+                        <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
+                          <div className="p-6 sm:p-8 md:p-12 flex flex-col justify-center order-1">
+                            <div className="flex items-center space-x-2 text-white/80 mb-3" data-swiper-parallax="-100">
+                              <Star className="w-4 h-4 fill-current" />
+                              <span className="text-xs font-semibold uppercase tracking-wider">Featured Extension</span>
+                            </div>
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 tracking-tight" data-swiper-parallax="-200">{tool.name}</h2>
+                            <p className="text-sm sm:text-base md:text-lg text-white/80 mb-6 leading-relaxed" data-swiper-parallax="-300">
+                              {tool.description}
+                            </p>
+                            <div data-swiper-parallax="-400">
+                              <Link href={tool.path}>
+                                <button 
+                                  className="flex items-center px-6 py-3 rounded-2xl font-semibold transition-all duration-300"
+                                  style={{ 
+                                    background: 'white',
+                                    color: tool.color,
+                                    boxShadow: '8px 8px 16px rgba(0, 0, 0, 0.2), -8px -8px 16px rgba(255, 255, 255, 0.8)',
+                                    border: 'none'
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    e.currentTarget.style.boxShadow = '12px 12px 24px rgba(0, 0, 0, 0.25), -12px -12px 24px rgba(255, 255, 255, 0.9)';
+                                    e.currentTarget.style.transform = 'translateY(-2px)';
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    e.currentTarget.style.boxShadow = '8px 8px 16px rgba(0, 0, 0, 0.2), -8px -8px 16px rgba(255, 255, 255, 0.8)';
+                                    e.currentTarget.style.transform = 'translateY(0)';
+                                  }}
+                                >
+                                  Learn More
+                                  <ArrowRight className="ml-2 h-4 w-4" />
+                                </button>
+                              </Link>
+                            </div>
+                          </div>
+                          <div className="relative h-48 sm:h-64 lg:h-full min-h-[250px] bg-white/10 flex items-center justify-center order-2 lg:rounded-r-3xl overflow-hidden" data-swiper-parallax="-500">
+                            <tool.icon className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 text-white/30" />
+                            <div className="absolute inset-0 bg-gradient-to-l from-black/20 to-transparent"></div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="relative h-48 sm:h-64 lg:h-full min-h-[250px] bg-white/10 flex items-center justify-center order-2 lg:rounded-r-3xl overflow-hidden">
-                    <Box className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 text-white/30" />
-                    <div className="absolute inset-0 bg-gradient-to-l from-black/20 to-transparent"></div>
-                  </div>
-                </div>
+                ))}
               </div>
+              <div className="swiper-pagination mt-6"></div>
             </div>
           </motion.div>
         </motion.section>
