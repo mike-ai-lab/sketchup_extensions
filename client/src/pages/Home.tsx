@@ -145,24 +145,28 @@ export default function Home() {
             className="w-full max-w-[1185px] relative"
           >
             {/* Carousel Container with Drag/Swipe */}
-            <motion.div 
-              className="relative overflow-hidden rounded-3xl cursor-grab active:cursor-grabbing"
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.2}
-              onDragEnd={(e, { offset, velocity }) => {
-                const swipe = Math.abs(offset.x) * velocity.x;
-                if (swipe < -10000) {
-                  nextSlide();
-                } else if (swipe > 10000) {
-                  prevSlide();
-                }
-              }}
-            >
+            <div className="relative overflow-hidden rounded-3xl">
               <motion.div 
-                className="flex"
+                className="flex cursor-grab active:cursor-grabbing"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.1}
+                dragMomentum={false}
+                onDrag={(e, { offset }) => {
+                  // Real-time visual feedback during drag
+                  const slideWidth = 100;
+                  const draggedSlides = -offset.x / (window.innerWidth * 0.8);
+                  const newSlide = Math.round(currentSlide + draggedSlides);
+                  if (newSlide !== currentSlide && Math.abs(offset.x) > 50) {
+                    if (offset.x < 0 && newSlide > currentSlide) {
+                      setCurrentSlide((currentSlide + 1) % featuredTools.length);
+                    } else if (offset.x > 0 && newSlide < currentSlide) {
+                      setCurrentSlide((currentSlide - 1 + featuredTools.length) % featuredTools.length);
+                    }
+                  }
+                }}
                 animate={{ x: `-${currentSlide * 100}%` }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                transition={{ type: "spring", stiffness: 400, damping: 40 }}
               >
                 {featuredTools.map((tool, index) => (
                   <div 
@@ -208,7 +212,7 @@ export default function Home() {
                             </Link>
                           </div>
                         </div>
-                        <div className="relative h-48 sm:h-64 lg:h-full bg-white/10 flex items-center justify-center order-2">
+                        <div className="relative h-48 sm:h-64 lg:h-full bg-white/10 flex items-center justify-center order-2 lg:rounded-r-3xl overflow-hidden">
                           <tool.icon className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 text-white/30" />
                           <div className="absolute inset-0 bg-gradient-to-l from-black/20 to-transparent"></div>
                         </div>
@@ -217,7 +221,7 @@ export default function Home() {
                   </div>
                 ))}
               </motion.div>
-            </motion.div>
+            </div>
 
             {/* Enhanced Dots Indicator */}
             <div className="flex justify-center gap-3 mt-6">
