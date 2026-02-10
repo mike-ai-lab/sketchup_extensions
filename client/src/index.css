@@ -406,10 +406,16 @@
 .neuro-nav {
   background: var(--neuro-bg);
   border-radius: 50px;
-  padding: 12px 24px;
+  padding: 10px 16px;
   box-shadow: 
     8px 8px 16px var(--neuro-shadow-dark),
     -8px -8px 16px var(--neuro-shadow-light);
+}
+
+@media (min-width: 640px) {
+  .neuro-nav {
+    padding: 12px 24px;
+  }
 }
 
 /* Neumorphic Modal/Dialog */

@@ -59,15 +59,15 @@ export default function Navigation() {
   }, []);
 
   return (
-    <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
+    <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 px-4 w-full max-w-4xl">
       <nav className="neuro-nav backdrop-blur-sm">
-        <div className="flex items-center gap-8">
+        <div className="flex items-center justify-between gap-3 sm:gap-6 md:gap-8">
           <Link href="/">
-            <span className="text-xl font-bold cursor-pointer text-[var(--neuro-text)]">Studiø</span>
+            <span className="text-lg sm:text-xl font-bold cursor-pointer text-[var(--neuro-text)]">Studiø</span>
           </Link>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2 sm:gap-4 md:gap-6 text-xs sm:text-sm">
             <Link href="/">
-              <span className="text-sm font-medium cursor-pointer hover:text-[var(--neuro-primary)] transition-colors text-[var(--neuro-text)]">
+              <span className="font-medium cursor-pointer hover:text-[var(--neuro-primary)] transition-colors text-red-500 hidden sm:inline">
                 Home
               </span>
             </Link>
