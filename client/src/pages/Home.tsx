@@ -171,13 +171,17 @@ export default function Home() {
                 {featuredTools.map((tool, index) => (
                   <div 
                     key={tool.name}
-                    className="w-full flex-shrink-0"
+                    className="w-full flex-shrink-0 px-1"
                   >
                     <div 
-                      className="w-full rounded-3xl overflow-hidden neuro-card" 
-                      style={{ background: tool.color, color: 'white' }}
+                      className="w-full rounded-3xl overflow-hidden min-h-[400px] lg:min-h-[450px]" 
+                      style={{ 
+                        background: tool.color, 
+                        color: 'white',
+                        boxShadow: 'none'
+                      }}
                     >
-                      <div className="grid grid-cols-1 lg:grid-cols-2">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
                         <div className="p-6 sm:p-8 md:p-12 flex flex-col justify-center order-1">
                           <div className="flex items-center space-x-2 text-white/80 mb-3">
                             <Star className="w-4 h-4 fill-current" />
@@ -212,7 +216,7 @@ export default function Home() {
                             </Link>
                           </div>
                         </div>
-                        <div className="relative h-48 sm:h-64 lg:h-full bg-white/10 flex items-center justify-center order-2 lg:rounded-r-3xl overflow-hidden">
+                        <div className="relative h-48 sm:h-64 lg:h-full min-h-[250px] bg-white/10 flex items-center justify-center order-2 lg:rounded-r-3xl overflow-hidden">
                           <tool.icon className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 text-white/30" />
                           <div className="absolute inset-0 bg-gradient-to-l from-black/20 to-transparent"></div>
                         </div>
