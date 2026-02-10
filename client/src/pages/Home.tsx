@@ -1,12 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Box, Lock, Zap, Settings2, ArrowRight, Star, Sparkles } from "lucide-react";
-import { useRef } from "react";
+import { Box, Lock, Zap, Settings2, ArrowRight, Star, Sparkles, Scissors, Database, ChevronLeft, ChevronRight } from "lucide-react";
+import { useRef, useState } from "react";
 import Navigation from "@/components/Navigation";
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -25,6 +27,39 @@ export default function Home() {
   
   const ctaY = useTransform(scrollYProgress, [0.6, 1], [60, 0]);
   const ctaOpacity = useTransform(scrollYProgress, [0.6, 0.8], [0, 1]);
+
+  const featuredTools = [
+    {
+      name: "PARAMETRIX",
+      description: "Parametric cladding layout generator. Handle complex multi-face geometries with advanced trimming, rail systems, and pattern synchronization across curved surfaces.",
+      icon: Box,
+      path: "/tools/parametrix",
+      color: "#3b82f6"
+    },
+    {
+      name: "AutoNestCut",
+      description: "Intelligent cut list generation and nesting optimization. Maximize material efficiency with automated layout algorithms and real-time cost calculations.",
+      icon: Scissors,
+      path: "/tools/autonestcut",
+      color: "#10b981"
+    },
+    {
+      name: "SPECBASE",
+      description: "Comprehensive specification database management. Organize materials, products, and technical data with powerful search and integration capabilities.",
+      icon: Database,
+      path: "/tools/specbase",
+      color: "#f59e0b"
+    }
+  ];
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % featuredTools.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + featuredTools.length) % featuredTools.length);
+  };
+
   const valueProps = [
     { icon: Box, title: "Algorithmic Precision", description: "Mathematical accuracy for complex geometries" },
     { icon: Zap, title: "Production Ready", description: "Built for real-world architectural projects" },
@@ -97,7 +132,7 @@ export default function Home() {
           </motion.div>
         </motion.section>
 
-        {/* Featured Spotlight */}
+        {/* Featured Spotlight Carousel */}
         <motion.section 
           className="py-8 flex justify-center px-4"
           style={{ y: featuredY, scale: featuredScale }}
@@ -107,50 +142,101 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            className="w-full max-w-[1185px]"
+            className="w-full max-w-[1185px] relative"
           >
-            <div className="w-full rounded-3xl overflow-hidden neuro-card" style={{ background: 'var(--neuro-primary)', color: 'white' }}>
-              <div className="grid grid-cols-1 lg:grid-cols-2">
-                <div className="p-6 sm:p-8 md:p-12 flex flex-col justify-center order-1">
-                  <div className="flex items-center space-x-2 text-white/80 mb-3">
-                    <Star className="w-4 h-4 fill-current" />
-                    <span className="text-xs font-semibold uppercase tracking-wider">Featured Extension</span>
+            {/* Carousel Container */}
+            <div className="relative overflow-hidden rounded-3xl">
+              <motion.div 
+                className="flex"
+                animate={{ x: `-${currentSlide * 100}%` }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              >
+                {featuredTools.map((tool, index) => (
+                  <div 
+                    key={tool.name}
+                    className="w-full flex-shrink-0"
+                  >
+                    <div 
+                      className="w-full rounded-3xl overflow-hidden neuro-card" 
+                      style={{ background: tool.color, color: 'white' }}
+                    >
+                      <div className="grid grid-cols-1 lg:grid-cols-2">
+                        <div className="p-6 sm:p-8 md:p-12 flex flex-col justify-center order-1">
+                          <div className="flex items-center space-x-2 text-white/80 mb-3">
+                            <Star className="w-4 h-4 fill-current" />
+                            <span className="text-xs font-semibold uppercase tracking-wider">Featured Extension</span>
+                          </div>
+                          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 tracking-tight">{tool.name}</h2>
+                          <p className="text-sm sm:text-base md:text-lg text-white/80 mb-6 leading-relaxed">
+                            {tool.description}
+                          </p>
+                          <div>
+                            <Link href={tool.path}>
+                              <button 
+                                className="flex items-center px-6 py-3 rounded-2xl font-semibold transition-all duration-300"
+                                style={{ 
+                                  background: 'white',
+                                  color: tool.color,
+                                  boxShadow: '8px 8px 16px rgba(0, 0, 0, 0.2), -8px -8px 16px rgba(255, 255, 255, 0.8)',
+                                  border: 'none'
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.boxShadow = '12px 12px 24px rgba(0, 0, 0, 0.25), -12px -12px 24px rgba(255, 255, 255, 0.9)';
+                                  e.currentTarget.style.transform = 'translateY(-2px)';
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.boxShadow = '8px 8px 16px rgba(0, 0, 0, 0.2), -8px -8px 16px rgba(255, 255, 255, 0.8)';
+                                  e.currentTarget.style.transform = 'translateY(0)';
+                                }}
+                              >
+                                Learn More
+                                <ArrowRight className="ml-2 h-4 w-4" />
+                              </button>
+                            </Link>
+                          </div>
+                        </div>
+                        <div className="relative h-48 sm:h-64 lg:h-full bg-white/10 flex items-center justify-center order-2">
+                          <tool.icon className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 text-white/30" />
+                          <div className="absolute inset-0 bg-gradient-to-l from-black/20 to-transparent"></div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">PARAMETRIX</h2>
-                  <p className="text-sm sm:text-base md:text-lg text-white/80 mb-6 leading-relaxed">
-                    Parametric cladding layout generator. Handle complex multi-face geometries with 
-                    advanced trimming, rail systems, and pattern synchronization across curved surfaces.
-                  </p>
-                  <div>
-                    <Link href="/tools/parametrix">
-                      <button 
-                        className="flex items-center px-6 py-3 rounded-2xl font-semibold transition-all duration-300"
-                        style={{ 
-                          background: 'white',
-                          color: 'var(--neuro-primary)',
-                          boxShadow: '8px 8px 16px rgba(79, 70, 229, 0.3), -8px -8px 16px rgba(255, 255, 255, 0.8)',
-                          border: 'none'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.boxShadow = '12px 12px 24px rgba(79, 70, 229, 0.4), -12px -12px 24px rgba(255, 255, 255, 0.9)';
-                          e.currentTarget.style.transform = 'translateY(-2px)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.boxShadow = '8px 8px 16px rgba(79, 70, 229, 0.3), -8px -8px 16px rgba(255, 255, 255, 0.8)';
-                          e.currentTarget.style.transform = 'translateY(0)';
-                        }}
-                      >
-                        Learn More
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-                <div className="relative h-48 sm:h-64 lg:h-full bg-white/10 flex items-center justify-center order-2">
-                  <Box className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 text-white/30" />
-                  <div className="absolute inset-0 bg-gradient-to-l from-[var(--neuro-primary)]/50 to-transparent"></div>
-                </div>
-              </div>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* Navigation Arrows */}
+            <button
+              onClick={prevSlide}
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[var(--neuro-bg)] shadow-[8px_8px_16px_var(--neuro-shadow-dark),-8px_-8px_16px_var(--neuro-shadow-light)] hover:shadow-[12px_12px_24px_var(--neuro-shadow-dark),-12px_-12px_24px_var(--neuro-shadow-light)] active:shadow-[inset_4px_4px_8px_var(--neuro-shadow-dark),inset_-4px_-4px_8px_var(--neuro-shadow-light)] flex items-center justify-center transition-all duration-300 z-10"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft className="w-6 h-6" style={{ color: 'var(--neuro-text)' }} />
+            </button>
+            <button
+              onClick={nextSlide}
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[var(--neuro-bg)] shadow-[8px_8px_16px_var(--neuro-shadow-dark),-8px_-8px_16px_var(--neuro-shadow-light)] hover:shadow-[12px_12px_24px_var(--neuro-shadow-dark),-12px_-12px_24px_var(--neuro-shadow-light)] active:shadow-[inset_4px_4px_8px_var(--neuro-shadow-dark),inset_-4px_-4px_8px_var(--neuro-shadow-light)] flex items-center justify-center transition-all duration-300 z-10"
+              aria-label="Next slide"
+            >
+              <ChevronRight className="w-6 h-6" style={{ color: 'var(--neuro-text)' }} />
+            </button>
+
+            {/* Dots Indicator */}
+            <div className="flex justify-center gap-2 mt-6">
+              {featuredTools.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === currentSlide 
+                      ? 'w-8 shadow-[inset_2px_2px_4px_var(--neuro-shadow-dark),inset_-2px_-2px_4px_var(--neuro-shadow-light)]' 
+                      : 'shadow-[2px_2px_4px_var(--neuro-shadow-dark),-2px_-2px_4px_var(--neuro-shadow-light)]'
+                  }`}
+                  style={{ background: 'var(--neuro-bg)' }}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
             </div>
           </motion.div>
         </motion.section>
