@@ -150,23 +150,23 @@ export default function Home() {
                 className="flex cursor-grab active:cursor-grabbing"
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.1}
+                dragElastic={0.15}
                 dragMomentum={false}
-                onDrag={(e, { offset }) => {
-                  // Real-time visual feedback during drag
-                  const slideWidth = 100;
-                  const draggedSlides = -offset.x / (window.innerWidth * 0.8);
-                  const newSlide = Math.round(currentSlide + draggedSlides);
-                  if (newSlide !== currentSlide && Math.abs(offset.x) > 50) {
-                    if (offset.x < 0 && newSlide > currentSlide) {
-                      setCurrentSlide((currentSlide + 1) % featuredTools.length);
-                    } else if (offset.x > 0 && newSlide < currentSlide) {
-                      setCurrentSlide((currentSlide - 1 + featuredTools.length) % featuredTools.length);
-                    }
+                onDragEnd={(e, info) => {
+                  const threshold = 80;
+                  
+                  if (info.offset.x < -threshold) {
+                    setCurrentSlide((prev) => (prev + 1) % featuredTools.length);
+                  }
+                  
+                  if (info.offset.x > threshold) {
+                    setCurrentSlide((prev) =>
+                      (prev - 1 + featuredTools.length) % featuredTools.length
+                    );
                   }
                 }}
                 animate={{ x: `-${currentSlide * 100}%` }}
-                transition={{ type: "spring", stiffness: 400, damping: 40 }}
+                transition={{ type: "spring", stiffness: 500, damping: 45 }}
               >
                 {featuredTools.map((tool, index) => (
                   <div 
