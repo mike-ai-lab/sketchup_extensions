@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Box, Lock, Zap, Settings2, ArrowRight, Star, Sparkles, Scissors, Database, ChevronLeft, ChevronRight } from "lucide-react";
+import { Box, Lock, Zap, Settings2, ArrowRight, Star, Sparkles, Scissors, Database } from "lucide-react";
 import { useRef, useState } from "react";
 import Navigation from "@/components/Navigation";
 
@@ -144,8 +144,21 @@ export default function Home() {
             transition={{ duration: 0.4 }}
             className="w-full max-w-[1185px] relative"
           >
-            {/* Carousel Container */}
-            <div className="relative overflow-hidden rounded-3xl">
+            {/* Carousel Container with Drag/Swipe */}
+            <motion.div 
+              className="relative overflow-hidden rounded-3xl cursor-grab active:cursor-grabbing"
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.2}
+              onDragEnd={(e, { offset, velocity }) => {
+                const swipe = Math.abs(offset.x) * velocity.x;
+                if (swipe < -10000) {
+                  nextSlide();
+                } else if (swipe > 10000) {
+                  prevSlide();
+                }
+              }}
+            >
               <motion.div 
                 className="flex"
                 animate={{ x: `-${currentSlide * 100}%` }}
@@ -204,36 +217,23 @@ export default function Home() {
                   </div>
                 ))}
               </motion.div>
-            </div>
+            </motion.div>
 
-            {/* Navigation Arrows */}
-            <button
-              onClick={prevSlide}
-              className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[var(--neuro-bg)] shadow-[8px_8px_16px_var(--neuro-shadow-dark),-8px_-8px_16px_var(--neuro-shadow-light)] hover:shadow-[12px_12px_24px_var(--neuro-shadow-dark),-12px_-12px_24px_var(--neuro-shadow-light)] active:shadow-[inset_4px_4px_8px_var(--neuro-shadow-dark),inset_-4px_-4px_8px_var(--neuro-shadow-light)] flex items-center justify-center transition-all duration-300 z-10"
-              aria-label="Previous slide"
-            >
-              <ChevronLeft className="w-6 h-6" style={{ color: 'var(--neuro-text)' }} />
-            </button>
-            <button
-              onClick={nextSlide}
-              className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[var(--neuro-bg)] shadow-[8px_8px_16px_var(--neuro-shadow-dark),-8px_-8px_16px_var(--neuro-shadow-light)] hover:shadow-[12px_12px_24px_var(--neuro-shadow-dark),-12px_-12px_24px_var(--neuro-shadow-light)] active:shadow-[inset_4px_4px_8px_var(--neuro-shadow-dark),inset_-4px_-4px_8px_var(--neuro-shadow-light)] flex items-center justify-center transition-all duration-300 z-10"
-              aria-label="Next slide"
-            >
-              <ChevronRight className="w-6 h-6" style={{ color: 'var(--neuro-text)' }} />
-            </button>
-
-            {/* Dots Indicator */}
-            <div className="flex justify-center gap-2 mt-6">
-              {featuredTools.map((_, index) => (
+            {/* Enhanced Dots Indicator */}
+            <div className="flex justify-center gap-3 mt-6">
+              {featuredTools.map((tool, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  className={`h-3 rounded-full transition-all duration-300 ${
                     index === currentSlide 
-                      ? 'w-8 shadow-[inset_2px_2px_4px_var(--neuro-shadow-dark),inset_-2px_-2px_4px_var(--neuro-shadow-light)]' 
-                      : 'shadow-[2px_2px_4px_var(--neuro-shadow-dark),-2px_-2px_4px_var(--neuro-shadow-light)]'
+                      ? 'w-10' 
+                      : 'w-3 shadow-[3px_3px_6px_var(--neuro-shadow-dark),-3px_-3px_6px_var(--neuro-shadow-light)] hover:shadow-[inset_2px_2px_4px_var(--neuro-shadow-dark),inset_-2px_-2px_4px_var(--neuro-shadow-light)]'
                   }`}
-                  style={{ background: 'var(--neuro-bg)' }}
+                  style={{ 
+                    background: index === currentSlide ? tool.color : 'var(--neuro-bg)',
+                    boxShadow: index === currentSlide ? `inset 3px 3px 6px rgba(0,0,0,0.3), inset -3px -3px 6px rgba(255,255,255,0.1)` : undefined
+                  }}
                   aria-label={`Go to slide ${index + 1}`}
                 />
               ))}
