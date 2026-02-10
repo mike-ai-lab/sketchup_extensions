@@ -78,19 +78,25 @@ export default function Navigation() {
               onMouseEnter={handleToolsEnter}
               onMouseLeave={handleToolsLeave}
             >
-              <button className="text-sm font-medium cursor-pointer hover:text-[var(--neuro-primary)] transition-colors flex items-center gap-1 py-2 text-[var(--neuro-text)]">
+              <button 
+                className={`text-sm font-medium cursor-pointer transition-all flex items-center gap-1 px-3 py-2 rounded-lg ${
+                  toolsOpen 
+                    ? 'text-[var(--neuro-primary)] shadow-[inset_3px_3px_6px_var(--neuro-shadow-dark),inset_-3px_-3px_6px_var(--neuro-shadow-light)]' 
+                    : 'hover:text-[var(--neuro-primary)] text-[var(--neuro-text)]'
+                }`}
+              >
                 Tools
                 <ChevronDown className={`h-3 w-3 transition-transform ${toolsOpen ? 'rotate-180' : ''}`} />
               </button>
               {toolsOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2">
-                  <div className="neuro-raised rounded-xl py-2 min-w-[180px]">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 animate-in fade-in slide-in-from-top-2 duration-200">
+                  <div className="bg-[var(--neuro-bg)] rounded-2xl p-2 min-w-[180px] shadow-[10px_10px_20px_var(--neuro-shadow-dark),-10px_-10px_20px_var(--neuro-shadow-light)]">
                     {tools.map((item, index) => 
                       'divider' in item ? (
-                        <div key={`divider-${index}`} className="h-px bg-[var(--neuro-shadow-dark)] opacity-20 my-2 mx-4" />
+                        <div key={`divider-${index}`} className="h-px bg-[var(--neuro-shadow-dark)] opacity-20 my-2 mx-2" />
                       ) : (
                         <Link key={index} href={item.path}>
-                          <span className="block px-4 py-2 text-sm hover:bg-[var(--neuro-shadow-light)] hover:bg-opacity-30 cursor-pointer transition-colors text-[var(--neuro-text)]">
+                          <span className="block px-4 py-2.5 text-sm font-medium cursor-pointer transition-all rounded-xl hover:shadow-[inset_4px_4px_8px_var(--neuro-shadow-dark),inset_-4px_-4px_8px_var(--neuro-shadow-light)] hover:text-[var(--neuro-primary)] text-[var(--neuro-text)]">
                             {item.name}
                           </span>
                         </Link>
@@ -113,16 +119,22 @@ export default function Navigation() {
               onMouseEnter={handleResourcesEnter}
               onMouseLeave={handleResourcesLeave}
             >
-              <button className="text-sm font-medium cursor-pointer hover:text-[var(--neuro-primary)] transition-colors flex items-center gap-1 py-2 text-[var(--neuro-text)]">
+              <button 
+                className={`text-sm font-medium cursor-pointer transition-all flex items-center gap-1 px-3 py-2 rounded-lg ${
+                  resourcesOpen 
+                    ? 'text-[var(--neuro-primary)] shadow-[inset_3px_3px_6px_var(--neuro-shadow-dark),inset_-3px_-3px_6px_var(--neuro-shadow-light)]' 
+                    : 'hover:text-[var(--neuro-primary)] text-[var(--neuro-text)]'
+                }`}
+              >
                 Resources
                 <ChevronDown className={`h-3 w-3 transition-transform ${resourcesOpen ? 'rotate-180' : ''}`} />
               </button>
               {resourcesOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2">
-                  <div className="neuro-raised rounded-xl py-2 min-w-[180px]">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 animate-in fade-in slide-in-from-top-2 duration-200">
+                  <div className="bg-[var(--neuro-bg)] rounded-2xl p-2 min-w-[180px] shadow-[10px_10px_20px_var(--neuro-shadow-dark),-10px_-10px_20px_var(--neuro-shadow-light)]">
                     {resources.map((item, index) => (
                       <Link key={index} href={item.path}>
-                        <span className="block px-4 py-2 text-sm hover:bg-[var(--neuro-shadow-light)] hover:bg-opacity-30 cursor-pointer transition-colors text-[var(--neuro-text)]">
+                        <span className="block px-4 py-2.5 text-sm font-medium cursor-pointer transition-all rounded-xl hover:shadow-[inset_4px_4px_8px_var(--neuro-shadow-dark),inset_-4px_-4px_8px_var(--neuro-shadow-light)] hover:text-[var(--neuro-primary)] text-[var(--neuro-text)]">
                           {item.name}
                         </span>
                       </Link>
