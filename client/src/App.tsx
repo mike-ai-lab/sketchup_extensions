@@ -13,6 +13,7 @@ import FAQ from "./pages/FAQ";
 import ParametrixDetail from "./pages/ParametrixDetail";
 import SpecbaseDetail from "./pages/SpecbaseDetail";
 import AutoNestCutDetail from "./pages/AutoNestCutDetail";
+import DocmarkDetail from "./pages/DocmarkDetail";
 import UtilitiesDetail from "./pages/UtilitiesDetail";
 import Resources from "./pages/Resources";
 import ProductPage from "./pages/ProductPage";
@@ -32,6 +33,7 @@ function Router() {
       <Route path="/tools/parametrix" component={ParametrixDetail} />
       <Route path="/tools/specbase" component={SpecbaseDetail} />
       <Route path="/tools/autonestcut" component={AutoNestCutDetail} />
+      <Route path="/tools/docmark" component={DocmarkDetail} />
       <Route path="/tools/utilities" component={UtilitiesDetail} />
       <Route path="/resources" component={Resources} />
       <Route path="/products/:slug" component={ProductPage} />

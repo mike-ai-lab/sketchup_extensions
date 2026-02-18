@@ -77,6 +77,27 @@ export const EXTENSIONS: Record<string, ExtensionMetadata> = {
     downloadUrl: "https://specbase.mimevents.com",
     githubUrl: "https://github.com/mike-ai-lab/constructlm",
     screenshots: []
+  },
+  docmark: {
+    slug: "docmark",
+    name: "DocMark",
+    tagline: "Real-Time Markdown Editor with Live Preview",
+    description: "DocMark is a fast, browser-based markdown editor with split-pane live preview. Write markdown on the left, see rendered output on the right with synchronized scrolling and cursor tracking. Perfect for documentation, technical writing, and content creation.",
+    price: 0,
+    trialDays: 0,
+    features: [
+      "Live Preview - Real-time markdown rendering as you type",
+      "Synchronized Scrolling - Editor and preview stay in sync",
+      "Multiple Themes - GitHub, GitBook, and VSCode styles",
+      "Dark Mode - Full dark mode support",
+      "PDF Export - Generate PDFs with custom fonts and styling",
+      "Auto-Save - Content persists to browser storage",
+      "Syntax Highlighting - Monaco editor with full language support",
+      "Table of Contents - Auto-generated TOC with navigation"
+    ],
+    downloadUrl: "https://docmark.mimevents.com",
+    githubUrl: "https://github.com/mike-ai-lab/markdown-live-preview",
+    screenshots: []
   }
 };
 
