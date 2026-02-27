@@ -1,13 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Box, Lock, Zap, Settings2, ArrowRight, Star, Sparkles } from "lucide-react";
-import { useRef, useEffect } from "react";
+import { Box, Lock, Zap, Settings2, ArrowRight, Star, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
+import { useRef, useEffect, useState } from "react";
 import Navigation from "@/components/Navigation";
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const swiperInitialized = useRef(false);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState(0);
+  const [dragOffset, setDragOffset] = useState(0);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -49,42 +53,46 @@ export default function Home() {
     }
   ];
 
-  // Initialize Swiper.js for carousel
-  useEffect(() => {
-    if (swiperInitialized.current) return;
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1 < featuredTools.length ? prev + 1 : prev));
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 >= 0 ? prev - 1 : prev));
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    setDragStart(e.clientX);
+    setDragOffset(0);
+    if (carouselRef.current) {
+      carouselRef.current.style.userSelect = 'none';
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    const offset = e.clientX - dragStart;
+    setDragOffset(offset);
+  };
+
+  const handleMouseUp = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    const offset = e.clientX - dragStart;
     
-    const linkSwiper = document.createElement('link');
-    linkSwiper.rel = 'stylesheet';
-    linkSwiper.href = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css';
-    document.head.appendChild(linkSwiper);
+    if (carouselRef.current) {
+      carouselRef.current.style.userSelect = 'auto';
+    }
 
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
-    script.async = true;
-    script.onload = () => {
-      if ((window as any).Swiper) {
-        new (window as any).Swiper(".featuredToolsSwiper", {
-          speed: 900,
-          parallax: true,
-          loop: true,
-          grabCursor: true,
-          threshold: 5,
-          resistanceRatio: 0,
-          pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-          }
-        });
-        swiperInitialized.current = true;
-      }
-    };
-    document.body.appendChild(script);
-
-    return () => {
-      if (document.head.contains(linkSwiper)) document.head.removeChild(linkSwiper);
-      if (document.body.contains(script)) document.body.removeChild(script);
-    };
-  }, []);
+    // Threshold for slide change (50px)
+    if (offset > 50) {
+      prevSlide();
+    } else if (offset < -50) {
+      nextSlide();
+    }
+    setDragOffset(0);
+  };
 
   const valueProps = [
     { icon: Box, title: "Algorithmic Precision", description: "Mathematical accuracy for complex geometries" },
@@ -160,130 +168,118 @@ export default function Home() {
 
         {/* Featured Spotlight Carousel */}
         <motion.section 
-          className="py-8 flex justify-center px-4"
+          className="py-12 flex justify-center px-4"
           style={{ y: featuredY, scale: featuredScale }}
         >
-          <style>{`
-            .featuredToolsSwiper {
-              width: 100%;
-              max-width: 1185px;
-              overflow: visible;
-              padding-bottom: 50px;
-            }
-            .featuredToolsSwiper .swiper-slide {
-              padding: 0 10px;
-            }
-            .featuredToolsSwiper .card-wrapper {
-              border-radius: 48px;
-              overflow: hidden;
-              transform: translateZ(0);
-              -webkit-transform: translateZ(0);
-              backface-visibility: hidden;
-              -webkit-backface-visibility: hidden;
-            }
-            .featuredToolsSwiper .card-bg-parallax {
-              position: absolute;
-              top: 0;
-              left: -30%;
-              width: 160%;
-              height: 100%;
-              z-index: 0;
-              will-change: transform;
-              border-radius: 48px;
-            }
-            .featuredToolsSwiper .swiper-pagination {
-              bottom: 0 !important;
-              position: relative !important;
-              margin-top: 30px;
-            }
-            .featuredToolsSwiper .swiper-pagination-bullet {
-              width: 12px;
-              height: 12px;
-              background: var(--neuro-bg);
-              opacity: 1;
-              box-shadow: 3px 3px 6px var(--neuro-shadow-dark), -3px -3px 6px var(--neuro-shadow-light);
-              transition: all 0.3s ease;
-            }
-            .featuredToolsSwiper .swiper-pagination-bullet-active {
-              width: 40px !important;
-              border-radius: 6px !important;
-            }
-          `}</style>
-
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            className="w-full max-w-[1185px]"
+            className="w-full max-w-4xl"
           >
-            <div className="swiper featuredToolsSwiper">
-              <div className="swiper-wrapper">
-                {featuredTools.map((tool, index) => (
-                  <div key={index} className="swiper-slide">
-                    <div className="card-wrapper">
-                      <div className="relative min-h-[400px] lg:min-h-[450px]">
-                        <div 
-                          className="card-bg-parallax" 
-                          style={{ background: tool.color }}
-                          data-swiper-parallax="-35%"
-                        ></div>
-                        <div className="relative z-10 w-full min-h-[400px] lg:min-h-[450px]" 
-                          style={{ 
-                            background: tool.color, 
-                            color: 'white',
-                            boxShadow: 'none'
-                          }}
-                        >
-                        <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
-                          <div className="p-6 sm:p-8 md:p-12 flex flex-col justify-center order-1">
-                            <div className="flex items-center space-x-2 text-white/80 mb-3" data-swiper-parallax="-100">
-                              <Star className="w-4 h-4 fill-current" />
-                              <span className="text-xs font-semibold uppercase tracking-wider">Featured Extension</span>
-                            </div>
-                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 tracking-tight" data-swiper-parallax="-200">{tool.name}</h2>
-                            <p className="text-sm sm:text-base md:text-lg text-white/80 mb-6 leading-relaxed" data-swiper-parallax="-300">
-                              {tool.description}
-                            </p>
-                            <div data-swiper-parallax="-400">
-                              <Link href={tool.path}>
-                                <button 
-                                  className="flex items-center px-6 py-3 rounded-2xl font-semibold transition-all duration-300"
-                                  style={{ 
-                                    background: 'white',
-                                    color: tool.color,
-                                    boxShadow: '8px 8px 16px rgba(0, 0, 0, 0.2), -8px -8px 16px rgba(255, 255, 255, 0.8)',
-                                    border: 'none'
-                                  }}
-                                  onMouseEnter={(e) => {
-                                    e.currentTarget.style.boxShadow = '12px 12px 24px rgba(0, 0, 0, 0.25), -12px -12px 24px rgba(255, 255, 255, 0.9)';
-                                    e.currentTarget.style.transform = 'translateY(-2px)';
-                                  }}
-                                  onMouseLeave={(e) => {
-                                    e.currentTarget.style.boxShadow = '8px 8px 16px rgba(0, 0, 0, 0.2), -8px -8px 16px rgba(255, 255, 255, 0.8)';
-                                    e.currentTarget.style.transform = 'translateY(0)';
-                                  }}
-                                >
-                                  Learn More
-                                  <ArrowRight className="ml-2 h-4 w-4" />
-                                </button>
-                              </Link>
-                            </div>
+            <div className="relative px-4">
+              {/* Carousel Container */}
+              <div 
+                className="overflow-hidden rounded-3xl cursor-grab active:cursor-grabbing"
+                ref={carouselRef}
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={handleMouseUp}
+              >
+                <motion.div
+                  className="flex"
+                  animate={{ x: `calc(-${currentSlide * 100}% + ${isDragging ? dragOffset : 0}px)` }}
+                  transition={isDragging ? { type: "tween", duration: 0 } : { type: "tween", duration: 0.6, ease: "easeInOut" }}
+                >
+                  {featuredTools.map((tool, index) => (
+                    <div key={index} className="w-full flex-shrink-0">
+                      <div 
+                        className="relative min-h-[450px] p-8 md:p-12 flex flex-col justify-between rounded-3xl select-none"
+                        style={{ background: tool.color }}
+                      >
+                        <div className="relative z-10">
+                          <div className="flex items-center space-x-2 text-white/80 mb-4">
+                            <Star className="w-4 h-4 fill-current" />
+                            <span className="text-xs font-semibold uppercase tracking-wider">Featured Extension</span>
                           </div>
-                          <div className="relative h-48 sm:h-64 lg:h-full min-h-[250px] flex items-center justify-center order-2 pointer-events-none" data-swiper-parallax="-500">
-                            {/* Icon placeholder - will be replaced with tool logo */}
-                            <div className="text-white/25 text-[140px]">
-                              ⚙
-                            </div>
-                          </div>
+                          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white tracking-tight">
+                            {tool.name}
+                          </h2>
+                          <p className="text-base md:text-lg text-white/90 mb-8 leading-relaxed max-w-xl">
+                            {tool.description}
+                          </p>
+                          <Link href={tool.path}>
+                            <button 
+                              className="flex items-center px-6 py-3 rounded-2xl font-semibold transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                              style={{ 
+                                background: 'white',
+                                color: tool.color,
+                              }}
+                            >
+                              Learn More
+                              <ArrowRight className="ml-2 h-4 w-4" />
+                            </button>
+                          </Link>
                         </div>
+                        
+                        {/* Icon placeholder */}
+                        <div className="absolute bottom-8 right-8 text-white/10 text-9xl opacity-50 pointer-events-none">
+                          ⚙
                         </div>
                       </div>
                     </div>
-                  </div>
+                  ))}
+                </motion.div>
+              </div>
+
+              {/* Navigation Buttons */}
+              <button
+                onClick={prevSlide}
+                disabled={currentSlide === 0}
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 md:-translate-x-20 z-20 p-2 rounded-full transition-all duration-300 hover:scale-110 disabled:opacity-40 disabled:cursor-not-allowed"
+                style={{ 
+                  background: 'var(--neuro-bg)',
+                  boxShadow: '3px 3px 6px var(--neuro-shadow-dark), -3px -3px 6px var(--neuro-shadow-light)',
+                  color: 'var(--neuro-text)'
+                }}
+                aria-label="Previous slide"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+
+              <button
+                onClick={nextSlide}
+                disabled={currentSlide === featuredTools.length - 1}
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 md:translate-x-20 z-20 p-2 rounded-full transition-all duration-300 hover:scale-110 disabled:opacity-40 disabled:cursor-not-allowed"
+                style={{ 
+                  background: 'var(--neuro-bg)',
+                  boxShadow: '3px 3px 6px var(--neuro-shadow-dark), -3px -3px 6px var(--neuro-shadow-light)',
+                  color: 'var(--neuro-text)'
+                }}
+                aria-label="Next slide"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+
+              {/* Pagination Dots */}
+              <div className="flex justify-center gap-3 mt-8">
+                {featuredTools.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentSlide(index)}
+                    className={`transition-all duration-300 rounded-full ${
+                      index === currentSlide ? 'w-8 h-3' : 'w-3 h-3'
+                    }`}
+                    style={{
+                      background: index === currentSlide ? 'var(--neuro-primary)' : 'var(--neuro-bg)',
+                      boxShadow: '3px 3px 6px var(--neuro-shadow-dark), -3px -3px 6px var(--neuro-shadow-light)',
+                    }}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
                 ))}
               </div>
-              <div className="swiper-pagination"></div>
             </div>
           </motion.div>
         </motion.section>
