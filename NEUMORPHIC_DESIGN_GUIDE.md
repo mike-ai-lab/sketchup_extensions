@@ -70,7 +70,7 @@ Neumorphism (New + Skeuomorphism) creates soft, extruded plastic-looking UI elem
 
 ```css
 /* Light Theme */
---neuro-bg: #e0e5ec;
+--neuro-bg: #eeeeee;
 --neuro-shadow-light: #ffffff;
 --neuro-shadow-dark: #a3b1c6;
 --neuro-text: #4a5568;

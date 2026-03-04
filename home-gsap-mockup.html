@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STUDIØ - Home</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 50;
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(10px);
+    }
+    
+    nav .logo {
+      font-weight: 900;
+      font-size: 1.5rem;
+      letter-spacing: -0.05em;
+    }
+    
+    nav .links {
+      display: flex;
+      gap: 2.5rem;
+      font-weight: 500;
+    }
+    
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+    
+    nav a:hover {
+      opacity: 1;
+    }
+    
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .hero h1 {
+      font-size: clamp(3rem, 10vw, 8rem);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 0.9;
+      margin-bottom: 2rem;
+    }
+    
+    .hero .highlight {
+      font-style: italic;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero p {
+      max-width: 42rem;
+      margin: 0 auto 3rem;
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+    
+    .btn {
+      padding: 1.25rem 2.5rem;
+      border: none;
+      border-radius: 9999px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: transform 0.2s;
+    }
+    
+    .btn:hover {
+      transform: scale(1.05);
+    }
+    
+    .btn-primary {
+      background: #fff;
+      color: #000;
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+    
+    .horizontal-section {
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    .horizontal-wrapper {
+      display: flex;
+      height: 100vh;
+    }
+    
+    .tool-panel {
+      width: 100vw;
+      height: 100vh;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem;
+      position: relative;
+    }
+    
+    .tool-content {
+      max-width: 50rem;
+    }
+    
+    .tool-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(255,255,255,0.1);
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 2rem;
+    }
+    
+    .tool-content h2 {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      margin-bottom: 1.5rem;
+      line-height: 1;
+    }
+    
+    .tool-content p {
+      font-size: 1.5rem;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 2.5rem;
+    }
+    
+    .value-section {
+      height: 500vh;
+      position: relative;
+    }
+    
+    .value-container {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+    }
+    
+    .value-card {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 2rem;
+      padding: 3rem;
+      width: 10rem;
+      height: 10rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      backdrop-filter: blur(10px);
+      overflow: visible;
+    }
+    
+    .value-icon {
+      width: 4rem;
+      height: 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    
+    .value-text {
+      opacity: 0;
+      margin-left: 2rem;
+      max-width: 45rem;
+      flex-shrink: 0;
+    }
+    
+    .value-text h3 {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+    
+    .value-text p {
+      color: rgba(255,255,255,0.8);
+      line-height: 1.6;
+      font-size: 1.15rem;
+      margin-bottom: 1rem;
+      white-space: normal;
+    }
+    
+    .value-text .details {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      white-space: normal;
+    }
+    
+    .cta-section {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .cta-content h2 {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      margin-bottom: 1.5rem;
+    }
+    
+    .cta-content p {
+      font-size: 1.5rem;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 3rem;
+      max-width: 40rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+  
+  <nav>
+    <div class="logo">STUDIØ</div>
+    <div class="links">
+      <a href="#tools">Tools</a>
+      <a href="#pricing">Pricing</a>
+    </div>
+  </nav>
+  
+  <section class="hero">
+    <div class="hero-content">
+      <h1>
+        Tools Built for<br>
+        <span class="highlight">Precision & Complexity</span>
+      </h1>
+      <p>
+        Advanced automation and parametric solutions for architectural workflows. 
+        Tailored for modern design excellence.
+      </p>
+      <div class="hero-buttons">
+        <button class="btn btn-primary">Explore Tools</button>
+        <button class="btn btn-secondary">View Pricing</button>
+      </div>
+    </div>
+  </section>
+  
+  <section class="horizontal-section">
+    <div class="horizontal-wrapper">
+      <div class="tool-panel" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="tool-content">
+          <div class="tool-badge">★ Featured Module</div>
+          <h2>PARAMETRIX</h2>
+          <p>Parametric cladding layout generator. Handle complex multi-face geometries with advanced trimming and pattern synchronization.</p>
+          <button class="btn btn-primary">Learn More</button>
+        </div>
+      </div>
+      
+      <div class="tool-panel" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+        <div class="tool-content">
+          <div class="tool-badge">★ Featured Module</div>
+          <h2>AutoNestCut</h2>
+          <p>Intelligent cut list generation and nesting optimization. Maximize material efficiency with automated layout algorithms.</p>
+          <button class="btn btn-primary">Learn More</button>
+        </div>
+      </div>
+      
+      <div class="tool-panel" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+        <div class="tool-content">
+          <div class="tool-badge">★ Featured Module</div>
+          <h2>SPECBASE</h2>
+          <p>Comprehensive specification database management. Organize materials, products, and technical data with powerful search.</p>
+          <button class="btn btn-primary">Learn More</button>
+        </div>
+      </div>
+      
+      <div class="tool-panel" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+        <div class="tool-content">
+          <div class="tool-badge">★ Featured Module</div>
+          <h2>DocMark</h2>
+          <p>Professional documentation and markup system. Streamline project annotations, revisions, and technical documentation workflows.</p>
+          <button class="btn btn-primary">Learn More</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="value-section">
+    <div class="value-container">
+      <div class="value-card card-1">
+        <div class="value-icon">
+          <svg width="64" height="64" fill="white" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+        </div>
+        <div class="value-text">
+          <h3>Algorithmic Precision</h3>
+          <p>Mathematical accuracy for complex geometries with advanced computational methods.</p>
+          <div class="details">Leveraging cutting-edge algorithms to ensure every calculation meets architectural standards and delivers flawless results.</div>
+        </div>
+      </div>
+      
+      <div class="value-card card-2">
+        <div class="value-icon">
+          <svg width="64" height="64" fill="white" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <div class="value-text">
+          <h3>Production Ready</h3>
+          <p>Built for real-world architectural projects with proven reliability.</p>
+          <div class="details">Tested across hundreds of projects, from residential to large-scale commercial developments worldwide.</div>
+        </div>
+      </div>
+      
+      <div class="value-card card-3">
+        <div class="value-icon">
+          <svg width="64" height="64" fill="white" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6M23 12h-6m-6 0H1"/></svg>
+        </div>
+        <div class="value-text">
+          <h3>Deep Customization</h3>
+          <p>Extensive parameters for exact control over every design element.</p>
+          <div class="details">Fine-tune every aspect with granular controls that adapt to your specific workflow needs and preferences.</div>
+        </div>
+      </div>
+      
+      <div class="value-card card-4">
+        <div class="value-icon">
+          <svg width="64" height="64" fill="white" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M17 11V7a5 5 0 00-10 0v4"/></svg>
+        </div>
+        <div class="value-text">
+          <h3>Reliable Output</h3>
+          <p>Consistent results across complex scenarios and edge cases.</p>
+          <div class="details">Robust error handling and validation ensures your designs are always production-ready and error-free.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to Transform Your Workflow?</h2>
+      <p>Start building with precision tools designed for modern architecture.</p>
+      <button class="btn btn-primary">Get Started Today</button>
+    </div>
+  </section>
+  
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // Hero fade out
+    gsap.to(".hero-content", {
+      opacity: 0,
+      y: -100,
+      scrollTrigger: {
+        trigger: ".hero",
+        start: "top top",
+        end: "bottom top",
+        scrub: 1
+      }
+    });
+    
+    // Horizontal scroll
+    let panels = gsap.utils.toArray(".tool-panel");
+    gsap.to(panels, {
+      xPercent: -100 * (panels.length - 1),
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".horizontal-section",
+        pin: true,
+        scrub: 1,
+        end: () => "+=" + document.querySelector(".horizontal-wrapper").offsetWidth
+      }
+    });
+    
+    // Value cards sequential animation
+    const cards = gsap.utils.toArray(".value-card");
+    
+    cards.forEach((card, index) => {
+      const text = card.querySelector(".value-text");
+      
+      let tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".value-section",
+          start: () => `top+=${index * 20}% top`,
+          end: () => `top+=${(index + 1) * 20 + 5}% top`,
+          scrub: 1.5
+        }
+      });
+      
+      // Slide up from bottom as compact square
+      tl.fromTo(card, 
+        { y: 300, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }
+      )
+      // Expand card width horizontally
+      .to(card, {
+        width: "60rem",
+        height: "auto",
+        justifyContent: "flex-start",
+        duration: 0.35,
+        ease: "power2.inOut"
+      })
+      // Fade in text content
+      .to(text, {
+        opacity: 1,
+        duration: 0.25,
+        ease: "power2.out"
+      }, "-=0.2")
+      // Hold in view
+      .to({}, { duration: 0.15 })
+      // Collapse back to square
+      .to(text, {
+        opacity: 0,
+        duration: 0.15,
+        ease: "power2.in"
+      })
+      .to(card, {
+        width: "10rem",
+        height: "10rem",
+        justifyContent: "center",
+        duration: 0.25,
+        ease: "power2.inOut"
+      }, "-=0.1")
+      // Fade out upward as square
+      .to(card, {
+        opacity: 0,
+        y: -200,
+        duration: 0.25,
+        ease: "power2.in"
+      });
+    });
+    
+    // CTA fade in
+    gsap.from(".cta-content", {
+      opacity: 0,
+      y: 50,
+      scrollTrigger: {
+        trigger: ".cta-section",
+        start: "top 70%",
+        end: "top 30%",
+        scrub: 1
+      }
+    });
+  </script>
+  
+</body>
+</html>

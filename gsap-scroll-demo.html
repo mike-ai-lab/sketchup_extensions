@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSAP ScrollTrigger Demo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background: #1a1a1a;
+      color: white;
+    }
+    
+    .spacer {
+      height: 50vh;
+    }
+    
+    .section {
+      padding: 100px 50px;
+      text-align: center;
+    }
+    
+    h2 {
+      margin-bottom: 50px;
+      font-size: 2em;
+    }
+    
+    /* Basic ScrollTrigger */
+    .box {
+      width: 200px;
+      height: 200px;
+      background: linear-gradient(45deg, #ff6b6b, #ee5a6f);
+      margin: 0 auto;
+      border-radius: 20px;
+    }
+    
+    /* Pinning Section */
+    .panel {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3em;
+      font-weight: bold;
+    }
+    
+    .panel-1 { background: #4ecdc4; }
+    .panel-2 { background: #44a08d; }
+    .panel-3 { background: #f38181; }
+    
+    /* Horizontal Scroll */
+    .horizontal-container {
+      overflow: hidden;
+    }
+    
+    .horizontal-wrapper {
+      display: flex;
+      width: fit-content;
+    }
+    
+    .h-panel {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3em;
+      flex-shrink: 0;
+    }
+    
+    .h-panel-1 { background: #667eea; }
+    .h-panel-2 { background: #764ba2; }
+    .h-panel-3 { background: #f093fb; }
+    .h-panel-4 { background: #4facfe; }
+    
+    /* Fade Items */
+    .fade-item {
+      width: 300px;
+      height: 200px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      margin: 50px auto;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="section">
+    <h1>GSAP ScrollTrigger Demo</h1>
+    <p>Scroll down to see the effects</p>
+  </div>
+  
+  <div class="spacer"></div>
+  
+  <!-- Basic ScrollTrigger -->
+  <div class="section">
+    <h2>1. Basic ScrollTrigger (Scale & Rotate)</h2>
+    <div class="box"></div>
+  </div>
+  
+  <div class="spacer"></div>
+  
+  <!-- Pinning Section -->
+  <div class="section">
+    <h2>2. Pinning Section (Sticky)</h2>
+  </div>
+  
+  <div class="panel panel-1">Pinned Panel 1</div>
+  <div class="panel panel-2">Pinned Panel 2</div>
+  <div class="panel panel-3">Pinned Panel 3</div>
+  
+  <div class="spacer"></div>
+  
+  <!-- Horizontal Scroll -->
+  <div class="section">
+    <h2>3. Horizontal Scroll</h2>
+  </div>
+  
+  <div class="horizontal-container">
+    <div class="horizontal-wrapper">
+      <div class="h-panel h-panel-1">Slide 1</div>
+      <div class="h-panel h-panel-2">Slide 2</div>
+      <div class="h-panel h-panel-3">Slide 3</div>
+      <div class="h-panel h-panel-4">Slide 4</div>
+    </div>
+  </div>
+  
+  <div class="spacer"></div>
+  
+  <!-- Fade Items -->
+  <div class="section">
+    <h2>4. Fade In Items</h2>
+    <div class="fade-item">Item 1</div>
+    <div class="fade-item">Item 2</div>
+    <div class="fade-item">Item 3</div>
+    <div class="fade-item">Item 4</div>
+  </div>
+  
+  <div class="spacer"></div>
+
+  <!-- GSAP Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // 1. Basic ScrollTrigger - Scale & Rotate
+    gsap.to(".box", {
+      scrollTrigger: {
+        trigger: ".box",
+        start: "top center",
+        end: "bottom 100px",
+        scrub: true,
+        markers: true
+      },
+      scale: 1.5,
+      rotation: 360
+    });
+    
+    // 2. Pinning Sections
+    gsap.utils.toArray(".panel").forEach(panel => {
+      gsap.to(panel, {
+        scrollTrigger: {
+          trigger: panel,
+          start: "top top",
+          pin: true,
+          scrub: true,
+          markers: true
+        }
+      });
+    });
+    
+    // 3. Horizontal Scroll
+    let sections = gsap.utils.toArray(".h-panel");
+    gsap.to(sections, {
+      xPercent: -100 * (sections.length - 1),
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".horizontal-container",
+        pin: true,
+        scrub: 1,
+        end: () => "+=" + document.querySelector(".horizontal-wrapper").offsetWidth,
+        markers: true
+      }
+    });
+    
+    // 4. Fade In Items
+    gsap.utils.toArray(".fade-item").forEach(item => {
+      gsap.from(item, {
+        scrollTrigger: {
+          trigger: item,
+          start: "top 80%",
+          markers: true
+        },
+        opacity: 0,
+        y: 50,
+        duration: 1
+      });
+    });
+  </script>
+  
+</body>
+</html>
