@@ -1,211 +1,169 @@
-import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { motion } from "framer-motion";
-import { ExternalLink, FileText, Zap, Eye, Download, Palette, Clock } from "lucide-react";
-import Navigation from "@/components/Navigation";
+import { 
+  ArrowRight, CheckCircle2, ExternalLink, FileText, 
+  Eye, Zap, Palette, Download, ChevronLeft
+} from "lucide-react";
+
+const FEATURES = [
+  { icon: Eye, title: "Live Preview", description: "See your markdown rendered in real-time as you type. No delays, no refresh needed." },
+  { icon: Zap, title: "Synchronized Scrolling", description: "Editor and preview stay perfectly in sync. Scroll one side and the other follows." },
+  { icon: Palette, title: "Multiple Themes", description: "Choose from GitHub, GitBook, and VSCode styles. Full dark mode support included." },
+  { icon: Download, title: "PDF Export", description: "Generate professional PDFs with custom fonts and styling. Perfect for sharing." }
+];
+
+const SPECS = [
+  { label: "Version", value: "2.0.0" },
+  { label: "Platform", value: "Web-Based" },
+  { label: "Storage", value: "Local Browser" },
+  { label: "Cost", value: "Free Forever" }
+];
 
 export default function DocmarkDetail() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navigation />
+    <div className="bg-[#050505] min-h-screen text-white font-sans selection:bg-purple-600 overflow-x-hidden">
+      <nav className="fixed top-0 w-full z-50 p-8 flex justify-between items-center bg-[#050505]/80 backdrop-blur-xl border-b border-white/5">
+        <Link href="/tools" className="flex items-center gap-4 text-[10px] font-black tracking-[0.4em] text-white/30 hover:text-purple-500 transition-colors uppercase group">
+          <ChevronLeft size={16} className="group-hover:-translate-x-2 transition-transform" /> Back
+        </Link>
+        <div className="text-sm font-black tracking-[0.8em] italic opacity-20">MODULE // DOCM</div>
+        <div className="w-20"></div>
+      </nav>
 
-      {/* Hero Section */}
-      <section className="py-20 px-4 bg-gradient-to-b from-background to-secondary/20 pt-32">
-        <div className="container mx-auto max-w-6xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center"
-          >
-            <h1 className="text-5xl font-bold tracking-tight mb-4">DocMark</h1>
-            <p className="text-xl text-muted-foreground mb-8">
-              Real-Time Markdown Editor with Live Preview
-            </p>
-            <div className="flex gap-4 justify-center">
-              <a href="https://docmark.mimevents.com" target="_blank" rel="noopener noreferrer">
-                <Button size="lg" className="gap-2">
-                  <ExternalLink className="w-4 h-4" />
-                  Launch DocMark
-                </Button>
-              </a>
+      <section className="pt-40 pb-20 px-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+          <div className="space-y-8">
+            <div className="inline-flex items-center gap-3 px-3 py-1 bg-purple-500/10 border border-purple-500/20 text-purple-500 text-[10px] font-black uppercase tracking-widest rounded">
+              <Zap size={12} /> Content Engine
             </div>
-            <p className="mt-4 text-sm text-muted-foreground">
-              100% Free • No Account Required • Works Offline
+            
+            <h1 className="text-[120px] font-black tracking-tighter leading-[0.75] uppercase italic stroke-text">
+              DocMark
+            </h1>
+            
+            <p className="text-2xl font-medium text-white/60 leading-tight">
+              Real-Time Markdown <br/>Editor with Live Preview
             </p>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* Value Proposition */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl font-bold mb-6">Write Markdown Faster</h2>
-          <p className="text-lg text-muted-foreground mb-8">
-            DocMark is a fast, browser-based markdown editor with split-pane live preview. 
-            Write on the left, see rendered output on the right with synchronized scrolling. 
-            Perfect for documentation, technical writing, and content creation.
-          </p>
-        </div>
-      </section>
+            <p className="text-white/40 leading-relaxed max-w-lg">
+              Fast, browser-based markdown editor with split-pane live preview. Write on the left, see rendered output on the right with synchronized scrolling.
+            </p>
 
-      {/* Features Grid */}
-      <section className="py-16 px-4 bg-secondary/20">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-center mb-12">Powerful Features</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <FeatureCard
-              icon={<Eye className="w-8 h-8" />}
-              title="Live Preview"
-              description="See your markdown rendered in real-time as you type. No delays, no refresh needed."
-            />
-            <FeatureCard
-              icon={<Zap className="w-8 h-8" />}
-              title="Synchronized Scrolling"
-              description="Editor and preview stay perfectly in sync. Scroll one side and the other follows automatically."
-            />
-            <FeatureCard
-              icon={<Palette className="w-8 h-8" />}
-              title="Multiple Themes"
-              description="Choose from GitHub, GitBook, and VSCode styles. Full dark mode support included."
-            />
-            <FeatureCard
-              icon={<Download className="w-8 h-8" />}
-              title="PDF Export"
-              description="Generate professional PDFs with custom fonts and styling. Perfect for sharing and printing."
-            />
-            <FeatureCard
-              icon={<Clock className="w-8 h-8" />}
-              title="Auto-Save"
-              description="Your content automatically saves to browser storage. Never lose your work."
-            />
-            <FeatureCard
-              icon={<FileText className="w-8 h-8" />}
-              title="Syntax Highlighting"
-              description="Monaco editor with full language support for code blocks and technical content."
-            />
+            <div className="flex flex-wrap gap-4 pt-4">
+              <a href="https://docmark.mimevents.com" target="_blank" rel="noopener noreferrer">
+                <button className="bg-purple-600 hover:bg-purple-500 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95 shadow-2xl shadow-purple-600/20">
+                  Launch DocMark <ExternalLink size={18} />
+                </button>
+              </a>
+              <button className="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95">
+                <ArrowRight size={18} /> Learn More
+              </button>
+            </div>
+            
+            <div className="flex items-center gap-6 pt-4 text-[9px] font-bold text-white/20 uppercase tracking-[0.3em]">
+              <span className="flex items-center gap-2"><Eye size={12} className="text-purple-500" /> 100% Free</span>
+              <span className="flex items-center gap-2"><Eye size={12} className="text-purple-500" /> No Account</span>
+              <span className="flex items-center gap-2"><Eye size={12} className="text-purple-500" /> Works Offline</span>
+            </div>
+          </div>
+
+          <div className="relative flex justify-center items-center">
+            <div className="w-[500px] h-[500px] bg-[#0c0c0e] border border-white/5 rounded-[60px] flex items-center justify-center relative overflow-hidden group">
+               <div className="absolute inset-0 bg-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+               <FileText className="w-48 h-48 text-white/5 group-hover:text-purple-500/20 transition-colors duration-700" strokeWidth={0.5} />
+               <div className="absolute top-10 left-10 text-[9px] font-mono opacity-20 group-hover:opacity-100 transition-opacity">
+                  ID: MOD_DOCM_004<br/>STATUS: READY_FOR_DEPLOY
+               </div>
+               <div className="absolute bottom-10 right-10 flex gap-1">
+                  {[...Array(3)].map((_, i) => (
+                    <div key={i} className="w-1 h-1 bg-purple-500 rounded-full animate-pulse" style={{ animationDelay: `${i*0.2}s` }}></div>
+                  ))}
+               </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Use Cases */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold text-center mb-12">Perfect For</h2>
-          <div className="space-y-6">
-            <UseCase
-              title="Technical Documentation"
-              description="Write API docs, README files, and technical guides with live preview and syntax highlighting."
-            />
-            <UseCase
-              title="Blog Posts & Articles"
-              description="Draft blog posts and articles with instant preview. Export to PDF when ready to publish."
-            />
-            <UseCase
-              title="Project Notes"
-              description="Keep project notes, meeting minutes, and design decisions organized in markdown format."
-            />
-            <UseCase
-              title="Content Creation"
-              description="Create newsletters, guides, and educational content with professional formatting and styling."
-            />
+      <section className="py-32 px-8 bg-[#08080a]">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-20 space-y-4">
+            <h2 className="text-4xl font-black uppercase italic tracking-tighter">System Features</h2>
+            <div className="w-20 h-1 bg-purple-500"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {FEATURES.map((f, i) => (
+              <div key={i} className="bg-[#0c0c0e] border border-white/5 p-10 rounded-[40px] hover:border-purple-500/50 transition-colors group">
+                <div className="w-16 h-16 bg-purple-500/10 rounded-2xl flex items-center justify-center text-purple-500 mb-8 group-hover:bg-purple-500 group-hover:text-white transition-all">
+                  <f.icon size={28} />
+                </div>
+                <h3 className="text-lg font-black uppercase tracking-tight mb-4 italic">{f.title}</h3>
+                <p className="text-sm text-white/40 leading-relaxed font-medium">{f.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="py-16 px-4 bg-secondary/20">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold text-center mb-12">How It Works</h2>
-          <div className="space-y-6">
-            <Step
-              number={1}
-              title="Open DocMark"
-              description="Launch the editor in your browser. No installation or account needed."
-            />
-            <Step
-              number={2}
-              title="Write Markdown"
-              description="Type your markdown on the left side. Use standard markdown syntax for formatting."
-            />
-            <Step
-              number={3}
-              title="See Live Preview"
-              description="Watch your content render in real-time on the right side with perfect synchronization."
-            />
-            <Step
-              number={4}
-              title="Export or Save"
-              description="Export to PDF, save to your computer, or let auto-save keep your work in the browser."
-            />
+      <section className="py-32 px-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-32">
+          <div className="space-y-12">
+            <h2 className="text-4xl font-black uppercase italic tracking-tighter">Why DocMark</h2>
+            <div className="space-y-8">
+              {[
+                { t: "Technical Documentation", d: "Write API docs, README files, and technical guides with live preview and syntax highlighting." },
+                { t: "Blog Posts & Articles", d: "Draft blog posts and articles with instant preview. Export to PDF when ready to publish." },
+                { t: "Content Creation", d: "Create newsletters, guides, and educational content with professional formatting." }
+              ].map((item, i) => (
+                <div key={i} className="flex gap-6">
+                   <div className="mt-1"><CheckCircle2 className="text-purple-500" size={24} /></div>
+                   <div>
+                      <h4 className="text-lg font-bold uppercase italic tracking-tight">{item.t}</h4>
+                      <p className="text-white/40 text-sm leading-relaxed">{item.d}</p>
+                   </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-[#0c0c0e] border border-white/5 p-12 rounded-[50px]">
+            <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-10">Technical Specifications</h3>
+            <div className="space-y-6">
+              {SPECS.map((s, i) => (
+                <div key={i} className="flex justify-between items-center py-4 border-b border-white/5 last:border-0">
+                  <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">{s.label}</span>
+                  <span className="text-sm font-bold text-purple-500 italic uppercase">{s.value}</span>
+                </div>
+              ))}
+            </div>
+            <div className="mt-12 pt-12 border-t border-white/5 text-center">
+               <FileText className="mx-auto mb-4 text-purple-500" size={20} />
+               <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-40 italic">Content Creation Standard</p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 px-4 bg-primary text-primary-foreground">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-4xl font-bold mb-4">Start Writing Markdown Today</h2>
-          <p className="text-xl mb-8 opacity-90">
-            Fast, simple, and powerful markdown editing with live preview.
-          </p>
-          <a href="https://docmark.mimevents.com" target="_blank" rel="noopener noreferrer">
-            <Button size="lg" variant="secondary" className="gap-2">
-              <ExternalLink className="w-4 h-4" />
-              Launch DocMark Now
-            </Button>
-          </a>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <div className="flex justify-center py-8 px-4">
-        <footer className="bg-background/80 backdrop-blur-lg border border-border rounded-full px-4 sm:px-6 py-3 shadow-lg max-w-4xl">
-          <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground flex-wrap justify-center">
+      <div className="flex justify-center py-20 px-8">
+        <footer className="bg-[#0c0c0e] border border-white/5 rounded-full px-12 py-6 shadow-2xl flex flex-col md:flex-row items-center gap-8">
+          <div className="flex items-center gap-6 text-[10px] font-black tracking-[0.4em] text-white/30 uppercase">
             <span>© 2025 Studiø</span>
-            <span className="text-border hidden sm:inline">•</span>
-            <span className="text-center">Developed by Int. Arch. M.Shkeir</span>
+            <div className="w-1 h-1 bg-white/10 rounded-full"></div>
+            <span>Muhamad Shkeir</span>
+            <div className="w-1 h-1 bg-white/10 rounded-full"></div>
+            <span className="text-purple-500">Riyadh, KSA</span>
           </div>
         </footer>
       </div>
-    </div>
-  );
-}
 
-function FeatureCard({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className="p-6 border rounded-lg bg-card"
-    >
-      <div className="text-primary mb-4">{icon}</div>
-      <h3 className="text-lg font-semibold mb-2">{title}</h3>
-      <p className="text-sm text-muted-foreground">{description}</p>
-    </motion.div>
-  );
-}
-
-function Step({ number, title, description }: { number: number; title: string; description: string }) {
-  return (
-    <div className="flex gap-4">
-      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
-        {number}
-      </div>
-      <div>
-        <h3 className="text-lg font-semibold mb-1">{title}</h3>
-        <p className="text-muted-foreground">{description}</p>
-      </div>
-    </div>
-  );
-}
-
-function UseCase({ title, description }: { title: string; description: string }) {
-  return (
-    <div className="p-6 border rounded-lg bg-card">
-      <h3 className="text-lg font-semibold mb-2">{title}</h3>
-      <p className="text-muted-foreground">{description}</p>
+      <style>{`
+        .stroke-text {
+          -webkit-text-stroke: 1px rgba(255,255,255,0.2);
+          color: transparent;
+        }
+        @media (min-width: 1024px) {
+          .stroke-text { -webkit-text-stroke: 2px rgba(255,255,255,0.2); }
+        }
+      `}</style>
     </div>
   );
 }

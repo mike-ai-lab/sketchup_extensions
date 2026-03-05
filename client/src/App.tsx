@@ -26,23 +26,35 @@ function Router() {
   const [location] = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // Only scroll to top if there's no hash in the URL
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    } else {
+      // Scroll to the hash element
+      setTimeout(() => {
+        const id = window.location.hash.substring(1);
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
   }, [location]);
 
   return (
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/tools" component={Tools} />
-      <Route path="/tutorials" component={Tutorials} />
+      {/* <Route path="/tutorials" component={Tutorials} /> */}
       <Route path="/pricing" component={Pricing} />
-      <Route path="/download" component={Download} />
-      <Route path="/faq" component={FAQ} />
+      {/* <Route path="/download" component={Download} /> */}
+      {/* <Route path="/faq" component={FAQ} /> */}
       <Route path="/tools/parametrix" component={ParametrixDetail} />
       <Route path="/tools/specbase" component={SpecbaseDetail} />
       <Route path="/tools/autonestcut" component={AutoNestCutDetail} />
       <Route path="/tools/docmark" component={DocmarkDetail} />
       <Route path="/tools/utilities" component={UtilitiesDetail} />
-      <Route path="/resources" component={Resources} />
+      {/* <Route path="/resources" component={Resources} /> */}
       <Route path="/products/:slug" component={ProductPage} />
       <Route path="/contact" component={Contact} />
       <Route path="/dashboard" component={Dashboard} />

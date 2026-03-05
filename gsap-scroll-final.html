@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSAP Horizontal Scroll - Progressive Reveal</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0a0e27;
+      color: white;
+      line-height: 1.6;
+    }
+
+    /* Header Section */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content h1 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .hero-content p {
+      font-size: 1.5rem;
+      opacity: 0.95;
+      animation: fadeInUp 1s ease-out 0.2s both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Intro Text */
+    .intro-text {
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 50px;
+      text-align: center;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+    }
+
+    .intro-text h2 {
+      font-size: 3rem;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .intro-text p {
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0.85;
+      line-height: 1.8;
+    }
+
+    /* Horizontal Scroll Wrapper */
+    .scroll-wrapper {
+      height: 300vh;
+      position: relative;
+    }
+
+    .horizontal-scroll {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .slides {
+      display: flex;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 40px;
+    }
+
+    /* Slide Backgrounds */
+    .slide.slide-1 {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .slide.slide-2 {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+
+    .slide.slide-3 {
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+
+    /* Slide Content */
+    .slide-inner {
+      width: 100%;
+      max-width: 800px;
+      text-align: center;
+      z-index: 10;
+      position: relative;
+    }
+
+    .slide-tag {
+      display: inline-block;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 20px;
+      padding: 10px 25px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 30px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .slide-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 25px;
+      line-height: 1.2;
+    }
+
+    .slide-text {
+      font-size: 1.2rem;
+      opacity: 0.95;
+      margin-bottom: 35px;
+      line-height: 1.8;
+    }
+
+    .slide-icon {
+      font-size: 5rem;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+
+    .slide-feature {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .feature-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+    }
+
+    .feature-text {
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    /* Background Decoration */
+    .slide::before {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+      top: -100px;
+      right: -100px;
+      z-index: 1;
+    }
+
+    .slide::after {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 50%;
+      bottom: -50px;
+      left: -50px;
+      z-index: 1;
+    }
+
+    /* End Section */
+    .end-section {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+      padding: 50px;
+    }
+
+    .end-section h2 {
+      font-size: 3rem;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .end-section p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0.8;
+    }
+
+    /* Progress Indicator */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #4facfe);
+      z-index: 999;
+      width: 0%;
+    }
+
+    /* Scroll Indicator */
+    .scroll-indicator {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+      text-align: center;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+
+    .scroll-indicator.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .scroll-indicator svg {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 8px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+
+      .slide-title {
+        font-size: 2rem;
+      }
+
+      .slide-text {
+        font-size: 1rem;
+      }
+
+      .intro-text h2 {
+        font-size: 2rem;
+      }
+
+      .scroll-wrapper {
+        height: 400vh;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar"></div>
+
+  <div class="scroll-indicator">
+    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+    <div style="font-size: 0.85rem;">Scroll to explore</div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Scroll Journey</h1>
+      <p>Experience progressive scroll-driven animations</p>
+    </div>
+  </section>
+
+  <!-- Intro Section -->
+  <section class="intro-text">
+    <div>
+      <h2>How It Works</h2>
+      <p>Scroll down to see each slide reveal its content progressively. As you scroll, elements within each slide animate in sequence: tag, title, description, and features appear one by one, creating an engaging narrative experience.</p>
+    </div>
+  </section>
+
+  <!-- Horizontal Scroll Section -->
+  <div class="scroll-wrapper">
+    <div class="horizontal-scroll">
+      <div class="slides">
+        
+        <!-- Slide 1 -->
+        <section class="slide slide-1">
+          <div class="slide-inner">
+            <div class="slide-tag">First Chapter</div>
+            <div class="slide-icon">🎯</div>
+            <h2 class="slide-title">Vision & Purpose</h2>
+            <p class="slide-text">
+              Every great journey begins with a clear vision. This first slide introduces the concept of progressive scroll animations, where each element reveals itself at the perfect moment to guide your attention and create a memorable experience.
+            </p>
+            <div class="slide-feature">
+              <div class="feature-item">
+                <div class="feature-icon">✨</div>
+                <div class="feature-text">Smooth Timing</div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">🎨</div>
+                <div class="feature-text">Beautiful Design</div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-text">Responsive</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 2 -->
+        <section class="slide slide-2">
+          <div class="slide-inner">
+            <div class="slide-tag">Second Chapter</div>
+            <div class="slide-icon">🚀</div>
+            <h2 class="slide-title">Momentum & Energy</h2>
+            <p class="slide-text">
+              As you continue scrolling, momentum builds. This second slide demonstrates how multiple elements can be orchestrated to reveal progressively, each waiting for the perfect moment to come into view. The animations synchronize with your scroll speed.
+            </p>
+            <div class="slide-feature">
+              <div class="feature-item">
+                <div class="feature-icon">🔄</div>
+                <div class="feature-text">Synchronized</div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">🎯</div>
+                <div class="feature-text">Precise Control</div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">💡</div>
+                <div class="feature-text">Smart Timing</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 3 -->
+        <section class="slide slide-3">
+          <div class="slide-inner">
+            <div class="slide-tag">Third Chapter</div>
+            <div class="slide-icon">🏆</div>
+            <h2 class="slide-title">Achievement & Impact</h2>
+            <p class="slide-text">
+              You've reached the final chapter. Each element in every slide has animated in at precisely the right moment, guided by your scrolling. This layered approach creates depth and maintains engagement throughout the entire journey.
+            </p>
+            <div class="slide-feature">
+              <div class="feature-item">
+                <div class="feature-icon">🌟</div>
+                <div class="feature-text">Polished</div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">🎬</div>
+                <div class="feature-text">Cinematic</div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">✅</div>
+                <div class="feature-text">Complete</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- End Section -->
+  <section class="end-section">
+    <div>
+      <h2>Experience Complete</h2>
+      <p>You've journeyed through progressive scroll animations across three slides. Each element revealed itself in perfect sequence, controlled by your scrolling speed. This technique creates highly engaging, memorable web experiences.</p>
+    </div>
+  </section>
+
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Get all slides and the main slides container
+    const slides = gsap.utils.toArray('.slide');
+    const slidesContainer = document.querySelector('.slides');
+
+    // Create the main horizontal scroll animation
+    const horizontalScroll = gsap.to(slidesContainer, {
+      x: -(slidesContainer.offsetWidth - window.innerWidth),
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.scroll-wrapper',
+        pin: true,
+        scrub: 1,
+        start: 'top top',
+        end: 'bottom top',
+        markers: false,
+      }
+    });
+
+    // Animate elements within each slide
+    slides.forEach((slide, index) => {
+      const tag = slide.querySelector('.slide-tag');
+      const icon = slide.querySelector('.slide-icon');
+      const title = slide.querySelector('.slide-title');
+      const text = slide.querySelector('.slide-text');
+      const features = slide.querySelectorAll('.feature-item');
+
+      // Create a timeline for this slide's animations
+      const tl = gsap.timeline();
+
+      // Tag animation
+      tl.from(tag, {
+        opacity: 0,
+        y: 30,
+        duration: 0.6,
+      }, 0)
+      
+      // Icon animation
+      .from(icon, {
+        opacity: 0,
+        scale: 0.5,
+        duration: 0.7,
+      }, 0.2)
+
+      // Title animation
+      .from(title, {
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+      }, 0.4)
+
+      // Text animation
+      .from(text, {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+      }, 0.6)
+
+      // Features animation (staggered)
+      .from(features, {
+        opacity: 0,
+        y: 30,
+        duration: 0.6,
+        stagger: 0.15,
+      }, 0.8);
+
+      // Attach timeline to scroll trigger using containerAnimation
+      ScrollTrigger.create({
+        trigger: '.scroll-wrapper',
+        containerAnimation: horizontalScroll,
+        start: `left+=${index * window.innerWidth}`,
+        end: `left+=${(index + 1) * window.innerWidth}`,
+        animation: tl,
+        scrub: 1,
+        onEnter: () => updateProgress(),
+        onUpdate: (self) => updateProgress(),
+      });
+    });
+
+    // Update progress bar
+    function updateProgress() {
+      ScrollTrigger.refresh();
+    }
+
+    // Update progress bar width on scroll
+    window.addEventListener('scroll', () => {
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = window.scrollY / scrollHeight;
+      document.querySelector('.progress-bar').style.width = (scrolled * 100) + '%';
+
+      // Hide scroll indicator when scrolling
+      const indicator = document.querySelector('.scroll-indicator');
+      if (scrolled > 0.1) {
+        indicator.classList.add('hidden');
+      } else {
+        indicator.classList.remove('hidden');
+      }
+    });
+
+    // Refresh on resize
+    window.addEventListener('resize', () => {
+      ScrollTrigger.refresh();
+    });
+  </script>
+
+</body>
+</html>

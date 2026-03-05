@@ -1,0 +1,257 @@
+05:40:37.731 installHook.js:1 Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+overrideMethod @ installHook.js:1
+05:40:37.751 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:40:37.751 Tools.tsx:182 📊 SCROLL DEBUG:
+05:40:37.751 Tools.tsx:183 Current Progress: 0.00%
+05:40:37.751 Tools.tsx:184 Scroll Position: 0px
+05:40:37.752 Tools.tsx:185 Total Scrollable: 1953px
+05:40:38.028 Tools.tsx:203 🎯 SNAP CHECK:
+05:40:38.028 Tools.tsx:204 Nearest Snap Point: 0% (Tool 1)
+05:40:38.028 Tools.tsx:205 Distance from Snap: 0.00%
+05:40:38.028 Tools.tsx:206 Snap Threshold: 8%
+05:40:38.028 Tools.tsx:221 ❌ No snap (distance: 0.00%)
+05:40:39.582 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:40:39.582 Tools.tsx:182 📊 SCROLL DEBUG:
+05:40:39.583 Tools.tsx:183 Current Progress: 20.02%
+05:40:39.583 Tools.tsx:184 Scroll Position: 391px
+05:40:39.583 Tools.tsx:185 Total Scrollable: 1953px
+05:40:39.736 Tools.tsx:203 🎯 SNAP CHECK:
+05:40:39.736 Tools.tsx:204 Nearest Snap Point: 20% (Tool 2)
+05:40:39.736 Tools.tsx:205 Distance from Snap: 0.02%
+05:40:39.737 Tools.tsx:206 Snap Threshold: 8%
+05:40:39.737 Tools.tsx:221 ❌ No snap (distance: 0.02%)
+05:41:05.076 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:05.076 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:05.076 Tools.tsx:183 Current Progress: 20.33%
+05:41:05.076 Tools.tsx:184 Scroll Position: 397px
+05:41:05.076 Tools.tsx:185 Total Scrollable: 1953px
+05:41:05.107 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:05.107 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:05.107 Tools.tsx:183 Current Progress: 21.61%
+05:41:05.107 Tools.tsx:184 Scroll Position: 422px
+05:41:05.107 Tools.tsx:185 Total Scrollable: 1953px
+05:41:05.141 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:05.142 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:05.142 Tools.tsx:183 Current Progress: 23.35%
+05:41:05.142 Tools.tsx:184 Scroll Position: 456px
+05:41:05.142 Tools.tsx:185 Total Scrollable: 1953px
+05:41:06.178 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:06.178 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:06.178 Tools.tsx:183 Current Progress: 25.29%
+05:41:06.179 Tools.tsx:184 Scroll Position: 494px
+05:41:06.179 Tools.tsx:185 Total Scrollable: 1953px
+05:41:07.164 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:07.164 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:07.164 Tools.tsx:183 Current Progress: 28.57%
+05:41:07.164 Tools.tsx:184 Scroll Position: 558px
+05:41:07.164 Tools.tsx:185 Total Scrollable: 1953px
+05:41:09.429 Tools.tsx:203 🎯 SNAP CHECK:
+05:41:09.430 Tools.tsx:204 Nearest Snap Point: 20% (Tool 2)
+05:41:09.430 Tools.tsx:205 Distance from Snap: 8.57%
+05:41:09.430 Tools.tsx:206 Snap Threshold: 8%
+05:41:09.430 Tools.tsx:221 ❌ No snap (distance: 8.57%)
+05:41:11.920 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:11.920 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:11.920 Tools.tsx:183 Current Progress: 28.62%
+05:41:11.920 Tools.tsx:184 Scroll Position: 559px
+05:41:11.920 Tools.tsx:185 Total Scrollable: 1953px
+05:41:11.953 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:11.953 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:11.953 Tools.tsx:183 Current Progress: 28.83%
+05:41:11.953 Tools.tsx:184 Scroll Position: 563px
+05:41:11.953 Tools.tsx:185 Total Scrollable: 1953px
+05:41:11.994 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:11.994 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:11.994 Tools.tsx:183 Current Progress: 29.24%
+05:41:11.995 Tools.tsx:184 Scroll Position: 571px
+05:41:11.995 Tools.tsx:185 Total Scrollable: 1953px
+05:41:12.929 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:12.929 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:12.929 Tools.tsx:183 Current Progress: 29.65%
+05:41:12.929 Tools.tsx:184 Scroll Position: 579px
+05:41:12.929 Tools.tsx:185 Total Scrollable: 1953px
+05:41:12.934 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:12.934 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:12.934 Tools.tsx:183 Current Progress: 30.62%
+05:41:12.934 Tools.tsx:184 Scroll Position: 598px
+05:41:12.934 Tools.tsx:185 Total Scrollable: 1953px
+05:41:14.182 Tools.tsx:203 🎯 SNAP CHECK:
+05:41:14.182 Tools.tsx:204 Nearest Snap Point: 40% (Tool 3)
+05:41:14.182 Tools.tsx:205 Distance from Snap: 9.38%
+05:41:14.182 Tools.tsx:206 Snap Threshold: 8%
+05:41:14.182 Tools.tsx:221 ❌ No snap (distance: 9.38%)
+05:41:16.102 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:16.102 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:16.102 Tools.tsx:183 Current Progress: 31.44%
+05:41:16.103 Tools.tsx:184 Scroll Position: 614px
+05:41:16.103 Tools.tsx:185 Total Scrollable: 1953px
+05:41:17.077 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:17.077 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:17.077 Tools.tsx:183 Current Progress: 31.90%
+05:41:17.077 Tools.tsx:184 Scroll Position: 623px
+05:41:17.078 Tools.tsx:185 Total Scrollable: 1953px
+05:41:17.085 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:17.085 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:17.085 Tools.tsx:183 Current Progress: 32.67%
+05:41:17.085 Tools.tsx:184 Scroll Position: 638px
+05:41:17.085 Tools.tsx:185 Total Scrollable: 1953px
+05:41:19.187 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:19.187 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:19.188 Tools.tsx:183 Current Progress: 34.72%
+05:41:19.188 Tools.tsx:184 Scroll Position: 678px
+05:41:19.188 Tools.tsx:185 Total Scrollable: 1953px
+05:41:21.081 Tools.tsx:203 🎯 SNAP CHECK:
+05:41:21.081 Tools.tsx:204 Nearest Snap Point: 40% (Tool 3)
+05:41:21.081 Tools.tsx:205 Distance from Snap: 5.28%
+05:41:21.081 Tools.tsx:206 Snap Threshold: 8%
+05:41:21.081 Tools.tsx:210 ✅ SNAPPING to Tool 3
+05:41:22.198 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:22.198 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:22.198 Tools.tsx:183 Current Progress: 41.58%
+05:41:22.198 Tools.tsx:184 Scroll Position: 812px
+05:41:22.198 Tools.tsx:185 Total Scrollable: 1953px
+05:41:23.182 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:23.182 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:23.182 Tools.tsx:183 Current Progress: 41.88%
+05:41:23.182 Tools.tsx:184 Scroll Position: 818px
+05:41:23.182 Tools.tsx:185 Total Scrollable: 1953px
+05:41:23.192 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:23.192 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:23.192 Tools.tsx:183 Current Progress: 42.04%
+05:41:23.192 Tools.tsx:184 Scroll Position: 821px
+05:41:23.192 Tools.tsx:185 Total Scrollable: 1953px
+05:41:24.514 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:24.515 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:24.515 Tools.tsx:183 Current Progress: 44.09%
+05:41:24.515 Tools.tsx:184 Scroll Position: 861px
+05:41:24.515 Tools.tsx:185 Total Scrollable: 1953px
+05:41:27.481 Tools.tsx:203 🎯 SNAP CHECK:
+05:41:27.481 Tools.tsx:204 Nearest Snap Point: 40% (Tool 3)
+05:41:27.481 Tools.tsx:205 Distance from Snap: 4.09%
+05:41:27.481 Tools.tsx:206 Snap Threshold: 8%
+05:41:27.481 Tools.tsx:210 ✅ SNAPPING to Tool 3
+05:41:28.628 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:28.629 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:28.629 Tools.tsx:183 Current Progress: 40.50%
+05:41:28.630 Tools.tsx:184 Scroll Position: 791px
+05:41:28.630 Tools.tsx:185 Total Scrollable: 1953px
+05:41:28.636 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:28.636 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:28.636 Tools.tsx:183 Current Progress: 39.99%
+05:41:28.636 Tools.tsx:184 Scroll Position: 781px
+05:41:28.637 Tools.tsx:185 Total Scrollable: 1953px
+05:41:30.542 Tools.tsx:203 🎯 SNAP CHECK:
+05:41:30.542 Tools.tsx:204 Nearest Snap Point: 40% (Tool 3)
+05:41:30.542 Tools.tsx:205 Distance from Snap: 0.01%
+05:41:30.542 Tools.tsx:206 Snap Threshold: 8%
+05:41:30.542 Tools.tsx:221 ❌ No snap (distance: 0.01%)
+05:41:32.344 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:32.345 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:32.345 Tools.tsx:183 Current Progress: 42.04%
+05:41:32.345 Tools.tsx:184 Scroll Position: 821px
+05:41:32.345 Tools.tsx:185 Total Scrollable: 1953px
+05:41:33.272 Tools.tsx:203 🎯 SNAP CHECK:
+05:41:33.272 Tools.tsx:204 Nearest Snap Point: 40% (Tool 3)
+05:41:33.272 Tools.tsx:205 Distance from Snap: 2.04%
+05:41:33.272 Tools.tsx:206 Snap Threshold: 8%
+05:41:33.272 Tools.tsx:210 ✅ SNAPPING to Tool 3
+05:41:34.348 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:34.349 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:34.349 Tools.tsx:183 Current Progress: 40.66%
+05:41:34.350 Tools.tsx:184 Scroll Position: 794px
+05:41:34.351 Tools.tsx:185 Total Scrollable: 1953px
+05:41:35.253 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:35.253 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:35.253 Tools.tsx:183 Current Progress: 44.09%
+05:41:35.253 Tools.tsx:184 Scroll Position: 861px
+05:41:35.254 Tools.tsx:185 Total Scrollable: 1953px
+05:41:35.318 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:35.318 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:35.318 Tools.tsx:183 Current Progress: 49.31%
+05:41:35.319 Tools.tsx:184 Scroll Position: 963px
+05:41:35.319 Tools.tsx:185 Total Scrollable: 1953px
+05:41:35.409 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:35.410 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:35.410 Tools.tsx:183 Current Progress: 50.64%
+05:41:35.410 Tools.tsx:184 Scroll Position: 989px
+05:41:35.410 Tools.tsx:185 Total Scrollable: 1953px
+05:41:36.183 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:36.183 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:36.183 Tools.tsx:183 Current Progress: 51.05%
+05:41:36.183 Tools.tsx:184 Scroll Position: 997px
+05:41:36.183 Tools.tsx:185 Total Scrollable: 1953px
+05:41:36.992 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:36.992 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:36.992 Tools.tsx:183 Current Progress: 59.50%
+05:41:36.992 Tools.tsx:184 Scroll Position: 1162px
+05:41:36.992 Tools.tsx:185 Total Scrollable: 1953px
+05:41:37.747 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:37.747 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:37.747 Tools.tsx:183 Current Progress: 61.70%
+05:41:37.747 Tools.tsx:184 Scroll Position: 1205px
+05:41:37.748 Tools.tsx:185 Total Scrollable: 1953px
+05:41:38.557 Tools.tsx:203 🎯 SNAP CHECK:
+05:41:38.557 Tools.tsx:204 Nearest Snap Point: 60% (Tool 4)
+05:41:38.557 Tools.tsx:205 Distance from Snap: 1.70%
+05:41:38.557 Tools.tsx:206 Snap Threshold: 8%
+05:41:38.557 Tools.tsx:210 ✅ SNAPPING to Tool 4
+05:41:39.404 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:39.404 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:39.404 Tools.tsx:183 Current Progress: 60.01%
+05:41:39.404 Tools.tsx:184 Scroll Position: 1172px
+05:41:39.404 Tools.tsx:185 Total Scrollable: 1953px
+05:41:41.795 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:41.795 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:41.795 Tools.tsx:183 Current Progress: 60.68%
+05:41:41.796 Tools.tsx:184 Scroll Position: 1185px
+05:41:41.796 Tools.tsx:185 Total Scrollable: 1953px
+05:41:41.820 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:41.820 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:41.820 Tools.tsx:183 Current Progress: 61.09%
+05:41:41.820 Tools.tsx:184 Scroll Position: 1193px
+05:41:41.821 Tools.tsx:185 Total Scrollable: 1953px
+05:41:41.872 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:41.873 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:41.873 Tools.tsx:183 Current Progress: 63.29%
+05:41:41.873 Tools.tsx:184 Scroll Position: 1236px
+05:41:41.873 Tools.tsx:185 Total Scrollable: 1953px
+05:41:41.947 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:41.947 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:41.947 Tools.tsx:183 Current Progress: 69.53%
+05:41:41.947 Tools.tsx:184 Scroll Position: 1358px
+05:41:41.947 Tools.tsx:185 Total Scrollable: 1953px
+05:41:42.005 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:42.005 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:42.005 Tools.tsx:183 Current Progress: 71.94%
+05:41:42.005 Tools.tsx:184 Scroll Position: 1405px
+05:41:42.005 Tools.tsx:185 Total Scrollable: 1953px
+05:41:42.797 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:42.797 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:42.797 Tools.tsx:183 Current Progress: 77.37%
+05:41:42.797 Tools.tsx:184 Scroll Position: 1511px
+05:41:42.797 Tools.tsx:185 Total Scrollable: 1953px
+05:41:43.637 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:43.638 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:43.638 Tools.tsx:183 Current Progress: 86.48%
+05:41:43.638 Tools.tsx:184 Scroll Position: 1689px
+05:41:43.638 Tools.tsx:185 Total Scrollable: 1953px
+05:41:43.642 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:43.642 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:43.642 Tools.tsx:183 Current Progress: 93.39%
+05:41:43.642 Tools.tsx:184 Scroll Position: 1824px
+05:41:43.642 Tools.tsx:185 Total Scrollable: 1953px
+05:41:45.399 Tools.tsx:203 🎯 SNAP CHECK:
+05:41:45.399 Tools.tsx:204 Nearest Snap Point: 80% (Tool 5)
+05:41:45.400 Tools.tsx:205 Distance from Snap: 13.39%
+05:41:45.400 Tools.tsx:206 Snap Threshold: 8%
+05:41:45.400 Tools.tsx:221 ❌ No snap (distance: 13.39%)
+05:41:47.109 Tools.tsx:181 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+05:41:47.110 Tools.tsx:182 📊 SCROLL DEBUG:
+05:41:47.110 Tools.tsx:183 Current Progress: 100.00%
+05:41:47.110 Tools.tsx:184 Scroll Position: 1953px
+05:41:47.110 Tools.tsx:185 Total Scrollable: 1953px
+05:41:48.820 Tools.tsx:203 🎯 SNAP CHECK:
+05:41:48.820 Tools.tsx:204 Nearest Snap Point: 80% (Tool 5)
+05:41:48.820 Tools.tsx:205 Distance from Snap: 20.00%
+05:41:48.820 Tools.tsx:206 Snap Threshold: 8%
+05:41:48.820 Tools.tsx:221 ❌ No snap (distance: 20.00%)

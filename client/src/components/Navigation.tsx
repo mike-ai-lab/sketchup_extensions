@@ -4,9 +4,7 @@ import { ChevronDown } from "lucide-react";
 
 export default function Navigation() {
   const [toolsOpen, setToolsOpen] = useState(false);
-  const [resourcesOpen, setResourcesOpen] = useState(false);
   const toolsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const resourcesTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const tools: Array<{ name: string; path: string } | { divider: true }> = [
     { name: "All Tools", path: "/tools" },
@@ -19,10 +17,10 @@ export default function Navigation() {
   ];
 
   const resources = [
-    { name: "Downloads", path: "/resources#downloads" },
-    { name: "Tutorials", path: "/resources#tutorials" },
-    { name: "FAQ", path: "/resources#faq" },
-    { name: "Contact", path: "/resources#contact" },
+    { name: "Downloads", path: "/download" },
+    { name: "Tutorials", path: "/tutorials" },
+    { name: "FAQ", path: "/faq" },
+    { name: "Contact", path: "/contact" },
   ];
 
   const handleToolsEnter = () => {
@@ -38,23 +36,9 @@ export default function Navigation() {
     }, 200);
   };
 
-  const handleResourcesEnter = () => {
-    if (resourcesTimeoutRef.current) {
-      clearTimeout(resourcesTimeoutRef.current);
-    }
-    setResourcesOpen(true);
-  };
-
-  const handleResourcesLeave = () => {
-    resourcesTimeoutRef.current = setTimeout(() => {
-      setResourcesOpen(false);
-    }, 200);
-  };
-
   useEffect(() => {
     return () => {
       if (toolsTimeoutRef.current) clearTimeout(toolsTimeoutRef.current);
-      if (resourcesTimeoutRef.current) clearTimeout(resourcesTimeoutRef.current);
     };
   }, []);
 
@@ -113,36 +97,17 @@ export default function Navigation() {
               </span>
             </Link>
 
-            {/* Resources Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={handleResourcesEnter}
-              onMouseLeave={handleResourcesLeave}
-            >
-              <button 
-                className={`text-sm font-medium cursor-pointer transition-all flex items-center gap-1 px-3 py-2 rounded-lg ${
-                  resourcesOpen 
-                    ? 'text-[var(--neuro-primary)] shadow-[inset_3px_3px_6px_var(--neuro-shadow-dark),inset_-3px_-3px_6px_var(--neuro-shadow-light)]' 
-                    : 'hover:text-[var(--neuro-primary)] text-[var(--neuro-text)]'
-                }`}
-              >
-                Resources
-                <ChevronDown className={`h-3 w-3 transition-transform ${resourcesOpen ? 'rotate-180' : ''}`} />
-              </button>
-              {resourcesOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 animate-in fade-in slide-in-from-top-2 duration-200">
-                  <div className="bg-[var(--neuro-bg)] rounded-2xl p-2 min-w-[180px] shadow-[10px_10px_20px_var(--neuro-shadow-dark),-10px_-10px_20px_var(--neuro-shadow-light)]">
-                    {resources.map((item, index) => (
-                      <Link key={index} href={item.path}>
-                        <span className="block px-4 py-2.5 text-sm font-medium cursor-pointer transition-all rounded-xl hover:shadow-[inset_4px_4px_8px_var(--neuro-shadow-dark),inset_-4px_-4px_8px_var(--neuro-shadow-light)] hover:text-[var(--neuro-primary)] text-[var(--neuro-text)]">
-                          {item.name}
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
+            <Link href="/dashboard">
+              <span className="text-sm font-medium cursor-pointer hover:text-[var(--neuro-primary)] transition-colors text-[var(--neuro-text)]">
+                Dashboard
+              </span>
+            </Link>
+
+            <Link href="/contact">
+              <span className="text-sm font-medium cursor-pointer hover:text-[var(--neuro-primary)] transition-colors text-[var(--neuro-text)]">
+                Contact
+              </span>
+            </Link>
           </div>
         </div>
       </nav>

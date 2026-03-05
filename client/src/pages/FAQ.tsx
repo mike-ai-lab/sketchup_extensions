@@ -1,201 +1,97 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
-import { motion } from "framer-motion";
-import { ChevronDown, ChevronUp, MessageCircle } from "lucide-react";
+import { ChevronLeft, Zap, ChevronDown } from "lucide-react";
 import { useState } from "react";
 
-interface FAQItem {
-  question: string;
-  answer: string;
-  category: string;
-}
+const FAQS = [
+  { q: "What are these extensions?", a: "Add-on tools that extend SketchUp functionality and automate complex tasks for architectural and design projects." },
+  { q: "Which versions are supported?", a: "Extensions support SketchUp 2019 and newer versions, including Pro, Shop, and Web (where applicable)." },
+  { q: "How does licensing work?", a: "Each extension requires a unique license key. After purchase, you receive a perpetual license with no recurring fees." },
+  { q: "Can I use on multiple computers?", a: "Single-user license allows installation on multiple computers you own, but only one active instance at a time." },
+  { q: "What's included in the trial?", a: "7-day free trial with full access to all features. No credit card required. Trial license key sent via email." },
+  { q: "What happens after trial expires?", a: "Extension stops working until you purchase. Your work and settings are preserved for immediate continuation." },
+  { q: "How do I install extensions?", a: "Download .rbz file, go to Window > Extension Manager > Install Extension, select file, restart SketchUp, enter license key." },
+  { q: "What support do you provide?", a: "Email support for licensed users, comprehensive documentation, video tutorials, and regular updates." }
+];
 
 export default function FAQ() {
-  const [openItems, setOpenItems] = useState<number[]>([]);
-
-  const toggleItem = (index: number) => {
-    setOpenItems(prev => 
-      prev.includes(index) 
-        ? prev.filter(i => i !== index)
-        : [...prev, index]
-    );
-  };
-
-  const faqs: FAQItem[] = [
-    {
-      category: "General",
-      question: "What are these extensions?",
-      answer: "These are add-on tools that extend functionality and automate complex tasks. They add new modeling capabilities and streamline workflows for architectural and design projects."
-    },
-    {
-      category: "General", 
-      question: "Which versions are supported?",
-      answer: "Extensions support SketchUp 2019 and newer versions, including Pro, Shop, and Web (where applicable). Compatibility is regularly tested with the latest releases."
-    },
-    {
-      category: "Licensing",
-      question: "How does the licensing work?",
-      answer: "Each extension requires a unique license key for activation. After purchase, you'll receive a license key that can be used to activate the extension on your computer. The license is perpetual - no recurring fees."
-    },
-    {
-      category: "Licensing",
-      question: "Can I use my license on multiple computers?",
-      answer: "Each license is for single-user use. You can install the extension on multiple computers you own, but only one instance can be active at a time. For team licenses, please contact us for volume pricing."
-    },
-    {
-      category: "Trial",
-      question: "What's included in the free trial?",
-      answer: "The 7-day free trial includes full access to all extension features with no limitations. No credit card is required to start your trial. You'll receive a trial license key via email."
-    },
-    {
-      category: "Trial",
-      question: "What happens after the trial expires?",
-      answer: "After the trial period, the extension will stop working until you purchase a full license. Your work and settings are preserved, so you can continue immediately after purchasing."
-    },
-    {
-      category: "Installation",
-      question: "How do I install the extensions?",
-      answer: "Download the .rbz file, then in SketchUp go to Window > Extension Manager > Install Extension and select the downloaded file. Restart SketchUp and enter your license key when prompted."
-    },
-    {
-      category: "Installation", 
-      question: "I'm having trouble with installation. What should I do?",
-      answer: "First, ensure you're using a supported SketchUp version. Try running SketchUp as administrator during installation. If issues persist, check our documentation or contact support with your system details."
-    },
-    {
-      category: "Support",
-      question: "What kind of support do you provide?",
-      answer: "We provide email support for all licensed users, comprehensive documentation, video tutorials, and regular updates. Premium support with faster response times is available for enterprise customers."
-    },
-    {
-      category: "Support",
-      question: "How do I get help if I'm stuck?",
-      answer: "Check our tutorials and documentation first. If you need additional help, contact us through the support form with details about your issue, SketchUp version, and what you're trying to accomplish."
-    }
-  ];
-
-  const categories = [...new Set(faqs.map(faq => faq.category))];
+  const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Floating Navigation */}
-      <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
-        <nav className="bg-background/80 backdrop-blur-lg border border-border rounded-full px-6 py-3 shadow-lg">
-          <div className="flex items-center gap-8">
-            <Link href="/">
-              <span className="text-xl font-bold cursor-pointer">Studiø</span>
-            </Link>
-            <div className="flex items-center gap-6">
-              <Link href="/">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Home</span>
-              </Link>
-              <Link href="/tools">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tools</span>
-              </Link>
-              <Link href="/tutorials">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tutorials</span>
-              </Link>
-              <Link href="/pricing">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Pricing</span>
-              </Link>
-              <Link href="/download">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Download</span>
-              </Link>
-              <Link href="/faq">
-                <span className="text-sm font-medium cursor-pointer text-primary">FAQ</span>
-              </Link>
-            </div>
-          </div>
-        </nav>
-      </div>
+    <div className="bg-[#050505] min-h-screen text-white font-sans overflow-x-hidden">
+      <nav className="fixed top-0 w-full z-50 p-8 flex justify-between items-center bg-[#050505]/80 backdrop-blur-xl border-b border-white/5">
+        <Link href="/tools" className="flex items-center gap-4 text-[10px] font-black tracking-[0.4em] text-white/30 hover:text-blue-500 transition-colors uppercase group">
+          <ChevronLeft size={16} className="group-hover:-translate-x-2 transition-transform" /> Back
+        </Link>
+        <div className="text-sm font-black tracking-[0.8em] italic opacity-20">FAQ</div>
+        <div className="w-20"></div>
+      </nav>
 
-      <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16 pt-24">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">Frequently Asked Questions</h1>
-          <p className="max-w-2xl mx-auto text-xl text-muted-foreground">
-            Find answers to common questions about the tools and extensions
-          </p>
+      <section className="pt-40 pb-20 px-8 max-w-7xl mx-auto text-center">
+        <div className="inline-flex items-center gap-3 px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-500 text-[10px] font-black uppercase tracking-widest rounded mb-8">
+          <Zap size={12} /> Support
         </div>
+        
+        <h1 className="text-[80px] md:text-[120px] font-black tracking-tighter leading-[0.75] uppercase italic stroke-text mb-8">
+          FAQ
+        </h1>
+        
+        <p className="text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
+          Frequently asked questions
+        </p>
+      </section>
 
-        {categories.map((category, categoryIndex) => (
-          <div key={category} className="mb-12">
-            <h2 className="text-2xl font-bold mb-6 text-primary">{category}</h2>
-            <div className="space-y-4">
-              {faqs
-                .filter(faq => faq.category === category)
-                .map((faq, index) => {
-                  const globalIndex = faqs.indexOf(faq);
-                  const isOpen = openItems.includes(globalIndex);
-                  
-                  return (
-                    <motion.div
-                      key={globalIndex}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3, delay: (categoryIndex * 0.1) + (index * 0.05) }}
-                    >
-                      <Card className="overflow-hidden">
-                        <button
-                          onClick={() => toggleItem(globalIndex)}
-                          className="w-full text-left p-6 hover:bg-muted/50 transition-colors"
-                        >
-                          <div className="flex items-center justify-between">
-                            <h3 className="font-semibold text-lg pr-4">{faq.question}</h3>
-                            {isOpen ? (
-                              <ChevronUp className="h-5 w-5 text-muted-foreground flex-shrink-0" />
-                            ) : (
-                              <ChevronDown className="h-5 w-5 text-muted-foreground flex-shrink-0" />
-                            )}
-                          </div>
-                        </button>
-                        {isOpen && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.3 }}
-                          >
-                            <CardContent className="pt-0 pb-6 px-6">
-                              <p className="text-muted-foreground leading-relaxed">{faq.answer}</p>
-                            </CardContent>
-                          </motion.div>
-                        )}
-                      </Card>
-                    </motion.div>
-                  );
-                })}
+      <section className="py-20 px-8 max-w-4xl mx-auto">
+        <div className="space-y-4">
+          {FAQS.map((faq, i) => (
+            <div key={i} className="bg-[#0c0c0e] border border-white/5 rounded-[30px] overflow-hidden hover:border-blue-500/30 transition-colors">
+              <button
+                onClick={() => setOpen(open === i ? null : i)}
+                className="w-full p-8 flex items-center justify-between text-left"
+              >
+                <h3 className="text-lg font-black uppercase italic tracking-tight pr-4">{faq.q}</h3>
+                <ChevronDown className={`w-5 h-5 text-blue-500 transition-transform ${open === i ? 'rotate-180' : ''}`} />
+              </button>
+              {open === i && (
+                <div className="px-8 pb-8">
+                  <p className="text-white/60 leading-relaxed">{faq.a}</p>
+                </div>
+              )}
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+      </section>
 
-        {/* Contact Support */}
-        <Card className="mt-16 bg-muted/50">
-          <CardContent className="p-8 text-center">
-            <MessageCircle className="h-12 w-12 text-primary mx-auto mb-4" />
-            <h3 className="text-2xl font-bold mb-4">Still Have Questions?</h3>
-            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Can't find what you're looking for? Our support team is here to help you get the most out of our extensions.
-            </p>
-            <Link href="/contact">
-              <Button size="lg">
-                Contact Support
-              </Button>
-            </Link>
-          </CardContent>
-        </Card>
-      </div>
+      <section className="py-20 px-8 max-w-4xl mx-auto">
+        <div className="bg-[#0c0c0e] border border-white/5 p-12 rounded-[50px] text-center">
+          <h2 className="text-3xl font-black uppercase italic tracking-tight mb-4">Still Have Questions?</h2>
+          <p className="text-white/60 mb-8 max-w-xl mx-auto">Can't find what you're looking for? Contact our support team.</p>
+          <Link href="/contact">
+            <button className="bg-blue-600 hover:bg-blue-500 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all">
+              Contact Support
+            </button>
+          </Link>
+        </div>
+      </section>
 
-      {/* Footer */}
-      <div className="flex justify-center py-8 mt-auto px-4">
-        <footer className="bg-background/80 backdrop-blur-lg border border-border rounded-full px-4 sm:px-6 py-3 shadow-lg max-w-4xl">
-          <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground flex-wrap justify-center">
+      <div className="flex justify-center py-20 px-8">
+        <footer className="bg-[#0c0c0e] border border-white/5 rounded-full px-12 py-6 shadow-2xl">
+          <div className="flex items-center gap-6 text-[10px] font-black tracking-[0.4em] text-white/30 uppercase">
             <span>© 2025 Studiø</span>
-            <span className="text-border hidden sm:inline">•</span>
-            <span className="text-center">Developed by Int. Arch. M.Shkeir</span>
+            <div className="w-1 h-1 bg-white/10 rounded-full"></div>
+            <span>Muhamad Shkeir</span>
           </div>
         </footer>
       </div>
+
+      <style>{`
+        .stroke-text {
+          -webkit-text-stroke: 1px rgba(255,255,255,0.2);
+          color: transparent;
+        }
+        @media (min-width: 1024px) {
+          .stroke-text { -webkit-text-stroke: 2px rgba(255,255,255,0.2); }
+        }
+      `}</style>
     </div>
   );
 }

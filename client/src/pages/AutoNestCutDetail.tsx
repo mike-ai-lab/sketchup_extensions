@@ -1,224 +1,167 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import Navigation from "@/components/Navigation";
 import { Link } from "wouter";
-import { motion } from "framer-motion";
 import { 
   ArrowRight, CheckCircle2, Download, Scissors, 
-  Grid3x3, Layers, Settings, Star 
+  Grid3x3, Layers, Settings, Star, ChevronLeft, Zap, Box
 } from "lucide-react";
 
+const FEATURES = [
+  { icon: Scissors, title: "Automated Cut Lists", description: "Generate optimized cut lists automatically from your SketchUp components" },
+  { icon: Grid3x3, title: "Intelligent Nesting", description: "Smart nesting algorithms minimize material waste and maximize efficiency" },
+  { icon: Layers, title: "Smart Cutting Plans", description: "Visual cutting plans with clear labeling and dimensions for workshop use" },
+  { icon: Settings, title: "Material Optimization", description: "Optimize material usage across multiple sheet sizes and types" }
+];
+
+const SPECS = [
+  { label: "Version", value: "1.0.0" },
+  { label: "Compatibility", value: "SketchUp 2019+" },
+  { label: "License", value: "Perpetual / 7-Day Trial" },
+  { label: "Support", value: "Email & Docs" }
+];
+
 export default function AutoNestCutDetail() {
-  const features = [
-    {
-      icon: Scissors,
-      title: "Automated Cut Lists",
-      description: "Generate optimized cut lists automatically from your SketchUp components"
-    },
-    {
-      icon: Grid3x3,
-      title: "Intelligent Nesting",
-      description: "Smart nesting algorithms minimize material waste and maximize efficiency"
-    },
-    {
-      icon: Layers,
-      title: "Smart Cutting Plans",
-      description: "Visual cutting plans with clear labeling and dimensions for workshop use"
-    },
-    {
-      icon: Settings,
-      title: "Material Optimization",
-      description: "Optimize material usage across multiple sheet sizes and types"
-    }
-  ];
-
-  const specifications = [
-    { label: "Version", value: "1.0.0" },
-    { label: "Compatibility", value: "SketchUp 2019 and later" },
-    { label: "License Type", value: "Perpetual with 7-day trial" },
-    { label: "Support", value: "Email & Documentation" }
-  ];
-
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navigation />
+    <div className="bg-[#050505] min-h-screen text-white font-sans selection:bg-green-600 overflow-x-hidden">
+      <nav className="fixed top-0 w-full z-50 p-8 flex justify-between items-center bg-[#050505]/80 backdrop-blur-xl border-b border-white/5">
+        <Link href="/tools" className="flex items-center gap-4 text-[10px] font-black tracking-[0.4em] text-white/30 hover:text-green-500 transition-colors uppercase group">
+          <ChevronLeft size={16} className="group-hover:-translate-x-2 transition-transform" /> Back
+        </Link>
+        <div className="text-sm font-black tracking-[0.8em] italic opacity-20">MODULE // ANCT</div>
+        <div className="w-20"></div>
+      </nav>
 
-      {/* Hero Section */}
-      <section className="py-16 px-4 bg-gradient-to-b from-primary/5 to-background pt-32">
-        <div className="container mx-auto max-w-7xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
-          >
-            <div>
-              <Badge className="mb-4">Featured Extension</Badge>
-              <h1 className="text-5xl font-bold tracking-tight mb-4">AutoNestCut</h1>
-              <p className="text-xl text-muted-foreground mb-6 leading-relaxed">
-                Intelligent Cut List & Nesting Optimizer
-              </p>
-              <p className="text-lg mb-8 leading-relaxed">
-                AutoNestCut is designed for woodworkers, fabricators, and manufacturers who need to optimize material usage. Generate automated cut lists with intelligent nesting algorithms that minimize waste and maximize efficiency.
-              </p>
-              <div className="flex gap-4 flex-wrap">
-                <Link href="/purchase/autonestcut">
-                  <Button size="lg" className="text-base px-8">
-                    Start Free Trial <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
-                <Button size="lg" variant="outline" className="text-base px-8">
-                  <Download className="mr-2 h-5 w-5" />
-                  Download Documentation
-                </Button>
-              </div>
-              <p className="text-sm text-muted-foreground mt-4">
-                7-day free trial • No credit card required • $39 after trial
-              </p>
+      <section className="pt-40 pb-20 px-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+          <div className="space-y-8">
+            <div className="inline-flex items-center gap-3 px-3 py-1 bg-green-500/10 border border-green-500/20 text-green-500 text-[10px] font-black uppercase tracking-widest rounded">
+              <Zap size={12} /> Fabrication Engine
             </div>
-            <div className="relative">
-              <Card className="border-2">
-                <CardContent className="p-8">
-                  <div className="aspect-square bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg flex items-center justify-center">
-                    <Scissors className="w-32 h-32 text-primary/30" />
-                  </div>
-                  <p className="text-center text-sm text-muted-foreground mt-4">
-                    Extension Preview
-                  </p>
-                </CardContent>
-              </Card>
+            
+            <h1 className="text-[120px] font-black tracking-tighter leading-[0.75] uppercase italic stroke-text">
+              AutoNestCut
+            </h1>
+            
+            <p className="text-2xl font-medium text-white/60 leading-tight">
+              Intelligent Cut List & <br/>Nesting Optimizer
+            </p>
+
+            <p className="text-white/40 leading-relaxed max-w-lg">
+              Designed for woodworkers and fabricators. Generate automated cut lists with intelligent nesting algorithms that minimize waste and maximize efficiency.
+            </p>
+
+            <div className="flex flex-wrap gap-4 pt-4">
+              <button className="bg-green-600 hover:bg-green-500 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95 shadow-2xl shadow-green-600/20">
+                Start Free Trial <ArrowRight size={18} />
+              </button>
+              <button className="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95">
+                <Download size={18} /> Documentation
+              </button>
             </div>
-          </motion.div>
+            
+            <div className="flex items-center gap-6 pt-4 text-[9px] font-bold text-white/20 uppercase tracking-[0.3em]">
+              <span className="flex items-center gap-2"><Star size={12} className="text-green-500 fill-green-500" /> 7-Day Trial</span>
+              <span className="flex items-center gap-2"><Star size={12} className="text-green-500 fill-green-500" /> No CC Required</span>
+              <span className="flex items-center gap-2"><Star size={12} className="text-green-500 fill-green-500" /> $39 Perpetual</span>
+            </div>
+          </div>
+
+          <div className="relative flex justify-center items-center">
+            <div className="w-[500px] h-[500px] bg-[#0c0c0e] border border-white/5 rounded-[60px] flex items-center justify-center relative overflow-hidden group">
+               <div className="absolute inset-0 bg-green-600/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+               <Scissors className="w-48 h-48 text-white/5 group-hover:text-green-500/20 transition-colors duration-700" strokeWidth={0.5} />
+               <div className="absolute top-10 left-10 text-[9px] font-mono opacity-20 group-hover:opacity-100 transition-opacity">
+                  ID: MOD_ANCT_002<br/>STATUS: READY_FOR_DEPLOY
+               </div>
+               <div className="absolute bottom-10 right-10 flex gap-1">
+                  {[...Array(3)].map((_, i) => (
+                    <div key={i} className="w-1 h-1 bg-green-500 rounded-full animate-pulse" style={{ animationDelay: `${i*0.2}s` }}></div>
+                  ))}
+               </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Powerful Features</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Everything you need for efficient material cutting and optimization
-            </p>
+      <section className="py-32 px-8 bg-[#08080a]">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-20 space-y-4">
+            <h2 className="text-4xl font-black uppercase italic tracking-tighter">System Features</h2>
+            <div className="w-20 h-1 bg-green-500"></div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Card className="h-full">
-                  <CardContent className="p-6">
-                    <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10 mb-4">
-                      <feature.icon className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {FEATURES.map((f, i) => (
+              <div key={i} className="bg-[#0c0c0e] border border-white/5 p-10 rounded-[40px] hover:border-green-500/50 transition-colors group">
+                <div className="w-16 h-16 bg-green-500/10 rounded-2xl flex items-center justify-center text-green-500 mb-8 group-hover:bg-green-500 group-hover:text-white transition-all">
+                  <f.icon size={28} />
+                </div>
+                <h3 className="text-lg font-black uppercase tracking-tight mb-4 italic">{f.title}</h3>
+                <p className="text-sm text-white/40 leading-relaxed font-medium">{f.description}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Key Benefits */}
-      <section className="py-16 px-4 bg-muted/50">
-        <div className="container mx-auto max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl font-bold mb-6">Why Choose AutoNestCut?</h2>
-              <div className="space-y-4">
-                <div className="flex items-start">
-                  <CheckCircle2 className="h-6 w-6 text-primary mr-3 mt-1 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold mb-1">Reduce Material Waste</h4>
-                    <p className="text-muted-foreground">Save up to 30% on material costs with intelligent nesting</p>
-                  </div>
+      <section className="py-32 px-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-32">
+          <div className="space-y-12">
+            <h2 className="text-4xl font-black uppercase italic tracking-tighter">Why AutoNestCut</h2>
+            <div className="space-y-8">
+              {[
+                { t: "Reduce Material Waste", d: "Save up to 30% on material costs with intelligent nesting algorithms." },
+                { t: "Workshop-Ready Plans", d: "Clear cutting diagrams with labels and dimensions for immediate use." },
+                { t: "Multiple Sheet Sizes", d: "Support for various material sizes and types with flexible optimization." }
+              ].map((item, i) => (
+                <div key={i} className="flex gap-6">
+                   <div className="mt-1"><CheckCircle2 className="text-green-500" size={24} /></div>
+                   <div>
+                      <h4 className="text-lg font-bold uppercase italic tracking-tight">{item.t}</h4>
+                      <p className="text-white/40 text-sm leading-relaxed">{item.d}</p>
+                   </div>
                 </div>
-                <div className="flex items-start">
-                  <CheckCircle2 className="h-6 w-6 text-primary mr-3 mt-1 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold mb-1">Workshop-Ready Plans</h4>
-                    <p className="text-muted-foreground">Clear cutting diagrams with labels and dimensions</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <CheckCircle2 className="h-6 w-6 text-primary mr-3 mt-1 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold mb-1">Multiple Sheet Sizes</h4>
-                    <p className="text-muted-foreground">Support for various material sizes and types</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <CheckCircle2 className="h-6 w-6 text-primary mr-3 mt-1 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold mb-1">Export Options</h4>
-                    <p className="text-muted-foreground">Export to CSV, PDF, or print directly from SketchUp</p>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
-            <Card className="border-2">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold mb-6">Specifications</h3>
-                <div className="space-y-4">
-                  {specifications.map((spec, index) => (
-                    <div key={index} className="flex justify-between items-center py-3 border-b last:border-0">
-                      <span className="text-muted-foreground">{spec.label}</span>
-                      <span className="font-medium text-right">{spec.value}</span>
-                    </div>
-                  ))}
+          </div>
+
+          <div className="bg-[#0c0c0e] border border-white/5 p-12 rounded-[50px]">
+            <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-10">Technical Specifications</h3>
+            <div className="space-y-6">
+              {SPECS.map((s, i) => (
+                <div key={i} className="flex justify-between items-center py-4 border-b border-white/5 last:border-0">
+                  <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">{s.label}</span>
+                  <span className="text-sm font-bold text-green-500 italic uppercase">{s.value}</span>
                 </div>
-              </CardContent>
-            </Card>
+              ))}
+            </div>
+            <div className="mt-12 pt-12 border-t border-white/5 text-center">
+               <Star className="mx-auto mb-4 text-green-500 fill-green-500" size={20} />
+               <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-40 italic">Fabrication Standard</p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Pricing CTA */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto max-w-4xl">
-          <Card className="border-2 border-primary">
-            <CardContent className="p-8 md:p-12 text-center">
-              <div className="flex items-center justify-center mb-4">
-                <Star className="w-8 h-8 text-primary fill-current" />
-              </div>
-              <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
-              <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Try AutoNestCut free for 7 days. No credit card required. 
-                Start optimizing your material usage today.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <div className="text-center sm:text-left">
-                  <p className="text-4xl font-bold mb-1">$39</p>
-                  <p className="text-sm text-muted-foreground">One-time purchase</p>
-                </div>
-                <Link href="/purchase/autonestcut">
-                  <Button size="lg" className="text-base px-8">
-                    Start Free Trial <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <div className="flex justify-center py-8 px-4">
-        <footer className="bg-background/80 backdrop-blur-lg border border-border rounded-full px-4 sm:px-6 py-3 shadow-lg max-w-4xl">
-          <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground flex-wrap justify-center">
+      <div className="flex justify-center py-20 px-8">
+        <footer className="bg-[#0c0c0e] border border-white/5 rounded-full px-12 py-6 shadow-2xl flex flex-col md:flex-row items-center gap-8">
+          <div className="flex items-center gap-6 text-[10px] font-black tracking-[0.4em] text-white/30 uppercase">
             <span>© 2025 Studiø</span>
-            <span className="text-border hidden sm:inline">•</span>
-            <span className="text-center">Developed by Int. Arch. M.Shkeir</span>
+            <div className="w-1 h-1 bg-white/10 rounded-full"></div>
+            <span>Muhamad Shkeir</span>
+            <div className="w-1 h-1 bg-white/10 rounded-full"></div>
+            <span className="text-green-500">Riyadh, KSA</span>
           </div>
         </footer>
       </div>
+
+      <style>{`
+        .stroke-text {
+          -webkit-text-stroke: 1px rgba(255,255,255,0.2);
+          color: transparent;
+        }
+        @media (min-width: 1024px) {
+          .stroke-text { -webkit-text-stroke: 2px rgba(255,255,255,0.2); }
+        }
+      `}</style>
     </div>
   );
 }

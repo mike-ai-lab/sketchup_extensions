@@ -6,6 +6,7 @@
 dist/
 build/
 *.dist
+out/
 
 # Environment variables
 .env
@@ -20,6 +21,8 @@ build/
 *.swp
 *.swo
 *~
+.manus/
+.qodo/
 
 # OS generated files
 .DS_Store
@@ -38,6 +41,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+server.log
 
 # Runtime data
 pids
@@ -105,9 +109,17 @@ temp/
 *.db
 *.sqlite
 *.sqlite3
+sqlite
 
+# Deployment
 .vercel
 .env*.local
+
+# Patches
+patches/
+
+# Drizzle migrations
+drizzle/
 
 # Ignore nested duplicate folder
 sketchup_extensions/

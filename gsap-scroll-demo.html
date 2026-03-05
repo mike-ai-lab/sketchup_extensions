@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GSAP ScrollTrigger Demo</title>
+  <title>GSAP Advanced Horizontal ScrollTrigger</title>
   <style>
     * {
       margin: 0;
@@ -12,23 +12,34 @@
     }
     
     body {
-      font-family: Arial, sans-serif;
-      background: #1a1a1a;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%);
       color: white;
+      overflow-x: hidden;
     }
     
     .spacer {
       height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      color: #888;
     }
     
     .section {
       padding: 100px 50px;
       text-align: center;
+      min-height: 50vh;
     }
     
     h2 {
       margin-bottom: 50px;
-      font-size: 2em;
+      font-size: 2.5em;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     
     /* Basic ScrollTrigger */
@@ -38,6 +49,7 @@
       background: linear-gradient(45deg, #ff6b6b, #ee5a6f);
       margin: 0 auto;
       border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     }
     
     /* Pinning Section */
@@ -54,31 +66,199 @@
     .panel-2 { background: #44a08d; }
     .panel-3 { background: #f38181; }
     
-    /* Horizontal Scroll */
+    /* ===== ADVANCED NESTED HORIZONTAL SCROLL WITH LAYERED ANIMATIONS ===== */
+    .horizontal-section {
+      position: relative;
+      background: #0a0a0a;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .horizontal-scrollbar-bg {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: 100;
+    }
+
+    .horizontal-scrollbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 12px;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      width: 0%;
+      z-index: 101;
+      box-shadow: 0 -2px 15px rgba(102, 126, 234, 0.6);
+      transition: all 0.1s ease;
+    }
+    
     .horizontal-container {
       overflow: hidden;
+      width: 100%;
+      min-height: 100vh;
+      position: relative;
     }
     
     .horizontal-wrapper {
       display: flex;
       width: fit-content;
+      height: 100vh;
     }
     
+    /* ===== NESTED SLIDE STRUCTURE ===== */
     .h-panel {
       width: 100vw;
       height: 100vh;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 3em;
-      flex-shrink: 0;
     }
     
-    .h-panel-1 { background: #667eea; }
-    .h-panel-2 { background: #764ba2; }
-    .h-panel-3 { background: #f093fb; }
-    .h-panel-4 { background: #4facfe; }
-    
+    .h-panel-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .h-panel-2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+    .h-panel-3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+    .h-panel-4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+
+    /* Slide Background Overlay */
+    .slide-bg-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0);
+      z-index: 1;
+    }
+
+    /* Nested Content Container */
+    .h-panel-nested-container {
+      width: 90%;
+      max-width: 1000px;
+      height: 90%;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 30px;
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Layer 1: Slide Container (comes from left) */
+    .h-panel-bg-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      z-index: 0;
+      border-radius: 30px;
+    }
+
+    /* Layer 2: Title (enters from top) */
+    .h-panel-title {
+      font-size: 3.5rem;
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 20;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(-80px);
+      letter-spacing: -1px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Layer 3: Subtitle (enters from right) */
+    .h-panel-subtitle {
+      font-size: 1.3rem;
+      opacity: 0;
+      max-width: 600px;
+      position: relative;
+      z-index: 21;
+      transform: translateX(100px);
+      margin-bottom: 2rem;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 300;
+    }
+
+    /* Layer 4: Body Text (enters from bottom) */
+    .h-panel-body {
+      font-size: 1rem;
+      line-height: 1.8;
+      max-width: 700px;
+      position: relative;
+      z-index: 22;
+      opacity: 0;
+      transform: translateY(100px);
+      text-align: center;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 2rem;
+    }
+
+    /* Layer 5: Media/Image (enters from left side) */
+    .h-panel-media {
+      width: 280px;
+      height: 280px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      position: relative;
+      z-index: 23;
+      opacity: 0;
+      transform: translateX(-100px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Layer 6: CTA Button (enters from bottom right) */
+    .h-panel-cta {
+      position: relative;
+      z-index: 24;
+      margin-top: 2rem;
+      opacity: 0;
+      transform: scale(0.8) translateY(50px);
+    }
+
+    .h-panel-btn {
+      padding: 15px 40px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-radius: 50px;
+      color: white;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .h-panel-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.8);
+      transform: translateY(-3px);
+    }
+
     /* Fade Items */
     .fade-item {
       width: 300px;
@@ -90,17 +270,57 @@
       align-items: center;
       justify-content: center;
       font-size: 1.5em;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Progress Indicator */
+    .scroll-progress-label {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 10px 15px;
+      border-radius: 20px;
+      font-size: 0.9em;
+      z-index: 99;
+      backdrop-filter: blur(10px);
+    }
+
+    .progress-value {
+      color: #667eea;
+      font-weight: bold;
+    }
+
+    /* Info Banner */
+    .h-section-info {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      text-align: center;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .h-section-info.visible {
+      opacity: 1;
+      pointer-events: auto;
     }
   </style>
 </head>
 <body>
   
   <div class="section">
-    <h1>GSAP ScrollTrigger Demo</h1>
-    <p>Scroll down to see the effects</p>
+    <h1>GSAP Advanced Horizontal ScrollTrigger</h1>
+    <p>Scroll down to trigger horizontal slide animations with enter/exit effects</p>
   </div>
   
-  <div class="spacer"></div>
+  <div class="spacer">↓ Scroll Down ↓</div>
   
   <!-- Basic ScrollTrigger -->
   <div class="section">
@@ -110,30 +330,120 @@
   
   <div class="spacer"></div>
   
+  <!-- ===== ADVANCED HORIZONTAL SCROLL WITH SCROLLBAR ===== -->
+  <div class="h-section-info" id="hSectionInfo">
+    Scroll vertically to slide horizontally • Each element enters and exits smoothly
+  </div>
+
+  <div class="scroll-progress-label">
+    Horizontal: <span class="progress-value" id="hProgress">0%</span>
+  </div>
+
+  <div class="horizontal-scrollbar-bg"></div>
+  <div class="horizontal-scrollbar" id="hScrollbar"></div>
+  
+  <div class="section">
+    <h2>2. Advanced Horizontal Scroll (With Scrollbar & Enter/Exit)</h2>
+  </div>
+  
+  <div class="horizontal-section">
+    <div class="horizontal-container">
+      <div class="horizontal-wrapper">
+        
+        <!-- Slide 1: Nested Layered Content -->
+        <div class="h-panel h-panel-1">
+          <div class="h-panel-nested-container">
+            <div class="h-panel-bg-layer"></div>
+            
+            <!-- Layer 2: Title (enters from top) -->
+            <div class="h-panel-title slide-1-title">📱 Digital Innovation</div>
+            
+            <!-- Layer 3: Subtitle (enters from right) -->
+            <div class="h-panel-subtitle slide-1-subtitle">Transform Your Digital Presence</div>
+            
+            <!-- Layer 4: Body Text (enters from bottom) -->
+            <div class="h-panel-body slide-1-body">
+              Experience cutting-edge technology that brings your ideas to life. Our platform delivers seamless integration with powerful tools for modern development.
+            </div>
+            
+            <!-- Layer 5: Media (enters from left) -->
+            <div class="h-panel-media slide-1-media">📱</div>
+            
+            <!-- Layer 6: CTA Button -->
+            <div class="h-panel-cta slide-1-cta">
+              <button class="h-panel-btn">Explore Now</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2: Nested Layered Content -->
+        <div class="h-panel h-panel-2">
+          <div class="h-panel-nested-container">
+            <div class="h-panel-bg-layer"></div>
+            
+            <div class="h-panel-title slide-2-title">🎨 Creative Design</div>
+            <div class="h-panel-subtitle slide-2-subtitle">Stunning Visuals, Powerful Impact</div>
+            <div class="h-panel-body slide-2-body">
+              Craft beautiful user experiences with our comprehensive design system. Every pixel matters in creating meaningful digital interactions.
+            </div>
+            <div class="h-panel-media slide-2-media">🎨</div>
+            
+            <div class="h-panel-cta slide-2-cta">
+              <button class="h-panel-btn">Learn More</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3: Nested Layered Content -->
+        <div class="h-panel h-panel-3">
+          <div class="h-panel-nested-container">
+            <div class="h-panel-bg-layer"></div>
+            
+            <div class="h-panel-title slide-3-title">📊 Data Analytics</div>
+            <div class="h-panel-subtitle slide-3-subtitle">Insights That Drive Growth</div>
+            <div class="h-panel-body slide-3-body">
+              Harness the power of data with real-time analytics and actionable insights. Make informed decisions with confidence and precision.
+            </div>
+            <div class="h-panel-media slide-3-media">📊</div>
+            
+            <div class="h-panel-cta slide-3-cta">
+              <button class="h-panel-btn">Get Started</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4: Nested Layered Content -->
+        <div class="h-panel h-panel-4">
+          <div class="h-panel-nested-container">
+            <div class="h-panel-bg-layer"></div>
+            
+            <div class="h-panel-title slide-4-title">✨ Premium Experience</div>
+            <div class="h-panel-subtitle slide-4-subtitle">Excellence in Every Interaction</div>
+            <div class="h-panel-body slide-4-body">
+              Elevate your digital presence with premium features and world-class support. Your success is our mission.
+            </div>
+            <div class="h-panel-media slide-4-media">✨</div>
+            
+            <div class="h-panel-cta slide-4-cta">
+              <button class="h-panel-btn">Join Us</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  
+  <div class="spacer">Horizontal Scroll Complete ↓</div>
+  
   <!-- Pinning Section -->
   <div class="section">
-    <h2>2. Pinning Section (Sticky)</h2>
+    <h2>3. Pinning Section (Sticky)</h2>
   </div>
   
   <div class="panel panel-1">Pinned Panel 1</div>
   <div class="panel panel-2">Pinned Panel 2</div>
   <div class="panel panel-3">Pinned Panel 3</div>
-  
-  <div class="spacer"></div>
-  
-  <!-- Horizontal Scroll -->
-  <div class="section">
-    <h2>3. Horizontal Scroll</h2>
-  </div>
-  
-  <div class="horizontal-container">
-    <div class="horizontal-wrapper">
-      <div class="h-panel h-panel-1">Slide 1</div>
-      <div class="h-panel h-panel-2">Slide 2</div>
-      <div class="h-panel h-panel-3">Slide 3</div>
-      <div class="h-panel h-panel-4">Slide 4</div>
-    </div>
-  </div>
   
   <div class="spacer"></div>
   
@@ -147,6 +457,11 @@
   </div>
   
   <div class="spacer"></div>
+  <div class="section">
+    <h2>✨ All Animations Complete! ✨</h2>
+    <p>Refresh to see all effects again</p>
+  </div>
+  <div class="spacer"></div>
 
   <!-- GSAP Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
@@ -154,60 +469,312 @@
   
   <script>
     gsap.registerPlugin(ScrollTrigger);
-    
-    // 1. Basic ScrollTrigger - Scale & Rotate
+
+    // ===== 1. BASIC SCROLLTRIGGER - SCALE & ROTATE =====
     gsap.to(".box", {
       scrollTrigger: {
         trigger: ".box",
         start: "top center",
         end: "bottom 100px",
-        scrub: true,
-        markers: true
+        scrub: true
       },
       scale: 1.5,
       rotation: 360
     });
     
-    // 2. Pinning Sections
+    // ===== 2. ADVANCED NESTED HORIZONTAL SCROLL WITH LAYERED ANIMATIONS =====
+    const hWrapper = document.querySelector(".horizontal-wrapper");
+    const hScrollbar = document.getElementById("hScrollbar");
+    const hProgress = document.getElementById("hProgress");
+    const hSectionInfo = document.getElementById("hSectionInfo");
+
+    // Main horizontal scroll animation
+    const hScrollTween = gsap.to(hWrapper, {
+      x: () => -(hWrapper.offsetWidth - window.innerWidth),
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".horizontal-section",
+        start: "top top",
+        end: () => "+=" + (hWrapper.offsetWidth - window.innerWidth),
+        pin: true,
+        pinSpacing: true,
+        scrub: 1,
+        invalidateOnRefresh: true,
+        fastScrollEnd: true,
+        
+        onEnter: () => {
+          console.log("🔄 Nested Horizontal section ENTERED");
+          hSectionInfo.classList.add("visible");
+        },
+        
+        onLeave: () => {
+          console.log("❌ Nested Horizontal section EXITED");
+          hSectionInfo.classList.remove("visible");
+        },
+
+        onUpdate: (self) => {
+          const hScrollPercent = self.progress * 100;
+          gsap.set(hScrollbar, { width: hScrollPercent + "%" });
+          hProgress.textContent = Math.round(hScrollPercent) + "%";
+        }
+      }
+    });
+
+    // ===== NESTED ANIMATIONS FOR EACH SLIDE =====
+    // Function to create nested scroll triggers for a slide
+    function createNestedAnimations(slideNum) {
+      const slideElements = {
+        title: document.querySelector(`.slide-${slideNum}-title`),
+        subtitle: document.querySelector(`.slide-${slideNum}-subtitle`),
+        body: document.querySelector(`.slide-${slideNum}-body`),
+        media: document.querySelector(`.slide-${slideNum}-media`),
+        cta: document.querySelector(`.slide-${slideNum}-cta`)
+      };
+
+      const panelIndex = slideNum - 1;
+      const panelWidth = window.innerWidth;
+      const slideStartPercent = (panelIndex / 4) * 100; // Each slide is 25%
+      const slideEndPercent = ((panelIndex + 1) / 4) * 100;
+
+      // Timeline for this slide's nested animations
+      const slideTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".horizontal-section",
+          start: "top top",
+          end: () => "+=" + (hWrapper.offsetWidth - window.innerWidth),
+          scrub: 1.5,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const progress = self.progress * 100;
+            // Only animate this slide when it's in view
+            if (progress >= slideStartPercent && progress <= slideEndPercent) {
+              const slideProgress = (progress - slideStartPercent) / 25;
+              // These animations are controlled by the timeline
+            }
+          }
+        }
+      });
+
+      // Layer animations - nested within the main scroll
+      slideTimeline
+        // Layer 1: Slide enters from left (0-10% of slide time)
+        .from(slideElements.title, {
+          opacity: 0,
+          y: -80,
+          duration: 1
+        }, slideStartPercent * 0.01)
+        
+        // Layer 2: Title enters from top (10-25% of slide time)
+        .to(slideElements.title, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8
+        }, slideStartPercent * 0.01 + 0.1)
+        
+        // Layer 3: Subtitle enters from right (20-35% of slide time)
+        .from(slideElements.subtitle, {
+          opacity: 0,
+          x: 100,
+          duration: 0.8
+        }, slideStartPercent * 0.01 + 0.2, "-=0.3")
+        
+        // Layer 4: Body text enters from bottom (30-50% of slide time)
+        .from(slideElements.body, {
+          opacity: 0,
+          y: 100,
+          duration: 0.8
+        }, slideStartPercent * 0.01 + 0.35, "-=0.3")
+        
+        // Layer 5: Media enters from left side (40-60% of slide time)
+        .from(slideElements.media, {
+          opacity: 0,
+          x: -100,
+          rotate: -20,
+          duration: 0.8
+        }, slideStartPercent * 0.01 + 0.5, "-=0.3")
+        
+        // Layer 6: CTA button enters (50-70% of slide time)
+        .from(slideElements.cta, {
+          opacity: 0,
+          scale: 0.8,
+          y: 50,
+          duration: 0.6
+        }, slideStartPercent * 0.01 + 0.65, "-=0.2");
+    }
+
+    // Create nested animations for all 4 slides
+    createNestedAnimations(1);
+    createNestedAnimations(2);
+    createNestedAnimations(3);
+    createNestedAnimations(4);
+
+    // ===== ALTERNATIVE: Direct scroll-based nested triggers =====
+    // This creates separate scroll triggers for each element
+    const slides = [
+      { num: 1, percent: 0 },
+      { num: 2, percent: 25 },
+      { num: 3, percent: 50 },
+      { num: 4, percent: 75 }
+    ];
+
+    slides.forEach(slide => {
+      const slideNum = slide.num;
+      const slideStartPercent = slide.percent;
+      const slideEndPercent = slideStartPercent + 25;
+      const startPos = `${slideStartPercent}%`;
+      const endPos = `${slideEndPercent}%`;
+
+      // Title animation
+      gsap.to(`.slide-${slideNum}-title`, {
+        scrollTrigger: {
+          trigger: ".horizontal-section",
+          start: "top top",
+          end: () => "+=" + (hWrapper.offsetWidth - window.innerWidth),
+          scrub: 1,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const progress = self.progress * 100;
+            if (progress >= slideStartPercent && progress < slideStartPercent + 10) {
+              gsap.set(`.slide-${slideNum}-title`, {
+                opacity: (progress - slideStartPercent) / 10,
+                y: -80 + ((progress - slideStartPercent) / 10) * 80
+              });
+            } else if (progress >= slideStartPercent + 10) {
+              gsap.set(`.slide-${slideNum}-title`, { opacity: 1, y: 0 });
+            }
+          }
+        }
+      });
+
+      // Subtitle animation
+      gsap.to(`.slide-${slideNum}-subtitle`, {
+        scrollTrigger: {
+          trigger: ".horizontal-section",
+          start: "top top",
+          end: () => "+=" + (hWrapper.offsetWidth - window.innerWidth),
+          scrub: 1,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const progress = self.progress * 100;
+            if (progress >= slideStartPercent + 5 && progress < slideStartPercent + 15) {
+              const localProgress = (progress - (slideStartPercent + 5)) / 10;
+              gsap.set(`.slide-${slideNum}-subtitle`, {
+                opacity: localProgress,
+                x: 100 - (localProgress * 100)
+              });
+            } else if (progress >= slideStartPercent + 15) {
+              gsap.set(`.slide-${slideNum}-subtitle`, { opacity: 1, x: 0 });
+            }
+          }
+        }
+      });
+
+      // Body text animation
+      gsap.to(`.slide-${slideNum}-body`, {
+        scrollTrigger: {
+          trigger: ".horizontal-section",
+          start: "top top",
+          end: () => "+=" + (hWrapper.offsetWidth - window.innerWidth),
+          scrub: 1,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const progress = self.progress * 100;
+            if (progress >= slideStartPercent + 10 && progress < slideStartPercent + 22) {
+              const localProgress = (progress - (slideStartPercent + 10)) / 12;
+              gsap.set(`.slide-${slideNum}-body`, {
+                opacity: localProgress,
+                y: 100 - (localProgress * 100)
+              });
+            } else if (progress >= slideStartPercent + 22) {
+              gsap.set(`.slide-${slideNum}-body`, { opacity: 1, y: 0 });
+            }
+          }
+        }
+      });
+
+      // Media animation
+      gsap.to(`.slide-${slideNum}-media`, {
+        scrollTrigger: {
+          trigger: ".horizontal-section",
+          start: "top top",
+          end: () => "+=" + (hWrapper.offsetWidth - window.innerWidth),
+          scrub: 1,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const progress = self.progress * 100;
+            if (progress >= slideStartPercent + 15 && progress < slideStartPercent + 25) {
+              const localProgress = (progress - (slideStartPercent + 15)) / 10;
+              gsap.set(`.slide-${slideNum}-media`, {
+                opacity: localProgress,
+                x: -100 + (localProgress * 100),
+                rotate: -20 + (localProgress * 20)
+              });
+            } else if (progress >= slideStartPercent + 25) {
+              gsap.set(`.slide-${slideNum}-media`, { opacity: 1, x: 0, rotate: 0 });
+            }
+          }
+        }
+      });
+
+      // CTA button animation
+      gsap.to(`.slide-${slideNum}-cta`, {
+        scrollTrigger: {
+          trigger: ".horizontal-section",
+          start: "top top",
+          end: () => "+=" + (hWrapper.offsetWidth - window.innerWidth),
+          scrub: 1,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const progress = self.progress * 100;
+            if (progress >= slideStartPercent + 18 && progress < slideStartPercent + 25) {
+              const localProgress = (progress - (slideStartPercent + 18)) / 7;
+              gsap.set(`.slide-${slideNum}-cta`, {
+                opacity: localProgress,
+                scale: 0.8 + (localProgress * 0.2),
+                y: 50 - (localProgress * 50)
+              });
+            } else if (progress >= slideStartPercent + 25) {
+              gsap.set(`.slide-${slideNum}-cta`, { opacity: 1, scale: 1, y: 0 });
+            }
+          }
+        }
+      });
+    });
+
+    // ===== 3. PINNING SECTIONS =====
     gsap.utils.toArray(".panel").forEach(panel => {
       gsap.to(panel, {
         scrollTrigger: {
           trigger: panel,
           start: "top top",
           pin: true,
-          scrub: true,
-          markers: true
+          scrub: true
         }
       });
     });
     
-    // 3. Horizontal Scroll
-    let sections = gsap.utils.toArray(".h-panel");
-    gsap.to(sections, {
-      xPercent: -100 * (sections.length - 1),
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".horizontal-container",
-        pin: true,
-        scrub: 1,
-        end: () => "+=" + document.querySelector(".horizontal-wrapper").offsetWidth,
-        markers: true
-      }
-    });
-    
-    // 4. Fade In Items
+    // ===== 4. FADE IN ITEMS =====
     gsap.utils.toArray(".fade-item").forEach(item => {
       gsap.from(item, {
         scrollTrigger: {
           trigger: item,
-          start: "top 80%",
-          markers: true
+          start: "top 80%"
         },
         opacity: 0,
         y: 50,
         duration: 1
       });
     });
+
+    // ===== REFRESH ON WINDOW RESIZE =====
+    window.addEventListener("resize", () => {
+      ScrollTrigger.refresh();
+    });
+
+    // ===== CONSOLE LOGGING =====
+    console.log("✅ Advanced Nested Horizontal ScrollTrigger Loaded!");
+    console.log("🎬 Features: Nested Scroll Triggers, Layered Animations, Dynamic Content Reveals");
+    console.log("📐 Each slide has 6 layers: Container → Title → Subtitle → Body → Media → CTA");
   </script>
   
 </body>

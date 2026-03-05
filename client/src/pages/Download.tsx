@@ -1,221 +1,116 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
-import { motion } from "framer-motion";
-import { Download as DownloadIcon, FileText, Shield, CheckCircle2 } from "lucide-react";
+import { Download as DownloadIcon, ChevronLeft, Zap, CheckCircle2 } from "lucide-react";
+
+const EXTENSIONS = [
+  { name: "PARAMETRIX", version: "1.0.0", size: "2.4 MB", color: "#3b82f6", slug: "parametrix" },
+  { name: "AutoNestCut", version: "1.0.0", size: "1.8 MB", color: "#10b981", slug: "autonestcut" },
+  { name: "SPECBASE", version: "2.0.0", size: "Free", color: "#6366f1", slug: "specbase" },
+  { name: "DocMark", version: "2.0.0", size: "Free", color: "#a855f7", slug: "docmark" }
+];
 
 export default function Download() {
-  const extensions = [
-    {
-      name: "PARAMETRIX",
-      version: "1.0.0",
-      description: "Professional Parametric Cladding Layout Generator",
-      downloadUrl: "#",
-      documentationUrl: "#",
-      size: "2.4 MB",
-      slug: "parametrix"
-    },
-    {
-      name: "AutoNestCut", 
-      version: "1.0.0",
-      description: "Intelligent Cut List and Nesting Optimization",
-      downloadUrl: "#",
-      documentationUrl: "#", 
-      size: "1.8 MB",
-      slug: "autonestcut"
-    },
-    {
-      name: "ConstructLM",
-      version: "1.0.0",
-      description: "AI-Powered Document Analysis & Multi-Model Chat Assistant",
-      downloadUrl: "/downloads/ConstructLM-Setup-1.0.0.exe",
-      documentationUrl: "#",
-      size: "~150 MB",
-      slug: "constructlm",
-      isStandalone: true
-    }
-  ];
-
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Floating Navigation */}
-      <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
-        <nav className="bg-background/80 backdrop-blur-lg border border-border rounded-full px-6 py-3 shadow-lg">
-          <div className="flex items-center gap-8">
-            <Link href="/">
-              <span className="text-xl font-bold cursor-pointer">Studiø</span>
-            </Link>
-            <div className="flex items-center gap-6">
-              <Link href="/">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Home</span>
-              </Link>
-              <Link href="/tools">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tools</span>
-              </Link>
-              <Link href="/tutorials">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Tutorials</span>
-              </Link>
-              <Link href="/pricing">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">Pricing</span>
-              </Link>
-              <Link href="/download">
-                <span className="text-sm font-medium cursor-pointer text-primary">Download</span>
-              </Link>
-              <Link href="/faq">
-                <span className="text-sm font-medium cursor-pointer hover:text-primary transition-colors">FAQ</span>
-              </Link>
-            </div>
-          </div>
-        </nav>
-      </div>
+    <div className="bg-[#050505] min-h-screen text-white font-sans overflow-x-hidden">
+      <nav className="fixed top-0 w-full z-50 p-8 flex justify-between items-center bg-[#050505]/80 backdrop-blur-xl border-b border-white/5">
+        <Link href="/tools" className="flex items-center gap-4 text-[10px] font-black tracking-[0.4em] text-white/30 hover:text-blue-500 transition-colors uppercase group">
+          <ChevronLeft size={16} className="group-hover:-translate-x-2 transition-transform" /> Back
+        </Link>
+        <div className="text-sm font-black tracking-[0.8em] italic opacity-20">DOWNLOADS</div>
+        <div className="w-20"></div>
+      </nav>
 
-      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 pt-24">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">Downloads</h1>
-          <p className="max-w-2xl mx-auto text-xl text-muted-foreground">
-            Get the latest versions of extensions and documentation
-          </p>
+      <section className="pt-40 pb-20 px-8 max-w-7xl mx-auto text-center">
+        <div className="inline-flex items-center gap-3 px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-500 text-[10px] font-black uppercase tracking-widest rounded mb-8">
+          <Zap size={12} /> Resources
         </div>
+        
+        <h1 className="text-[80px] md:text-[120px] font-black tracking-tighter leading-[0.75] uppercase italic stroke-text mb-8">
+          Downloads
+        </h1>
+        
+        <p className="text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
+          Get the latest versions of our extensions and tools
+        </p>
+      </section>
 
-        {/* Download Notice */}
-        <Card className="mb-12 border-2 border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-950">
-          <CardContent className="p-6">
-            <div className="flex items-start space-x-4">
-              <Shield className="h-6 w-6 text-blue-600 dark:text-blue-400 mt-1 flex-shrink-0" />
-              <div>
-                <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">License Information</h3>
-                <p className="text-blue-800 dark:text-blue-200 text-sm">
-                  Extensions require purchase or trial activation. ConstructLM is free to download and requires only an AI provider API key (free options available).
-                </p>
+      <section className="py-20 px-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {EXTENSIONS.map((ext, i) => (
+            <div key={ext.slug} className="bg-[#0c0c0e] border border-white/5 p-10 rounded-[40px] hover:border-blue-500/50 transition-colors">
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  <h3 className="text-2xl font-black uppercase italic tracking-tight mb-2">{ext.name}</h3>
+                  <p className="text-sm text-white/40">Version {ext.version}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-xs text-white/30 uppercase tracking-widest">Size</p>
+                  <p className="text-sm font-bold text-blue-500">{ext.size}</p>
+                </div>
               </div>
+              
+              <div className="space-y-3 mb-8">
+                <div className="flex items-center gap-2 text-sm text-white/40">
+                  <CheckCircle2 size={16} className="text-blue-500" />
+                  Extension files (.rbz)
+                </div>
+                <div className="flex items-center gap-2 text-sm text-white/40">
+                  <CheckCircle2 size={16} className="text-blue-500" />
+                  Installation guide
+                </div>
+                <div className="flex items-center gap-2 text-sm text-white/40">
+                  <CheckCircle2 size={16} className="text-blue-500" />
+                  User documentation
+                </div>
+              </div>
+
+              <Link href={`/tools/${ext.slug}`}>
+                <button className="w-full bg-white/5 hover:bg-white/10 border border-white/10 text-white py-4 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center justify-center gap-3">
+                  <DownloadIcon size={16} /> Get Extension
+                </button>
+              </Link>
             </div>
-          </CardContent>
-        </Card>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {extensions.map((extension, index) => (
-            <motion.div
-              key={extension.slug}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <Card className="h-full">
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <CardTitle className="text-2xl mb-2">{extension.name}</CardTitle>
-                      <CardDescription className="text-base">{extension.description}</CardDescription>
-                    </div>
-                    <Badge variant="secondary">v{extension.version}</Badge>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <span className="text-muted-foreground">Version:</span>
-                      <p className="font-medium">{extension.version}</p>
-                    </div>
-                    <div>
-                      <span className="text-muted-foreground">Size:</span>
-                      <p className="font-medium">{extension.size}</p>
-                    </div>
-                  </div>
-
-                  <div className="space-y-3">
-                    <h4 className="font-semibold">What's Included:</h4>
-                    <ul className="space-y-2 text-sm">
-                      <li className="flex items-center">
-                        <CheckCircle2 className="h-4 w-4 text-primary mr-2" />
-                        Extension files (.rbz)
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle2 className="h-4 w-4 text-primary mr-2" />
-                        Installation guide
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle2 className="h-4 w-4 text-primary mr-2" />
-                        User documentation
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle2 className="h-4 w-4 text-primary mr-2" />
-                        License key activation
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="space-y-3 pt-4 border-t">
-                    {extension.isStandalone ? (
-                      <a href={extension.downloadUrl} download>
-                        <Button size="lg" className="w-full">
-                          <DownloadIcon className="mr-2 h-5 w-5" />
-                          Download for Windows
-                        </Button>
-                      </a>
-                    ) : (
-                      <Link href={`/purchase/${extension.slug}`}>
-                        <Button size="lg" className="w-full">
-                          <DownloadIcon className="mr-2 h-5 w-5" />
-                          Get Extension
-                        </Button>
-                      </Link>
-                    )}
-                    <Button variant="outline" size="sm" className="w-full">
-                      <FileText className="mr-2 h-4 w-4" />
-                      View Documentation
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
           ))}
         </div>
+      </section>
 
-        {/* Installation Instructions */}
-        <Card className="mt-16">
-          <CardHeader>
-            <CardTitle className="text-2xl">Installation Instructions</CardTitle>
-            <CardDescription>How to install and activate your extensions</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="text-center">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-xl font-bold text-primary">1</span>
-                </div>
-                <h3 className="font-semibold mb-2">Download</h3>
-                <p className="text-sm text-muted-foreground">Download the .rbz file after purchase or during trial</p>
+      <section className="py-32 px-8 bg-[#08080a]">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-4xl font-black uppercase italic tracking-tighter mb-12 text-center">Installation Steps</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { num: "01", title: "Download", desc: "Download the .rbz file after purchase or trial" },
+              { num: "02", title: "Install", desc: "Use SketchUp Extension Manager to install" },
+              { num: "03", title: "Activate", desc: "Enter your license key to activate" }
+            ].map((step, i) => (
+              <div key={i} className="text-center">
+                <div className="text-6xl font-black text-white/5 mb-4">{step.num}</div>
+                <h3 className="text-xl font-black uppercase italic mb-2">{step.title}</h3>
+                <p className="text-sm text-white/40">{step.desc}</p>
               </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-xl font-bold text-primary">2</span>
-                </div>
-                <h3 className="font-semibold mb-2">Install</h3>
-                <p className="text-sm text-muted-foreground">Use SketchUp's Extension Manager to install the .rbz file</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-xl font-bold text-primary">3</span>
-                </div>
-                <h3 className="font-semibold mb-2">Activate</h3>
-                <p className="text-sm text-muted-foreground">Enter your license key to activate the extension</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      {/* Footer */}
-      <div className="flex justify-center py-8 mt-auto px-4">
-        <footer className="bg-background/80 backdrop-blur-lg border border-border rounded-full px-4 sm:px-6 py-3 shadow-lg max-w-4xl">
-          <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground flex-wrap justify-center">
+      <div className="flex justify-center py-20 px-8">
+        <footer className="bg-[#0c0c0e] border border-white/5 rounded-full px-12 py-6 shadow-2xl">
+          <div className="flex items-center gap-6 text-[10px] font-black tracking-[0.4em] text-white/30 uppercase">
             <span>© 2025 Studiø</span>
-            <span className="text-border hidden sm:inline">•</span>
-            <span className="text-center">Developed by Int. Arch. M.Shkeir</span>
+            <div className="w-1 h-1 bg-white/10 rounded-full"></div>
+            <span>Muhamad Shkeir</span>
           </div>
         </footer>
       </div>
+
+      <style>{`
+        .stroke-text {
+          -webkit-text-stroke: 1px rgba(255,255,255,0.2);
+          color: transparent;
+        }
+        @media (min-width: 1024px) {
+          .stroke-text { -webkit-text-stroke: 2px rgba(255,255,255,0.2); }
+        }
+      `}</style>
     </div>
   );
 }

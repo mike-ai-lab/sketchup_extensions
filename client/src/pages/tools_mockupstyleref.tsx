@@ -1,79 +1,61 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef } from "react";
 import { Link } from "wouter";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import Header from "../components/Header";
 import { 
   Terminal,
   Box,
   ChevronRight,
-  Scissors,
-  Database,
-  FileText,
-  Grid3x3
+  MousePointer2,
+  Cpu,
+  Zap,
+  Shield,
+  Layers
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const EXTENSIONS = [
   {
-    id: "parametrix",
-    name: "PARAMETRIX",
-    description: "Professional parametric engine for complex multi-face architectural envelopes. Generate synchronized layouts with advanced trimming and rail systems.",
-    tagline: "CLADDING GENERATOR",
+    id: "raytracer-pro",
+    name: "Raytracer Pro",
+    description: "High-fidelity light path simulation. Engineered for Riyadh's intense solar conditions in BIM models.",
+    tagline: "LUMINESCENCE V4",
     accent: "#3b82f6",
-    details: ["Multi-Face", "Rail Systems", "Pattern Control"],
-    icon: Box,
-    price: "$49"
+    details: ["4K Sampling", "Real-time GI", "Solar Study"]
   },
   {
-    id: "autonestcut",
-    name: "AutoNestCut",
-    description: "Intelligent cut-list optimization reducing material waste by up to 30%. Automated nesting algorithms for workshop efficiency.",
-    tagline: "FABRICATION OPTIMIZER",
+    id: "geometry-gen",
+    name: "Geometry Gen",
+    description: "Parametric facade generation. Transform complex algorithms into buildable architectural patterns.",
+    tagline: "PARAMETRIC V1",
+    accent: "#8b5cf6",
+    details: ["Voronoi Sync", "BIM Mesh", "Auto-Label"]
+  },
+  {
+    id: "material-sync",
+    name: "Material Sync",
+    description: "Cloud-based PBR library. Instant texture mapping for large-scale interior projects.",
+    tagline: "PIPELINE V2",
     accent: "#10b981",
-    details: ["Smart Nesting", "Cut Lists", "Material Optimization"],
-    icon: Scissors,
-    price: "$39"
+    details: ["PBR Maps", "Auto-UV", "10k Assets"]
   },
   {
-    id: "specbase",
-    name: "SPECBASE",
-    description: "AI-powered specification management for large-scale projects. Ask questions in natural language and get instant answers with citations.",
-    tagline: "DOCUMENT INTELLIGENCE",
-    accent: "#6366f1",
-    details: ["AI Search", "Document Analysis", "100% Private"],
-    icon: Database,
-    price: "Free"
-  },
-  {
-    id: "docmark",
-    name: "DocMark",
-    description: "Real-time markdown editor with live preview and synchronized scrolling. Perfect for technical documentation and content creation.",
-    tagline: "MARKDOWN EDITOR",
-    accent: "#a855f7",
-    details: ["Live Preview", "Sync Scrolling", "PDF Export"],
-    icon: FileText,
-    price: "Free"
-  },
-  {
-    id: "utilities",
-    name: "Utilities",
-    description: "Collection of focused extensions for quick alignment, layer management, array tools, and measurement utilities.",
-    tagline: "ESSENTIAL TOOLS",
+    id: "studio-cloud",
+    name: "Studiø Cloud",
+    description: "Collaborative design vault. Secure your architectural IP and share assets across global teams.",
+    tagline: "INFRASTRUCTURE",
     accent: "#f59e0b",
-    details: ["Quick Align", "Layer Manager", "Array Tools"],
-    icon: Grid3x3,
-    price: "Free-$15"
+    details: ["AES-256", "Team Sync", "Versioning"]
   }
 ];
 
-const Slide = ({ tool, index, progress }: { tool: typeof EXTENSIONS[0], index: number, progress: any }) => {
+const Slide = ({ tool, index, progress }) => {
   // Staggered timing ranges for this specific slide
-  // 5 tools at 0%, 25%, 50%, 75%, 100%
+  // This ensures elements enter sequentially as the user scrolls
   const start = index * 0.25;
   const end = (index + 1) * 0.25;
 
   // Horizontal translation of the whole slide
-  const x = useTransform(progress, [0, 1], ["0%", "-400%"]);
+  const x = useTransform(progress, [0, 1], ["0%", "-300%"]);
   
   // Nested staggered animations for elements within the slide
   const titleMove = useTransform(progress, [start, start + 0.1, start + 0.15], [200, 0, -50]);
@@ -93,9 +75,9 @@ const Slide = ({ tool, index, progress }: { tool: typeof EXTENSIONS[0], index: n
           <motion.div style={{ x: titleMove }}>
              <span className="text-[10px] font-black tracking-[0.6em] text-white/20 uppercase">Module // 0{index + 1}</span>
              <h2 className="text-6xl md:text-9xl font-black italic uppercase tracking-tighter leading-none mt-4">
-               <span style={{ color: tool.accent }}>{tool.name}</span>
+               {tool.name.split(' ')[0]}<br/>
+               <span style={{ color: tool.accent }}>{tool.name.split(' ')[1]}</span>
              </h2>
-             <span className="text-sm font-black tracking-[0.4em] text-white/40 uppercase mt-2 block">{tool.tagline}</span>
           </motion.div>
 
           <motion.p 
@@ -110,21 +92,20 @@ const Slide = ({ tool, index, progress }: { tool: typeof EXTENSIONS[0], index: n
             whileInView={{ opacity: 1 }}
             className="flex flex-wrap gap-4"
           >
-            {tool.details.map((d: string, i: number) => (
+            {tool.details.map((d, i) => (
               <div key={i} className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-[9px] font-black uppercase tracking-widest italic">
                 {d}
               </div>
             ))}
           </motion.div>
 
-          <div className="pt-10 flex items-center gap-6">
+          <div className="pt-10">
             <Link href={`/tools/${tool.id}`}>
               <Button className="bg-white text-black hover:bg-white/90 px-12 py-8 rounded-full font-black uppercase tracking-widest text-[10px] group shadow-2xl">
-                View Details
+                Load Interface
                 <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
-            <div className="text-2xl font-black" style={{ color: tool.accent }}>{tool.price}</div>
           </div>
         </div>
 
@@ -139,7 +120,7 @@ const Slide = ({ tool, index, progress }: { tool: typeof EXTENSIONS[0], index: n
                 <div className="absolute inset-0 opacity-10">
                   <svg width="100%" height="100%"><pattern id={`g-${index}`} width="30" height="30" patternUnits="userSpaceOnUse"><path d="M 30 0 L 0 0 0 30" fill="none" stroke="white" strokeWidth="0.5"/></pattern><rect width="100%" height="100%" fill={`url(#g-${index})`} /></svg>
                 </div>
-                <tool.icon size={140} strokeWidth={1} style={{ color: tool.accent }} />
+                <Box size={140} strokeWidth={1} style={{ color: tool.accent }} />
              </div>
            </motion.div>
         </div>
@@ -150,64 +131,25 @@ const Slide = ({ tool, index, progress }: { tool: typeof EXTENSIONS[0], index: n
 
 export default function Tools() {
   const containerRef = useRef(null);
-  const [isSnapping, setIsSnapping] = useState(false);
   
   // Driving the entire timeline with Vertical Scroll
   const { scrollYProgress } = useScroll({
     target: containerRef,
   });
 
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
-
-  useEffect(() => {
-    let snapTimeout: NodeJS.Timeout;
-    let lastScrollTime = Date.now();
-
-    const handleScroll = () => {
-      lastScrollTime = Date.now();
-      clearTimeout(snapTimeout);
-
-      snapTimeout = setTimeout(() => {
-        const timeSinceLastScroll = Date.now() - lastScrollTime;
-        if (timeSinceLastScroll < 150 || isSnapping) return;
-
-        const scrollTop = window.scrollY;
-        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = scrollTop / totalHeight;
-        
-        // Find nearest snap point - 5 tools at equal intervals: 0%, 25%, 50%, 75%, 100%
-        const snapPoints = [0, 0.25, 0.5, 0.75, 1.0];
-        const nearest = snapPoints.reduce((prev, curr) => 
-          Math.abs(curr - progress) < Math.abs(prev - progress) ? curr : prev
-        );
-        
-        const distance = Math.abs(nearest - progress);
-        
-        // Only snap if within 8% of a snap point (but not too close to avoid jitter)
-        if (distance < 0.08 && distance > 0.001) {
-          setIsSnapping(true);
-          const targetScroll = nearest * totalHeight;
-          
-          window.scrollTo({
-            top: targetScroll,
-            behavior: 'smooth'
-          });
-          
-          setTimeout(() => setIsSnapping(false), 600);
-        }
-      }, 150);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      clearTimeout(snapTimeout);
-    };
-  }, [isSnapping]);
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 50, damping: 20 });
 
   return (
     <div className="bg-[#050505] text-white selection:bg-white selection:text-black">
-      <Header currentPage="tools" />
+      {/* HUD Elements */}
+      <nav className="fixed top-0 w-full z-50 p-12 flex justify-between items-center pointer-events-none">
+        <Link href="/" className="text-2xl font-black tracking-[0.3em] italic uppercase pointer-events-auto">Studiø</Link>
+        <div className="pointer-events-auto bg-black/50 backdrop-blur-xl border border-white/10 px-6 py-3 rounded-full hidden md:flex gap-8 text-[9px] font-black uppercase tracking-[0.4em]">
+          <Link href="/" className="text-white/40 hover:text-white transition-colors">System</Link>
+          <span className="text-white">Inventory</span>
+          <Link href="/contact" className="text-white/40 hover:text-white transition-colors">Access</Link>
+        </div>
+      </nav>
 
       {/* Progress Timeline Indicator */}
       <div className="fixed left-12 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-12">
@@ -237,7 +179,8 @@ export default function Tools() {
           <Terminal size={14} /> Sequence Timeline Active
         </div>
         <div className="text-[9px] font-black uppercase tracking-[0.4em] text-white/20 text-right">
-          © 2025 Studiø / Muhamad Shkeir
+          Muhamad Shkeir / Design Systems<br/>
+          Riyadh, KSA
         </div>
       </div>
       

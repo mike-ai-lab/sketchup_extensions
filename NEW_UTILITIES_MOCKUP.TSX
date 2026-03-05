@@ -1,85 +1,36 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { 
-  Ruler, Layers, Grid3x3, RotateCw, 
-  FileCode, AlignCenter, X,
+  Code2, 
+  Terminal, 
+  Layers, 
+  Box, 
+  Cpu, 
+  Zap, 
+  DraftingCompass, 
+  Wrench,
   ChevronLeft,
   ChevronRight,
-  Download
+  ArrowUpRight
 } from "lucide-react";
 
 const UTILITIES = [
-  { 
-    id: "align-01", 
-    title: "Quick Align", 
-    category: "MODELING / SKETCHUP", 
-    description: "Rapidly align components and groups with precision snapping",
-    price: "Free",
-    downloadUrl: null,
-    icon: AlignCenter 
-  },
-  { 
-    id: "layer-02", 
-    title: "Layer Manager", 
-    category: "ORGANIZATION / SKETCHUP", 
-    description: "Advanced layer organization and batch operations",
-    price: "Free",
-    downloadUrl: null,
-    icon: Layers 
-  },
-  { 
-    id: "array-03", 
-    title: "Array Tools", 
-    category: "MODELING / SKETCHUP", 
-    description: "Create linear, circular, and grid arrays with ease",
-    price: "$9",
-    downloadUrl: null,
-    icon: Grid3x3 
-  },
-  { 
-    id: "rotate-04", 
-    title: "Rotate Helper", 
-    category: "MODELING / SKETCHUP", 
-    description: "Precise rotation with angle snapping and visual guides",
-    price: "Free",
-    downloadUrl: null,
-    icon: RotateCw 
-  },
-  { 
-    id: "lsp-05", 
-    title: "LSP Exporter", 
-    category: "EXPORT / AUTOCAD", 
-    description: "Export geometry to AutoCAD LISP format for CAD integration",
-    price: "$15",
-    downloadUrl: null,
-    icon: FileCode 
-  },
-  { 
-    id: "measure-06", 
-    title: "Quick Measure", 
-    category: "MEASUREMENT / SKETCHUP", 
-    description: "Fast measurement tools with annotation capabilities",
-    price: "Free",
-    downloadUrl: null,
-    icon: Ruler 
-  },
-  { 
-    id: "delete-07", 
-    title: "Delete Tool", 
-    category: "MODELING / SKETCHUP", 
-    description: "Enhanced delete functionality with smart selection and cleanup",
-    price: "Free",
-    downloadUrl: "/downloads/utilities/DeleteTool.rbz",
-    icon: X 
-  }
+  { id: "ruby-01", title: "Spatial Engine", category: "RUBY / SKETCHUP", desc: "Automated volumetric generator for complex massing.", tech: "v2.4", icon: Code2 },
+  { id: "lisp-02", title: "Purge Plus", category: "LISP / AUTOCAD", desc: "Deep-cleaning facility for enterprise-scale CAD files.", tech: "v1.0", icon: Terminal },
+  { id: "revit-03", title: "Metadata Sync", category: "C# / REVIT", desc: "Bidirectional Excel-to-BIM synchronization module.", tech: "v4.2", icon: Layers },
+  { id: "py-04", title: "Batch Baker", category: "PYTHON / 3DS", desc: "Automated light baking for high-fidelity interiors.", tech: "v1.8", icon: Zap },
+  { id: "gh-05", title: "Façade Solver", category: "GH / RHINO", desc: "Reactive panelization for complex solar orientations.", tech: "v3.1", icon: Box },
+  { id: "cad-06", title: "AIA Layering", category: "VBA / CAD", desc: "Instant standardization of layered architectural data.", tech: "v2.0", icon: Wrench },
+  { id: "mesh-07", title: "Decimator", category: "C++ / UTILS", desc: "High-poly mesh optimization for real-time engines.", tech: "v0.9", icon: Cpu },
+  { id: "unit-08", title: "Scale Master", category: "JS / WEB", desc: "Global unit conversion for multi-firm collaboration.", tech: "v1.5", icon: DraftingCompass },
 ];
 
-export default function UtilitiesDetail() {
+export default function Utilities() {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef(null);
   const cardRefs = useRef([]);
 
-  const nextSlide = () => setActiveIndex((prev) => (prev + 1) % UTILITIES.length);
+  const nextSlide = () => setActiveIndex((prev) => (prev + 1) % UTILITIES.map(u => u).length);
   const prevSlide = () => setActiveIndex((prev) => (prev - 1 + UTILITIES.length) % UTILITIES.length);
 
   useEffect(() => {
@@ -105,17 +56,19 @@ export default function UtilitiesDetail() {
         const absDistance = Math.abs(distance);
         const isActive = distance === 0;
 
+        // Interactive Carousel Logic
         gsap.to(el, {
-          xPercent: distance * 55,
+          xPercent: distance * 55, // Horizontal spacing
           scale: isActive ? 1 : 0.75 - (absDistance * 0.1),
           zIndex: 100 - absDistance,
           opacity: absDistance > 2 ? 0 : 1 - (absDistance * 0.3),
-          rotateY: distance * -15,
+          rotateY: distance * -15, // 3D Tilt effect
           filter: isActive ? "blur(0px)" : "blur(4px)",
           duration: 0.8,
           ease: "expo.out"
         });
 
+        // Step 2 Expansion Logic for active card only
         const infoRect = el.querySelector('.info-rect');
         const infoContent = el.querySelector('.info-content');
         if (infoRect && infoContent) {
@@ -137,14 +90,9 @@ export default function UtilitiesDetail() {
     loadGSAP();
   }, [activeIndex]);
 
-  const handleDownload = (downloadUrl) => {
-    if (downloadUrl) {
-      window.location.href = downloadUrl;
-    }
-  };
-
   return (
     <div className="bg-[#050505] min-h-screen text-white font-sans overflow-hidden">
+      {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 p-10 flex justify-between items-center pointer-events-none">
         <Link href="/tools" className="pointer-events-auto flex items-center gap-4 text-[10px] font-black tracking-[0.5em] text-white/30 hover:text-blue-500 transition-colors uppercase">
           <ChevronLeft size={16} /> Back
@@ -153,9 +101,10 @@ export default function UtilitiesDetail() {
         <div className="w-20"></div>
       </nav>
 
+      {/* Main Perspective Stage */}
       <main className="h-screen flex flex-col items-center justify-center relative perspective-2000">
         <header className="absolute top-24 text-center space-y-4">
-            <h1 className="text-7xl font-black tracking-tighter uppercase italic stroke-text">Utilities</h1>
+            <h1 className="text-7xl font-black tracking-tighter uppercase italic stroke-text">Facilities</h1>
             <p className="text-[10px] font-bold tracking-[0.4em] text-blue-500 uppercase">Interactive Module Browser</p>
         </header>
 
@@ -166,6 +115,7 @@ export default function UtilitiesDetail() {
               ref={(el) => (cardRefs.current[i] = el)}
               className="absolute flex items-center pointer-events-none"
             >
+              {/* Step 1: The Main Module Square */}
               <div className="w-[300px] h-[300px] bg-[#0c0c0e] border border-white/10 rounded-[40px] shadow-2xl flex flex-col items-center justify-center p-10 z-20 pointer-events-auto relative group overflow-hidden">
                 <div className="p-6 bg-blue-500/10 rounded-3xl text-blue-500 mb-6 group-hover:scale-110 transition-transform">
                   <item.icon size={48} strokeWidth={1.5} />
@@ -174,35 +124,25 @@ export default function UtilitiesDetail() {
                     <span className="text-[9px] font-black tracking-[0.3em] text-blue-500/50 block mb-2">{item.category}</span>
                     <h3 className="text-2xl font-black tracking-tight uppercase leading-none italic">{item.title}</h3>
                 </div>
+                {/* Visual Gear/Decoration */}
                 <div className="absolute -bottom-4 -right-4 w-20 h-20 border border-white/5 rounded-full opacity-20"></div>
               </div>
 
+              {/* Step 2: The Expanding Information Module */}
               <div className="info-rect h-[220px] bg-white text-black -ml-12 pl-20 rounded-r-[35px] overflow-hidden flex items-center w-0 shadow-2xl z-10">
                 <div className="info-content opacity-0 whitespace-nowrap pr-12">
                    <h4 className="text-xl font-black uppercase tracking-tighter mb-2 italic">Module Description</h4>
                    <p className="text-sm text-black/60 font-medium max-w-[320px] whitespace-normal leading-tight">
-                     {item.description}
+                     {item.desc}
                    </p>
                    <div className="mt-6 flex items-center gap-6">
                       <div className="flex flex-col">
-                        <span className="text-[8px] font-black opacity-30 uppercase tracking-widest">Price</span>
-                        <span className="text-xs font-mono font-bold text-blue-600">{item.price}</span>
+                        <span className="text-[8px] font-black opacity-30 uppercase tracking-widest">Version</span>
+                        <span className="text-xs font-mono font-bold text-blue-600">{item.tech}</span>
                       </div>
-                      {item.downloadUrl ? (
-                        <button 
-                          onClick={() => handleDownload(item.downloadUrl)}
-                          className="px-6 py-2 bg-black text-white text-[10px] font-black tracking-widest uppercase rounded-full flex items-center gap-2 hover:bg-blue-600 transition-colors"
-                        >
-                          Download <Download size={14} />
-                        </button>
-                      ) : (
-                        <button 
-                          disabled
-                          className="px-6 py-2 bg-gray-400 text-white text-[10px] font-black tracking-widest uppercase rounded-full flex items-center gap-2 cursor-not-allowed opacity-50"
-                        >
-                          Soon <Download size={14} />
-                        </button>
-                      )}
+                      <button className="px-6 py-2 bg-black text-white text-[10px] font-black tracking-widest uppercase rounded-full flex items-center gap-2 hover:bg-blue-600 transition-colors">
+                        Deploy <ArrowUpRight size={14} />
+                      </button>
                    </div>
                 </div>
               </div>
@@ -210,6 +150,7 @@ export default function UtilitiesDetail() {
           ))}
         </div>
 
+        {/* Carousel Controls */}
         <div className="absolute bottom-20 flex items-center gap-12">
             <button onClick={prevSlide} className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all">
                 <ChevronLeft size={24} />
