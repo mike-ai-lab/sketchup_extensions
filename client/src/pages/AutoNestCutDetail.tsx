@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import Header from "../components/Header";
 import { 
   ArrowRight, CheckCircle2, Download, Scissors, 
   Grid3x3, Layers, Settings, Star, ChevronLeft, Zap, Box
@@ -21,13 +22,7 @@ const SPECS = [
 export default function AutoNestCutDetail() {
   return (
     <div className="bg-[#050505] min-h-screen text-white font-sans selection:bg-green-600 overflow-x-hidden">
-      <nav className="fixed top-0 w-full z-50 p-8 flex justify-between items-center bg-[#050505]/80 backdrop-blur-xl border-b border-white/5">
-        <Link href="/tools" className="flex items-center gap-4 text-[10px] font-black tracking-[0.4em] text-white/30 hover:text-green-500 transition-colors uppercase group">
-          <ChevronLeft size={16} className="group-hover:-translate-x-2 transition-transform" /> Back
-        </Link>
-        <div className="text-sm font-black tracking-[0.8em] italic opacity-20">MODULE // ANCT</div>
-        <div className="w-20"></div>
-      </nav>
+      <Header currentPage="tools" />
 
       <section className="pt-40 pb-20 px-8 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">

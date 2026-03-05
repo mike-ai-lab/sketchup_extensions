@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
+import Header from "../components/Header";
 import { 
   Ruler, Layers, Grid3x3, RotateCw, 
   FileCode, AlignCenter, X,
@@ -145,13 +146,7 @@ export default function UtilitiesDetail() {
 
   return (
     <div className="bg-[#050505] min-h-screen text-white font-sans overflow-hidden">
-      <nav className="fixed top-0 w-full z-50 p-10 flex justify-between items-center pointer-events-none">
-        <Link href="/tools" className="pointer-events-auto flex items-center gap-4 text-[10px] font-black tracking-[0.5em] text-white/30 hover:text-blue-500 transition-colors uppercase">
-          <ChevronLeft size={16} /> Back
-        </Link>
-        <div className="text-sm font-black tracking-[0.8em] italic opacity-20">UTILITIES // 02</div>
-        <div className="w-20"></div>
-      </nav>
+      <Header currentPage="tools" />
 
       <main className="h-screen flex flex-col items-center justify-center relative perspective-2000">
         <header className="absolute top-24 text-center space-y-4">
