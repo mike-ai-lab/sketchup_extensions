@@ -68,6 +68,8 @@ declare global {
 export default function Home() {
   const [activeSlide, setActiveSlide] = useState(0);
   const scrollContainerRef = useRef(null);
+  const touchStartXRef = useRef<number | null>(null);
+  const touchStartYRef = useRef<number | null>(null);
 
   useEffect(() => {
     const loadGSAP = async () => {
@@ -84,19 +86,24 @@ export default function Home() {
       }
 
       const gsap = window.gsap;
-      gsap.registerPlugin(window.ScrollTrigger);
+      const ScrollTrigger = window.ScrollTrigger;
+      gsap.registerPlugin(ScrollTrigger);
+      ScrollTrigger.normalizeScroll(true);
+      const mm = gsap.matchMedia();
 
       // Hero Text Parallax
-      gsap.to(".hero-title", {
-        scrollTrigger: {
-          trigger: ".hero-section",
-          start: "top top",
-          end: "bottom top",
-          scrub: true
-        },
-        y: 200,
-        scale: 0.9,
-        opacity: 0
+      mm.add("(min-width: 768px)", () => {
+        gsap.to(".hero-title", {
+          scrollTrigger: {
+            trigger: ".hero-section",
+            start: "top top",
+            end: "bottom top",
+            scrub: true
+          },
+          y: 200,
+          scale: 0.9,
+          opacity: 0
+        });
       });
 
       // Background Pulse
@@ -110,33 +117,60 @@ export default function Home() {
     };
 
     loadGSAP();
+
+    return () => {
+      window.ScrollTrigger?.getAll()?.forEach((trigger: any) => trigger.kill());
+    };
   }, []);
+
+  const onCarouselTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+    touchStartXRef.current = event.touches[0].clientX;
+    touchStartYRef.current = event.touches[0].clientY;
+  };
+
+  const onCarouselTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
+    if (touchStartXRef.current == null || touchStartYRef.current == null) return;
+    const endX = event.changedTouches[0].clientX;
+    const endY = event.changedTouches[0].clientY;
+    const deltaX = touchStartXRef.current - endX;
+    const deltaY = touchStartYRef.current - endY;
+
+    if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY)) {
+      setActiveSlide((prev) => {
+        if (deltaX > 0) return Math.min(FEATURED_TOOLS.length - 1, prev + 1);
+        return Math.max(0, prev - 1);
+      });
+    }
+
+    touchStartXRef.current = null;
+    touchStartYRef.current = null;
+  };
 
   return (
     <div className="bg-[#050505] min-h-screen text-white font-sans selection:bg-blue-600 overflow-x-hidden" ref={scrollContainerRef}>
       <Header currentPage="home" />
 
       {/* 1. Cinematic Hero */}
-      <section className="hero-section relative h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden">
-        <div className="bg-glow absolute w-[600px] h-[600px] bg-blue-600/20 blur-[150px] rounded-full -z-10"></div>
+      <section className="hero-section relative h-screen flex flex-col items-center justify-center text-center px-4 sm:px-6 overflow-hidden">
+        <div className="bg-glow absolute w-[400px] h-[400px] sm:w-[600px] sm:h-[600px] bg-blue-600/20 blur-[150px] rounded-full -z-10"></div>
         
         <div className="hero-title space-y-6">
-          <h1 className="text-[10vw] font-black tracking-tighter leading-[0.8] uppercase italic stroke-text">
+          <h1 className="text-[16vw] sm:text-[10vw] font-black tracking-tighter leading-[0.8] uppercase italic stroke-text">
             Studio<br/><span className="text-white not-italic">Terminal</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-white/40 font-medium text-lg leading-relaxed">
+          <p className="max-w-2xl mx-auto text-white/40 font-medium text-base sm:text-lg leading-relaxed">
             Professional-grade parametric engines and automation scripts designed for 
             the complexity of modern Middle Eastern architecture.
           </p>
           
-          <div className="flex justify-center gap-6 pt-10">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 pt-8 sm:pt-10">
             <Link href="/tools">
-              <button className="bg-white text-black px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase hover:bg-blue-600 hover:text-white transition-all active:scale-95 shadow-2xl">
+              <button className="w-full sm:w-auto bg-white text-black px-8 sm:px-10 py-4 sm:py-5 rounded-2xl font-black text-xs tracking-widest uppercase hover:bg-blue-600 hover:text-white transition-all active:scale-95 shadow-2xl">
                 Initialize System
               </button>
             </Link>
             <Link href="/pricing">
-              <button className="bg-transparent border border-white/10 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase hover:bg-white/5 transition-all active:scale-95">
+              <button className="w-full sm:w-auto bg-transparent border border-white/10 text-white px-8 sm:px-10 py-4 sm:py-5 rounded-2xl font-black text-xs tracking-widest uppercase hover:bg-white/5 transition-all active:scale-95">
                 View Licenses
               </button>
             </Link>
@@ -149,14 +183,14 @@ export default function Home() {
       </section>
 
       {/* 2. Featured Module Carousel (The mechanical scroll) */}
-      <section className="py-40 px-6 bg-[#08080a]">
+      <section className="py-24 sm:py-40 px-4 sm:px-6 bg-[#08080a]">
         <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between items-end mb-20 border-b border-white/5 pb-10">
+          <div className="flex justify-between items-end mb-12 sm:mb-20 border-b border-white/5 pb-8 sm:pb-10">
             <div>
               <span className="text-blue-500 text-[10px] font-black tracking-[0.5em] uppercase">Phase 01</span>
-              <h2 className="text-5xl font-black uppercase italic tracking-tighter mt-2">Core Modules</h2>
+              <h2 className="text-3xl sm:text-5xl font-black uppercase italic tracking-tighter mt-2">Core Modules</h2>
             </div>
-            <div className="flex gap-4">
+            <div className="hidden sm:flex gap-4">
                <button onClick={() => setActiveSlide(s => Math.max(0, s-1))} className="p-4 border border-white/10 rounded-full hover:bg-white hover:text-black transition-all">
                 <ChevronLeft size={20} />
                </button>
@@ -166,15 +200,19 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="relative h-[500px] flex items-center overflow-hidden">
+          <div
+            className="relative h-[420px] sm:h-[500px] flex items-center overflow-hidden touch-pan-y"
+            onTouchStart={onCarouselTouchStart}
+            onTouchEnd={onCarouselTouchEnd}
+          >
             <div 
-              className="flex transition-transform duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)]"
-              style={{ transform: `translateX(-${activeSlide * 40}%)` }}
+              className="flex transition-transform duration-700 sm:duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)]"
+              style={{ transform: `translateX(-${activeSlide * 100}%)` }}
             >
               {FEATURED_TOOLS.map((tool, i) => (
-                <div key={tool.id} className="min-w-[80%] md:min-w-[40%] px-4">
+                <div key={tool.id} className="min-w-full sm:min-w-[40%] px-2 sm:px-4">
                   <Link href={tool.path}>
-                    <div className="group bg-[#0c0c0e] border border-white/5 p-12 rounded-[50px] h-[450px] flex flex-col justify-between hover:border-blue-500/50 transition-all cursor-pointer relative overflow-hidden">
+                    <div className="group bg-[#0c0c0e] border border-white/5 p-6 sm:p-12 rounded-[32px] sm:rounded-[50px] h-[380px] sm:h-[450px] flex flex-col justify-between hover:border-blue-500/50 transition-all cursor-pointer relative overflow-hidden">
                       <div className="absolute top-0 right-0 p-8 text-4xl font-black italic opacity-5 group-hover:opacity-10 transition-opacity">
                         {tool.id}
                       </div>
@@ -183,7 +221,7 @@ export default function Home() {
                           <Box size={24} />
                         </div>
                         <span className="text-blue-500 text-[9px] font-black tracking-widest uppercase block">{tool.tagline}</span>
-                        <h3 className="text-4xl font-black uppercase italic tracking-tighter">{tool.name}</h3>
+                        <h3 className="text-3xl sm:text-4xl font-black uppercase italic tracking-tighter">{tool.name}</h3>
                       </div>
                       <p className="text-white/40 text-sm leading-relaxed max-w-[280px]">
                         {tool.description}
@@ -196,6 +234,17 @@ export default function Home() {
                 </div>
               ))}
             </div>
+          </div>
+          <div className="sm:hidden mt-6 flex justify-center gap-2">
+            {FEATURED_TOOLS.map((_, index) => (
+              <button
+                key={`dot-${index}`}
+                type="button"
+                onClick={() => setActiveSlide(index)}
+                className={`h-1.5 rounded-full transition-all ${index === activeSlide ? "w-8 bg-blue-500" : "w-3 bg-white/30"}`}
+                aria-label={`Go to module ${index + 1}`}
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -214,11 +263,11 @@ export default function Home() {
       </section>
 
       {/* 4. Global CTA */}
-      <section className="py-40 px-6">
-        <div className="max-w-7xl mx-auto bg-blue-600 rounded-[80px] p-20 text-center relative overflow-hidden group">
+      <section className="py-24 sm:py-40 px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto bg-blue-600 rounded-[36px] sm:rounded-[80px] p-8 sm:p-20 text-center relative overflow-hidden group">
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
           <div className="relative z-10 space-y-8">
-            <h2 className="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-none">
+            <h2 className="text-4xl md:text-8xl font-black uppercase italic tracking-tighter leading-none">
               Transform Your<br/>Design Workflow
             </h2>
             <p className="max-w-xl mx-auto text-white/80 font-medium text-lg">
@@ -233,7 +282,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-20 px-6 border-t border-white/5">
+      <footer className="py-20 px-4 sm:px-6 border-t border-white/5">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
           <div className="text-xl font-black tracking-[0.4em] italic uppercase">Studiø</div>
           <div className="flex items-center gap-8 text-[9px] font-black tracking-[0.4em] text-white/20 uppercase">

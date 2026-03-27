@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type TouchEvent } from "react";
 import { Link } from "wouter";
 import Header from "../components/Header";
 import { 
@@ -77,15 +77,28 @@ const UTILITIES = [
 
 export default function UtilitiesDetail() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const containerRef = useRef(null);
-  const cardRefs = useRef([]);
+  const [isMobile, setIsMobile] = useState(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const touchStartXRef = useRef<number | null>(null);
+  const touchStartYRef = useRef<number | null>(null);
 
   const nextSlide = () => setActiveIndex((prev) => (prev + 1) % UTILITIES.length);
   const prevSlide = () => setActiveIndex((prev) => (prev - 1 + UTILITIES.length) % UTILITIES.length);
 
   useEffect(() => {
+    const media = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return;
+
     const loadGSAP = async () => {
-      const loadScript = (src) => new Promise((resolve) => {
+      const loadScript = (src: string) => new Promise((resolve) => {
         const script = document.createElement('script');
         script.src = src;
         script.onload = resolve;
@@ -136,12 +149,31 @@ export default function UtilitiesDetail() {
     };
 
     loadGSAP();
-  }, [activeIndex]);
+  }, [activeIndex, isMobile]);
 
-  const handleDownload = (downloadUrl) => {
+  const handleDownload = (downloadUrl: string | null) => {
     if (downloadUrl) {
       window.location.href = downloadUrl;
     }
+  };
+
+  const onTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    touchStartXRef.current = event.touches[0].clientX;
+    touchStartYRef.current = event.touches[0].clientY;
+  };
+
+  const onTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
+    if (touchStartXRef.current == null || touchStartYRef.current == null) return;
+    const endX = event.changedTouches[0].clientX;
+    const endY = event.changedTouches[0].clientY;
+    const deltaX = touchStartXRef.current - endX;
+    const deltaY = touchStartYRef.current - endY;
+    if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (deltaX > 0) nextSlide();
+      else prevSlide();
+    }
+    touchStartXRef.current = null;
+    touchStartYRef.current = null;
   };
 
   return (
@@ -149,19 +181,26 @@ export default function UtilitiesDetail() {
       <Header currentPage="tools" />
 
       <main className="h-screen flex flex-col items-center justify-center relative perspective-2000">
-        <header className="absolute top-24 text-center space-y-4">
-            <h1 className="text-7xl font-black tracking-tighter uppercase italic stroke-text">Utilities</h1>
+        <header className="absolute top-24 text-center space-y-4 px-4">
+            <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase italic stroke-text">Utilities</h1>
             <p className="text-[10px] font-bold tracking-[0.4em] text-blue-500 uppercase">Interactive Module Browser</p>
         </header>
 
-        <div ref={containerRef} className="relative w-full max-w-5xl h-[450px] flex items-center justify-center">
+        <div
+          ref={containerRef}
+          className="relative w-full max-w-5xl h-[500px] md:h-[450px] flex items-center justify-center touch-pan-y"
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+        >
           {UTILITIES.map((item, i) => (
             <div 
               key={item.id}
-              ref={(el) => (cardRefs.current[i] = el)}
+              ref={(el) => {
+                cardRefs.current[i] = el;
+              }}
               className="absolute flex items-center pointer-events-none"
             >
-              <div className="w-[300px] h-[300px] bg-[#0c0c0e] border border-white/10 rounded-[40px] shadow-2xl flex flex-col items-center justify-center p-10 z-20 pointer-events-auto relative group overflow-hidden">
+              <div className="w-[260px] h-[260px] md:w-[300px] md:h-[300px] bg-[#0c0c0e] border border-white/10 rounded-[32px] md:rounded-[40px] shadow-2xl flex flex-col items-center justify-center p-8 md:p-10 z-20 pointer-events-auto relative group overflow-hidden">
                 <div className="p-6 bg-blue-500/10 rounded-3xl text-blue-500 mb-6 group-hover:scale-110 transition-transform">
                   <item.icon size={48} strokeWidth={1.5} />
                 </div>
@@ -172,7 +211,7 @@ export default function UtilitiesDetail() {
                 <div className="absolute -bottom-4 -right-4 w-20 h-20 border border-white/5 rounded-full opacity-20"></div>
               </div>
 
-              <div className="info-rect h-[220px] bg-white text-black -ml-12 pl-20 rounded-r-[35px] overflow-hidden flex items-center w-0 shadow-2xl z-10">
+              <div className="info-rect hidden md:flex h-[220px] bg-white text-black -ml-12 pl-20 rounded-r-[35px] overflow-hidden items-center w-0 shadow-2xl z-10">
                 <div className="info-content opacity-0 whitespace-nowrap pr-12">
                    <h4 className="text-xl font-black uppercase tracking-tighter mb-2 italic">Module Description</h4>
                    <p className="text-sm text-black/60 font-medium max-w-[320px] whitespace-normal leading-tight">
@@ -205,7 +244,17 @@ export default function UtilitiesDetail() {
           ))}
         </div>
 
-        <div className="absolute bottom-20 flex items-center gap-12">
+        {isMobile && (
+          <div className="absolute bottom-24 px-5 w-full max-w-sm">
+            <div className="rounded-2xl border border-white/15 bg-white/5 p-4">
+              <h4 className="text-base font-black uppercase italic tracking-tight">{UTILITIES[activeIndex].title}</h4>
+              <p className="text-xs text-white/60 mt-2">{UTILITIES[activeIndex].description}</p>
+              <div className="text-[10px] uppercase tracking-[0.2em] text-blue-500 mt-3">{UTILITIES[activeIndex].category}</div>
+            </div>
+          </div>
+        )}
+
+        <div className="absolute bottom-10 md:bottom-20 flex items-center gap-8 md:gap-12">
             <button onClick={prevSlide} className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all">
                 <ChevronLeft size={24} />
             </button>

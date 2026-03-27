@@ -71,7 +71,9 @@ export default function ParametrixDetail() {
       }
 
       const gsap = window.gsap;
-      gsap.registerPlugin(window.ScrollTrigger);
+      const ScrollTrigger = window.ScrollTrigger;
+      gsap.registerPlugin(ScrollTrigger);
+      ScrollTrigger.normalizeScroll(true);
 
       const ctx = gsap.context(() => {
         // Hero Entrance
@@ -106,18 +108,18 @@ export default function ParametrixDetail() {
       <Header currentPage="tools" />
 
       {/* Hero Section */}
-      <section className="pt-40 pb-20 px-8 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+      <section className="pt-28 sm:pt-40 pb-20 px-4 sm:px-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-20 items-center">
           <div className="space-y-8">
             <div className="reveal inline-flex items-center gap-3 px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-500 text-[10px] font-black uppercase tracking-widest rounded">
               <Zap size={12} /> Featured Extension
             </div>
             
-            <h1 className="reveal text-[120px] font-black tracking-tighter leading-[0.75] uppercase italic stroke-text">
+            <h1 className="reveal text-[64px] sm:text-[120px] font-black tracking-tighter leading-[0.8] sm:leading-[0.75] uppercase italic stroke-text break-words">
               Parametrix
             </h1>
             
-            <p className="reveal text-2xl font-medium text-white/60 leading-tight">
+            <p className="reveal text-lg sm:text-2xl font-medium text-white/60 leading-tight">
               Professional Parametric Cladding <br/>Layout Generator
             </p>
 
@@ -126,10 +128,10 @@ export default function ParametrixDetail() {
             </p>
 
             <div className="reveal flex flex-wrap gap-4 pt-4">
-              <button className="bg-blue-600 hover:bg-blue-500 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95 shadow-2xl shadow-blue-600/20">
+              <button className="bg-blue-600 hover:bg-blue-500 text-white px-8 sm:px-10 py-4 sm:py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95 shadow-2xl shadow-blue-600/20">
                 Start Free Trial <ArrowRight size={18} />
               </button>
-              <button className="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95">
+              <button className="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-8 sm:px-10 py-4 sm:py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95">
                 <Download size={18} /> Documentation
               </button>
             </div>
@@ -141,11 +143,11 @@ export default function ParametrixDetail() {
             </div>
           </div>
 
-          <div className="reveal relative flex justify-center items-center">
+            <div className="reveal relative flex justify-center items-center">
             {/* Geometric Visualization */}
-            <div className="w-[500px] h-[500px] bg-[#0c0c0e] border border-white/5 rounded-[60px] flex items-center justify-center relative overflow-hidden group">
+            <div className="w-[280px] h-[280px] sm:w-[500px] sm:h-[500px] bg-[#0c0c0e] border border-white/5 rounded-[40px] sm:rounded-[60px] flex items-center justify-center relative overflow-hidden group">
                <div className="absolute inset-0 bg-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-               <Box className="w-48 h-48 text-white/5 group-hover:text-blue-500/20 transition-colors duration-700" strokeWidth={0.5} />
+               <Box className="w-28 h-28 sm:w-48 sm:h-48 text-white/5 group-hover:text-blue-500/20 transition-colors duration-700" strokeWidth={0.5} />
                {/* Industrial Overlay */}
                <div className="absolute top-10 left-10 text-[9px] font-mono opacity-20 group-hover:opacity-100 transition-opacity">
                   ID: MOD_PRMTX_001<br/>STATUS: READY_FOR_DEPLOY
@@ -161,7 +163,7 @@ export default function ParametrixDetail() {
       </section>
 
       {/* Features Grid */}
-      <section className="py-32 px-8 bg-[#08080a]">
+      <section className="py-20 sm:py-32 px-4 sm:px-8 bg-[#08080a]">
         <div className="max-w-7xl mx-auto">
           <div className="mb-20 space-y-4">
             <h2 className="text-4xl font-black uppercase italic tracking-tighter">System Features</h2>
@@ -185,8 +187,8 @@ export default function ParametrixDetail() {
       </section>
 
       {/* Specs & Why Parametrix */}
-      <section className="py-32 px-8 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-32">
+      <section className="py-20 sm:py-32 px-4 sm:px-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 sm:gap-32">
           <div className="space-y-12">
             <h2 className="text-4xl font-black uppercase italic tracking-tighter">Engine Performance</h2>
             <div className="space-y-8">
@@ -225,8 +227,8 @@ export default function ParametrixDetail() {
       </section>
 
       {/* Footer CTA */}
-      <div className="flex justify-center py-20 px-8">
-        <footer className="bg-[#0c0c0e] border border-white/5 rounded-full px-12 py-6 shadow-2xl flex flex-col md:flex-row items-center gap-8">
+      <div className="flex justify-center py-20 px-4 sm:px-8">
+        <footer className="bg-[#0c0c0e] border border-white/5 rounded-[32px] sm:rounded-full px-6 sm:px-12 py-6 shadow-2xl flex flex-col md:flex-row items-center gap-8">
           <div className="flex items-center gap-6 text-[10px] font-black tracking-[0.4em] text-white/30 uppercase">
             <span>© 2025 Studiø</span>
             <div className="w-1 h-1 bg-white/10 rounded-full"></div>

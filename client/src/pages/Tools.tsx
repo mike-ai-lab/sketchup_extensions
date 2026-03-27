@@ -151,6 +151,7 @@ const Slide = ({ tool, index, progress }: { tool: typeof EXTENSIONS[0], index: n
 export default function Tools() {
   const containerRef = useRef(null);
   const [isSnapping, setIsSnapping] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   
   // Driving the entire timeline with Vertical Scroll
   const { scrollYProgress } = useScroll({
@@ -160,6 +161,16 @@ export default function Tools() {
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   useEffect(() => {
+    const media = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return;
+
     let snapTimeout: NodeJS.Timeout;
     let lastScrollTime = Date.now();
 
@@ -203,10 +214,53 @@ export default function Tools() {
       window.removeEventListener('scroll', handleScroll);
       clearTimeout(snapTimeout);
     };
-  }, [isSnapping]);
+  }, [isMobile, isSnapping]);
+
+  if (isMobile) {
+    return (
+      <div className="bg-[#050505] text-white selection:bg-white selection:text-black overflow-x-hidden">
+        <Header currentPage="tools" />
+        <main className="px-4 pt-24 pb-10 space-y-4">
+          <p className="text-[10px] tracking-[0.5em] uppercase font-black text-white/40">Mobile Modules</p>
+          <h1 className="text-4xl font-black uppercase italic tracking-tight">Tools</h1>
+          <p className="text-sm text-white/60 max-w-md">
+            Swipe vertically to browse modules. Animations are optimized for touch to avoid gesture conflicts.
+          </p>
+          <div className="space-y-4 pt-3">
+            {EXTENSIONS.map((tool) => (
+              <Link key={tool.id} href={`/tools/${tool.id}`}>
+                <article className="rounded-3xl border border-white/10 bg-[#0c0c0e] p-5 space-y-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="text-[9px] tracking-[0.4em] uppercase font-black text-white/40">{tool.tagline}</p>
+                      <h2 className="text-2xl font-black italic uppercase leading-none mt-2" style={{ color: tool.accent }}>
+                        {tool.name}
+                      </h2>
+                    </div>
+                    <tool.icon size={34} color={tool.accent} />
+                  </div>
+                  <p className="text-sm text-white/60">{tool.description}</p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex flex-wrap gap-2">
+                      {tool.details.map((detail) => (
+                        <span key={detail} className="px-2.5 py-1 rounded-lg bg-white/5 text-[9px] uppercase tracking-wider">
+                          {detail}
+                        </span>
+                      ))}
+                    </div>
+                    <span className="text-sm font-black" style={{ color: tool.accent }}>{tool.price}</span>
+                  </div>
+                </article>
+              </Link>
+            ))}
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   return (
-    <div className="bg-[#050505] text-white selection:bg-white selection:text-black">
+    <div className="bg-[#050505] text-white selection:bg-white selection:text-black overflow-x-hidden">
       <Header currentPage="tools" />
 
       {/* Progress Timeline Indicator */}
@@ -232,7 +286,7 @@ export default function Tools() {
       </div>
 
       {/* Bottom Info Bar */}
-      <div className="fixed bottom-12 left-12 right-12 z-50 flex justify-between items-end pointer-events-none">
+      <div className="fixed bottom-12 left-12 right-12 z-50 hidden md:flex justify-between items-end pointer-events-none">
         <div className="flex items-center gap-4 text-[9px] font-black uppercase tracking-[0.4em] text-white/20">
           <Terminal size={14} /> Sequence Timeline Active
         </div>
@@ -242,9 +296,9 @@ export default function Tools() {
       </div>
       
       {/* Scroll Guide */}
-      <motion.div 
+      <motion.div
         style={{ opacity: useTransform(smoothProgress, [0, 0.05], [1, 0]) }}
-        className="fixed bottom-24 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
+        className="fixed bottom-24 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-4"
       >
         <span className="text-[9px] font-black uppercase tracking-[0.6em] text-white/40">Scroll to Explore</span>
         <motion.div 
