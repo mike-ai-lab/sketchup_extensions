@@ -148,6 +148,18 @@ const Slide = ({ tool, index, progress }: { tool: typeof EXTENSIONS[0], index: n
   );
 };
 
+const TimelineDot = ({ index, progress }: { index: number; progress: any }) => {
+  const active = useTransform(progress, [index * 0.25, (index + 1) * 0.25], [1, 0.2]);
+  return (
+    <motion.div style={{ opacity: active }} className="flex items-center gap-4 group cursor-pointer">
+      <div className="w-2 h-2 rounded-full bg-white"></div>
+      <span className="text-[10px] font-black tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+        0{index + 1}
+      </span>
+    </motion.div>
+  );
+};
+
 export default function Tools() {
   const containerRef = useRef(null);
   const [isSnapping, setIsSnapping] = useState(false);
@@ -265,15 +277,9 @@ export default function Tools() {
 
       {/* Progress Timeline Indicator */}
       <div className="fixed left-12 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-12">
-        {EXTENSIONS.map((_, i) => {
-           const active = useTransform(smoothProgress, [i*0.25, (i+1)*0.25], [1, 0.2]);
-           return (
-             <motion.div key={i} style={{ opacity: active }} className="flex items-center gap-4 group cursor-pointer">
-               <div className="w-2 h-2 rounded-full bg-white"></div>
-               <span className="text-[10px] font-black tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">0{i+1}</span>
-             </motion.div>
-           );
-        })}
+        {EXTENSIONS.map((_, i) => (
+          <TimelineDot key={i} index={i} progress={smoothProgress} />
+        ))}
       </div>
 
       {/* Main Scroll Container (Long Vertical Height) */}
