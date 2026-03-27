@@ -121,5 +121,23 @@ patches/
 # Drizzle migrations
 drizzle/
 
+# Apps - DocMark is a separate repo
+apps/docmark/
+
 # Ignore nested duplicate folder
 sketchup_extensions/
+
+# Large binary files
+*.node
+*.exe
+*.zip
+*.pack
+icudtl.dat
+
+# PDF uploads and imports
+**/uploads/
+**/pdf-imports/
+
+# Build artifacts
+*.js.map
+*.mjs.map
