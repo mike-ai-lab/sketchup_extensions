@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursor Effect Demo</title>
+    <style>
+        /* Source - https://stackoverflow.com/a/68248463
+           Posted by A Haworth
+           Retrieved 2026-03-27, License - CC BY-SA 4.0 */
+        
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        .demo-section {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .demo-label {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            z-index: 100;
+        }
+        
+        /* Demo 3: Spotlight Effect */
+        .spotlight {
+            width: 100%;
+            height: 100%;
+            background: #1a1a2e;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            --x: 50%;
+            --y: 50%;
+        }
+        
+        .spotlight::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle 300px at var(--x) var(--y), rgba(255,255,255,0.3) 0%, transparent 50%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .spotlight.active::before {
+            opacity: 1;
+        }
+        
+        .spotlight-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 48px;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        /* Demo 4: Magnifying Glass */
+        .magnify-container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            overflow: hidden;
+        }
+        
+        .magnify-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .magnifier {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border: 3px solid #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            background-repeat: no-repeat;
+            background-size: 1200px 800px;
+        }
+        
+        .magnify-container:hover .magnifier {
+            opacity: 1;
+        }
+        
+        /* Demo 5: Color Trail */
+        .trail-container {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+        }
+        
+        .trail-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: fade-out 1s forwards;
+        }
+        
+        @keyframes fade-out {
+            to {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+        
+        /* Demo 6: Pixelate Effect */
+        .pixelate-container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+        }
+        
+        .pixelate-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .pixelate-overlay {
+            filter: blur(0px);
+            clip-path: circle(0 at 50% 50%);
+            image-rendering: pixelated;
+        }
+        
+        /* Demo 7: Text Reveal Mask */
+        .text-mask-container {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #000;
+            overflow: hidden;
+            cursor: none;
+        }
+        
+        .text-mask-bg {
+            width: 100%;
+            height: 100%;
+            background: url('https://picsum.photos/id/1019/1920/1080') center/cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        .text-mask-overlay {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .text-mask-text {
+            font-size: 120px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+            line-height: 1.2;
+            pointer-events: none;
+        }
+        
+        .cursor-mask {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            background: black;
+            border-radius: 50%;
+            pointer-events: none;
+            mix-blend-mode: destination-out;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            opacity: 1;
+        }
+        
+        .cursor-highlight {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 4;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3), inset 0 0 30px rgba(255, 255, 255, 0.1);
+        }
+        
+        .text-color-overlay {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+        
+        .text-color-overlay .text-mask-text {
+            color: #ff6b6b;
+            -webkit-mask: radial-gradient(circle 0px at 50% 50%, black 100%, transparent 100%);
+            mask: radial-gradient(circle 0px at 50% 50%, black 100%, transparent 100%);
+        }
+        
+        /* Demo 8: Image Swap Mask */
+        .swap-mask-container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            cursor: none;
+        }
+        
+        .swap-mask-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .swap-mask-top {
+            -webkit-mask: radial-gradient(circle 0px at 50% 50%, transparent 100%, black 100%);
+            mask: radial-gradient(circle 0px at 50% 50%, transparent 100%, black 100%);
+        }
+        
+        .custom-cursor {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid white;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        
+        /* Demo 9: Frosted Glass Mask */
+        .frosted-container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            cursor: none;
+        }
+        
+        .frosted-bg {
+            width: 100%;
+            height: 100%;
+            background: url('https://picsum.photos/id/1036/600/400') center/cover;
+        }
+        
+        .frosted-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(20px) brightness(0.7);
+            -webkit-backdrop-filter: blur(20px) brightness(0.7);
+            -webkit-mask: radial-gradient(circle 0px at 50% 50%, black 100%, transparent 100%);
+            mask: radial-gradient(circle 0px at 50% 50%, black 100%, transparent 100%);
+        }
+        
+        /* Demo 10: Magnetic Text Spotlight */
+        .magnetic-container {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+            cursor: none;
+        }
+        
+        .magnetic-text {
+            position: absolute;
+            font-size: 80px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            color: rgba(255, 255, 255, 0.1);
+            pointer-events: none;
+            transition: transform 0.3s ease-out;
+        }
+        
+        .magnetic-spotlight {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.3) 40%, transparent 70%);
+            filter: blur(10px);
+        }
+        
+        .magnetic-lens {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 11;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.6), inset 0 0 40px rgba(255, 255, 255, 0.2);
+        }
+        
+        .magnetic-text-highlight {
+            position: absolute;
+            font-size: 80px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            color: white;
+            pointer-events: none;
+            -webkit-mask: radial-gradient(circle 0px at 50% 50%, black 100%, transparent 100%);
+            mask: radial-gradient(circle 0px at 50% 50%, black 100%, transparent 100%);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Demo 11: Particle Cursor Trail */
+        .particle-container {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle at center, #0f0c29, #302b63, #24243e);
+            overflow: hidden;
+            cursor: none;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particle-float 2s forwards;
+        }
+        
+        @keyframes particle-float {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
+        }
+        
+        .particle-cursor {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 2px solid white;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+        
+        .particle-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 60px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            color: rgba(255, 255, 255, 0.3);
+            pointer-events: none;
+            text-align: center;
+        }
+        
+        /* Demo 12: Liquid Distortion */
+        .liquid-container {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #000;
+            overflow: hidden;
+            cursor: none;
+        }
+        
+        .liquid-bg {
+            width: 100%;
+            height: 100%;
+            background: url('https://picsum.photos/id/1039/1920/1080') center/cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            filter: blur(0px);
+            transition: filter 0.3s;
+        }
+        
+        .liquid-ripple {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            animation: ripple-expand 1.5s ease-out forwards;
+        }
+        
+        @keyframes ripple-expand {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 1;
+            }
+            100% {
+                width: 400px;
+                height: 400px;
+                opacity: 0;
+            }
+        }
+        
+        .liquid-cursor {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            backdrop-filter: blur(5px) contrast(1.5) brightness(1.2);
+            -webkit-backdrop-filter: blur(5px) contrast(1.5) brightness(1.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Demo 1: Mask Effect */
+        .hole {
+            background-image: url(https://picsum.photos/id/1016/1024/768);
+            background-size: cover;
+            --x: 200px;
+            --y: 150px;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .hole::after {
+            content: '';
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-image: url(https://picsum.photos/id/1016/1024/768?grayscale);
+            background-size: cover;
+            z-index: 1;
+            -webkit-mask-repeat: no-repeat no-repeat;
+            mask-repeat: no-repeat no-repeat;
+            -webkit-mask-image: radial-gradient(200px at var(--x) var(--y), transparent 95%, black 100%);
+            mask-image: radial-gradient(200px at var(--x) var(--y), transparent 95%, black 100%);
+        }
+        
+        /* Demo 2: Clip-path Effect */
+        .container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            cursor: none;
+        }
+        
+        .container img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+            pointer-events: none;
+        }
+        
+        .overlay {
+            filter: invert(100%);
+            clip-path: circle(0 at 50% 50%);
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Demo 1: Mask Effect -->
+    <div class="demo-section">
+        <div class="demo-label">Demo 1: Mask Effect (Grayscale Reveal)</div>
+        <div class="hole"></div>
+    </div>
+    
+    <!-- Demo 2: Clip-path Effect -->
+    <div class="demo-section">
+        <div class="demo-label">Demo 2: Clip-path Effect (Inverted Reveal)</div>
+        <div class='container'>
+            <img src='https://picsum.photos/id/1018/600/400' alt="Base image" />
+            <img src='https://picsum.photos/id/1018/600/400' class='overlay' alt="Overlay image"/>
+        </div>
+    </div>
+    
+    <!-- Demo 3: Spotlight Effect -->
+    <div class="demo-section">
+        <div class="demo-label">Demo 3: Spotlight Effect</div>
+        <div class="spotlight">
+            <div class="spotlight-content">Move your mouse<br>to reveal</div>
+        </div>
+    </div>
+    
+    <!-- Demo 4: Magnifying Glass -->
+    <div class="demo-section">
+        <div class="demo-label">Demo 4: Magnifying Glass</div>
+        <div class="magnify-container">
+            <img src="https://picsum.photos/id/1025/600/400" alt="Image to magnify">
+            <div class="magnifier"></div>
+        </div>
+    </div>
+    
+    <!-- Demo 5: Color Trail -->
+    <div class="demo-section">
+        <div class="demo-label">Demo 5: Color Trail</div>
+        <div class="trail-container"></div>
+    </div>
+    
+    <!-- Demo 6: Pixelate Effect -->
+    <div class="demo-section">
+        <div class="demo-label">Demo 6: Pixelate Reveal</div>
+        <div class="pixelate-container">
+            <img src="https://picsum.photos/id/1015/600/400" alt="Base image">
+            <img src="https://picsum.photos/id/1015/600/400?blur=10" class="pixelate-overlay" alt="Blurred overlay">
+        </div>
+    </div>
+    
+    <!-- Demo 7: Text Reveal Mask -->
+    <div class="demo-section">
+        <div class="demo-label">Demo 7: Text Reveal Mask</div>
+        <div class="text-mask-container">
+            <div class="text-mask-bg"></div>
+            <div class="text-mask-overlay">
+                <div class="text-mask-text">HOVER TO<br>REVEAL</div>
+            </div>
+            <div class="cursor-mask"></div>
+            <div class="cursor-highlight"></div>
+            <div class="text-color-overlay">
+                <div class="text-mask-text">HOVER TO<br>REVEAL</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Demo 8: Image Swap Mask -->
+    <div class="demo-section">
+        <div class="demo-label">Demo 8: Image Swap Mask (Day/Night)</div>
+        <div class="swap-mask-container">
+            <img src="https://picsum.photos/id/1033/600/400" alt="Night image">
+            <img src="https://picsum.photos/id/1033/600/400?grayscale" class="swap-mask-top" alt="Day image">
+            <div class="custom-cursor"></div>
+        </div>
+    </div>
+    
+    <!-- Demo 9: Frosted Glass Mask -->
+    <div class="demo-section">
+        <div class="demo-label">Demo 9: Frosted Glass Mask</div>
+        <div class="frosted-container">
+            <div class="frosted-bg"></div>
+            <div class="frosted-overlay"></div>
+            <div class="custom-cursor"></div>
+        </div>
+    </div>
+    
+    <!-- Demo 10: Magnetic Text Spotlight -->
+    <div class="demo-section">
+        <div class="demo-label">Demo 10: Magnetic Text Spotlight (Text follows cursor)</div>
+        <div class="magnetic-container">
+            <div class="magnetic-text" style="top: 20%; left: 30%;">CREATIVE</div>
+            <div class="magnetic-text" style="top: 50%; left: 60%;">DESIGN</div>
+            <div class="magnetic-text" style="top: 70%; left: 25%;">STUDIO</div>
+            <div class="magnetic-text-highlight" style="top: 20%; left: 30%;">CREATIVE</div>
+            <div class="magnetic-text-highlight" style="top: 50%; left: 60%;">DESIGN</div>
+            <div class="magnetic-text-highlight" style="top: 70%; left: 25%;">STUDIO</div>
+            <div class="magnetic-spotlight"></div>
+            <div class="magnetic-lens"></div>
+        </div>
+    </div>
+    
+    <!-- Demo 11: Particle Cursor Trail -->
+    <div class="demo-section">
+        <div class="demo-label">Demo 11: Particle Explosion Trail</div>
+        <div class="particle-container">
+            <div class="particle-text">MOVE YOUR<br>CURSOR</div>
+            <div class="particle-cursor"></div>
+        </div>
+    </div>
+    
+    <!-- Demo 12: Liquid Distortion -->
+    <div class="demo-section">
+        <div class="demo-label">Demo 12: Liquid Distortion (Click to create ripples)</div>
+        <div class="liquid-container">
+            <div class="liquid-bg"></div>
+            <div class="liquid-cursor"></div>
+        </div>
+    </div>
+
+    <script>
+        // Demo 1: Mask Effect
+        // Source - https://stackoverflow.com/a/68248463
+        // Posted by A Haworth
+        // Retrieved 2026-03-27, License - CC BY-SA 4.0
+        window.onload = function() {
+            const div = document.querySelector('.hole');
+            let isIn = false;
+            
+            div.addEventListener('mouseover', function() {
+                isIn = true;
+            });
+            
+            div.addEventListener('mouseout', function() {
+                isIn = false;
+            });
+            
+            div.addEventListener('mousemove', function(event) {
+                if (isIn) {
+                    div.style.setProperty('--x', event.clientX + 'px');
+                    div.style.setProperty('--y', event.clientY + 'px');
+                }
+            });
+            
+            // Demo 2: Clip-path Effect
+            const overlay = document.querySelector('.overlay');
+            const container = document.querySelector('.container');
+            
+            container.addEventListener('mousemove', e => {
+                const rect = container.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const xPercent = Math.round((x / rect.width) * 100);
+                const yPercent = Math.round((y / rect.height) * 100);
+                
+                overlay.style.clipPath = `circle(18% at ${xPercent}% ${yPercent}%)`;
+            });
+            
+            container.addEventListener('mouseleave', e => {
+                overlay.style.clipPath = 'circle(0 at 50% 50%)';
+            });
+            
+            // Demo 3: Spotlight Effect
+            const spotlight = document.querySelector('.spotlight');
+            
+            spotlight.addEventListener('mousemove', e => {
+                const rect = spotlight.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const xPercent = (x / rect.width) * 100;
+                const yPercent = (y / rect.height) * 100;
+                
+                spotlight.style.setProperty('--x', xPercent + '%');
+                spotlight.style.setProperty('--y', yPercent + '%');
+            });
+            
+            spotlight.addEventListener('mouseenter', () => {
+                spotlight.classList.add('active');
+            });
+            
+            spotlight.addEventListener('mouseleave', () => {
+                spotlight.classList.remove('active');
+            });
+            
+            // Demo 4: Magnifying Glass
+            const magnifyContainer = document.querySelector('.magnify-container');
+            const magnifier = document.querySelector('.magnifier');
+            const magnifyImg = magnifyContainer.querySelector('img');
+            
+            magnifyContainer.addEventListener('mousemove', e => {
+                const rect = magnifyContainer.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                magnifier.style.left = (x - 75) + 'px';
+                magnifier.style.top = (y - 75) + 'px';
+                
+                const bgX = -x * 2 + 75;
+                const bgY = -y * 2 + 75;
+                magnifier.style.backgroundImage = `url(${magnifyImg.src})`;
+                magnifier.style.backgroundPosition = `${bgX}px ${bgY}px`;
+            });
+            
+            // Demo 5: Color Trail
+            const trailContainer = document.querySelector('.trail-container');
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#6c5ce7', '#fd79a8'];
+            let colorIndex = 0;
+            
+            trailContainer.addEventListener('mousemove', e => {
+                const rect = trailContainer.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const dot = document.createElement('div');
+                dot.className = 'trail-dot';
+                dot.style.left = (x - 10) + 'px';
+                dot.style.top = (y - 10) + 'px';
+                dot.style.background = colors[colorIndex];
+                
+                trailContainer.appendChild(dot);
+                
+                colorIndex = (colorIndex + 1) % colors.length;
+                
+                setTimeout(() => dot.remove(), 1000);
+            });
+            
+            // Demo 6: Pixelate Effect
+            const pixelateContainer = document.querySelector('.pixelate-container');
+            const pixelateOverlay = document.querySelector('.pixelate-overlay');
+            
+            pixelateContainer.addEventListener('mousemove', e => {
+                const rect = pixelateContainer.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const xPercent = Math.round((x / rect.width) * 100);
+                const yPercent = Math.round((y / rect.height) * 100);
+                
+                pixelateOverlay.style.clipPath = `circle(25% at ${xPercent}% ${yPercent}%)`;
+            });
+            
+            pixelateContainer.addEventListener('mouseleave', () => {
+                pixelateOverlay.style.clipPath = 'circle(0 at 50% 50%)';
+            });
+            
+            // Demo 7: Text Reveal Mask
+            const textMaskContainer = document.querySelector('.text-mask-container');
+            const cursorMask = document.querySelector('.cursor-mask');
+            const cursorHighlight = document.querySelector('.cursor-highlight');
+            const textColorOverlay = document.querySelector('.text-color-overlay .text-mask-text');
+            
+            textMaskContainer.addEventListener('mousemove', e => {
+                const rect = textMaskContainer.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const xPercent = (x / rect.width) * 100;
+                const yPercent = (y / rect.height) * 100;
+                
+                // Move the eraser circle
+                cursorMask.style.left = x + 'px';
+                cursorMask.style.top = y + 'px';
+                
+                // Move the highlight border
+                cursorHighlight.style.left = x + 'px';
+                cursorHighlight.style.top = y + 'px';
+                
+                // Update the colored text mask to follow cursor
+                textColorOverlay.style.webkitMask = `radial-gradient(circle 125px at ${xPercent}% ${yPercent}%, black 100%, transparent 100%)`;
+                textColorOverlay.style.mask = `radial-gradient(circle 125px at ${xPercent}% ${yPercent}%, black 100%, transparent 100%)`;
+            });
+            
+            // Demo 8: Image Swap Mask
+            const swapContainer = document.querySelector('.swap-mask-container');
+            const swapMaskTop = document.querySelector('.swap-mask-top');
+            const customCursor1 = swapContainer.querySelector('.custom-cursor');
+            
+            swapContainer.addEventListener('mousemove', e => {
+                const rect = swapContainer.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const xPercent = (x / rect.width) * 100;
+                const yPercent = (y / rect.height) * 100;
+                
+                swapMaskTop.style.webkitMask = `radial-gradient(circle 120px at ${xPercent}% ${yPercent}%, transparent 100%, black 100%)`;
+                swapMaskTop.style.mask = `radial-gradient(circle 120px at ${xPercent}% ${yPercent}%, transparent 100%, black 100%)`;
+                
+                customCursor1.style.left = x + 'px';
+                customCursor1.style.top = y + 'px';
+            });
+            
+            swapContainer.addEventListener('mouseleave', () => {
+                swapMaskTop.style.webkitMask = 'radial-gradient(circle 0px at 50% 50%, transparent 100%, black 100%)';
+                swapMaskTop.style.mask = 'radial-gradient(circle 0px at 50% 50%, transparent 100%, black 100%)';
+            });
+            
+            // Demo 9: Frosted Glass Mask
+            const frostedContainer = document.querySelector('.frosted-container');
+            const frostedOverlay = document.querySelector('.frosted-overlay');
+            const customCursor2 = frostedContainer.querySelector('.custom-cursor');
+            
+            frostedContainer.addEventListener('mousemove', e => {
+                const rect = frostedContainer.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const xPercent = (x / rect.width) * 100;
+                const yPercent = (y / rect.height) * 100;
+                
+                frostedOverlay.style.webkitMask = `radial-gradient(circle 150px at ${xPercent}% ${yPercent}%, black 100%, transparent 100%)`;
+                frostedOverlay.style.mask = `radial-gradient(circle 150px at ${xPercent}% ${yPercent}%, black 100%, transparent 100%)`;
+                
+                customCursor2.style.left = x + 'px';
+                customCursor2.style.top = y + 'px';
+            });
+            
+            frostedContainer.addEventListener('mouseleave', () => {
+                frostedOverlay.style.webkitMask = 'radial-gradient(circle 0px at 50% 50%, black 100%, transparent 100%)';
+                frostedOverlay.style.mask = 'radial-gradient(circle 0px at 50% 50%, black 100%, transparent 100%)';
+            });
+            
+            // Demo 10: Magnetic Text Spotlight
+            const magneticContainer = document.querySelector('.magnetic-container');
+            const magneticTexts = document.querySelectorAll('.magnetic-text');
+            const magneticHighlights = document.querySelectorAll('.magnetic-text-highlight');
+            const magneticSpotlight = document.querySelector('.magnetic-spotlight');
+            const magneticLens = document.querySelector('.magnetic-lens');
+            
+            magneticContainer.addEventListener('mousemove', e => {
+                const rect = magneticContainer.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // Move lens normally
+                magneticLens.style.left = x + 'px';
+                magneticLens.style.top = y + 'px';
+                
+                // Calculate spotlight position (weighted average towards text centers)
+                let totalWeight = 0;
+                let weightedX = 0;
+                let weightedY = 0;
+                
+                magneticTexts.forEach((text, index) => {
+                    const textRect = text.getBoundingClientRect();
+                    const textCenterX = textRect.left + textRect.width / 2 - rect.left;
+                    const textCenterY = textRect.top + textRect.height / 2 - rect.top;
+                    
+                    const distance = Math.sqrt(Math.pow(x - textCenterX, 2) + Math.pow(y - textCenterY, 2));
+                    const weight = Math.max(0, 300 - distance) / 300;
+                    
+                    if (weight > 0) {
+                        totalWeight += weight;
+                        weightedX += textCenterX * weight;
+                        weightedY += textCenterY * weight;
+                        
+                        // Magnetic pull effect on text
+                        const pullX = (x - textCenterX) * weight * 0.15;
+                        const pullY = (y - textCenterY) * weight * 0.15;
+                        text.style.transform = `translate(${pullX}px, ${pullY}px)`;
+                        magneticHighlights[index].style.transform = `translate(${pullX}px, ${pullY}px)`;
+                    } else {
+                        text.style.transform = 'translate(0, 0)';
+                        magneticHighlights[index].style.transform = 'translate(0, 0)';
+                    }
+                });
+                
+                // Position spotlight (locked to text centers when near)
+                const spotX = totalWeight > 0 ? weightedX / totalWeight : x;
+                const spotY = totalWeight > 0 ? weightedY / totalWeight : y;
+                
+                magneticSpotlight.style.left = spotX + 'px';
+                magneticSpotlight.style.top = spotY + 'px';
+                
+                // Update text highlights
+                const xPercent = (x / rect.width) * 100;
+                const yPercent = (y / rect.height) * 100;
+                
+                magneticHighlights.forEach(highlight => {
+                    highlight.style.webkitMask = `radial-gradient(circle 100px at ${xPercent}% ${yPercent}%, black 100%, transparent 100%)`;
+                    highlight.style.mask = `radial-gradient(circle 100px at ${xPercent}% ${yPercent}%, black 100%, transparent 100%)`;
+                });
+            });
+            
+            // Demo 11: Particle Cursor Trail
+            const particleContainer = document.querySelector('.particle-container');
+            const particleCursor = document.querySelector('.particle-cursor');
+            const particleColors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#6c5ce7', '#fd79a8', '#a29bfe', '#00b894'];
+            let particleCount = 0;
+            
+            particleContainer.addEventListener('mousemove', e => {
+                const rect = particleContainer.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                particleCursor.style.left = x + 'px';
+                particleCursor.style.top = y + 'px';
+                
+                // Create particles every few pixels
+                if (particleCount % 3 === 0) {
+                    for (let i = 0; i < 3; i++) {
+                        const particle = document.createElement('div');
+                        particle.className = 'particle';
+                        
+                        const size = Math.random() * 15 + 5;
+                        particle.style.width = size + 'px';
+                        particle.style.height = size + 'px';
+                        particle.style.left = x + 'px';
+                        particle.style.top = y + 'px';
+                        particle.style.background = particleColors[Math.floor(Math.random() * particleColors.length)];
+                        
+                        const angle = Math.random() * Math.PI * 2;
+                        const distance = Math.random() * 100 + 50;
+                        particle.style.setProperty('--tx', Math.cos(angle) * distance + 'px');
+                        particle.style.setProperty('--ty', Math.sin(angle) * distance + 'px');
+                        
+                        particleContainer.appendChild(particle);
+                        
+                        setTimeout(() => particle.remove(), 2000);
+                    }
+                }
+                particleCount++;
+            });
+            
+            // Demo 12: Liquid Distortion
+            const liquidContainer = document.querySelector('.liquid-container');
+            const liquidCursor = document.querySelector('.liquid-cursor');
+            
+            liquidContainer.addEventListener('mousemove', e => {
+                const rect = liquidContainer.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                liquidCursor.style.left = x + 'px';
+                liquidCursor.style.top = y + 'px';
+            });
+            
+            liquidContainer.addEventListener('click', e => {
+                const rect = liquidContainer.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const ripple = document.createElement('div');
+                ripple.className = 'liquid-ripple';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                
+                liquidContainer.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 1500);
+            });
+        }
+    </script>
+</body>
+</html>

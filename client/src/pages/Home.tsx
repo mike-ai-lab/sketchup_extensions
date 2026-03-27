@@ -1,10 +1,9 @@
-import React, { useRef, useEffect, useState, useCallback } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Link } from "wouter";
 import Header from "../components/Header";
 import { 
   Box, 
   Zap, 
-  Settings2, 
   ArrowRight,
   Cpu,
   Layers,
@@ -71,58 +70,58 @@ declare global {
   }
 }
 
+// Demo 2: Clip-path Inverted Reveal — EXACT implementation from demo
+function useClipReveal(
+  sectionRef: React.RefObject<HTMLElement | null>,
+  overlayRef: React.RefObject<HTMLElement | null>
+) {
+  useEffect(() => {
+    const section = sectionRef.current;
+    const overlay = overlayRef.current;
+    if (!section || !overlay) return;
+
+    const onMove = (e: MouseEvent) => {
+      const rect = section.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const xPercent = (x / rect.width) * 100;
+      const yPercent = (y / rect.height) * 100;
+      
+      overlay.style.clipPath = `circle(18% at ${xPercent}% ${yPercent}%)`;
+    };
+
+    const onLeave = () => {
+      overlay.style.clipPath = "circle(0 at 50% 50%)";
+    };
+
+    section.addEventListener("mousemove", onMove);
+    section.addEventListener("mouseleave", onLeave);
+    return () => {
+      section.removeEventListener("mousemove", onMove);
+      section.removeEventListener("mouseleave", onLeave);
+    };
+  }, [sectionRef, overlayRef]);
+}
+
 export default function Home() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // Hero clip-path reveal refs
   const heroSectionRef = useRef<HTMLElement>(null);
+  const heroOverlayRef = useRef<HTMLHeadingElement>(null);
+  useClipReveal(heroSectionRef, heroOverlayRef);
+
+  // CTA clip-path reveal refs
   const ctaSectionRef = useRef<HTMLElement>(null);
-
-  // Effect #7: Text Reveal Mask — tracks cursor per-section
-  const useTextReveal = (sectionRef: React.RefObject<HTMLElement | null>) => {
-    const maskRef = useRef<HTMLDivElement>(null);
-    const highlightRef = useRef<HTMLDivElement>(null);
-    const colorTextRef = useRef<HTMLElement | null>(null);
-
-    const onMouseMove = useCallback((e: MouseEvent) => {
-      const rect = sectionRef.current?.getBoundingClientRect();
-      if (!rect) return;
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const xPct = (x / rect.width) * 100;
-      const yPct = (y / rect.height) * 100;
-
-      if (maskRef.current) {
-        maskRef.current.style.left = `${x}px`;
-        maskRef.current.style.top = `${y}px`;
-      }
-      if (highlightRef.current) {
-        highlightRef.current.style.left = `${x}px`;
-        highlightRef.current.style.top = `${y}px`;
-      }
-      if (colorTextRef.current) {
-        const mask = `radial-gradient(circle 140px at ${xPct}% ${yPct}%, black 100%, transparent 100%)`;
-        colorTextRef.current.style.webkitMask = mask;
-        (colorTextRef.current.style as any).mask = mask;
-      }
-    }, [sectionRef]);
-
-    useEffect(() => {
-      const el = sectionRef.current;
-      if (!el) return;
-      el.addEventListener('mousemove', onMouseMove);
-      return () => el.removeEventListener('mousemove', onMouseMove);
-    }, [sectionRef, onMouseMove]);
-
-    return { maskRef, highlightRef, colorTextRef };
-  };
-
-  const hero = useTextReveal(heroSectionRef);
-  const cta = useTextReveal(ctaSectionRef);
+  const ctaOverlayRef = useRef<HTMLHeadingElement>(null);
+  useClipReveal(ctaSectionRef, ctaOverlayRef);
 
   useEffect(() => {
     const loadGSAP = async () => {
       const loadScript = (src: string) => new Promise((resolve) => {
-        const script = document.createElement('script');
+        const script = document.createElement("script");
         script.src = src;
         script.onload = resolve;
         document.head.appendChild(script);
@@ -137,42 +136,20 @@ export default function Home() {
       const ScrollTrigger = window.ScrollTrigger;
       gsap.registerPlugin(ScrollTrigger);
 
-      // Hero Background Text Parallax
       gsap.to(".hero-bg-text", {
-        scrollTrigger: {
-          trigger: ".hero-section",
-          start: "top top",
-          end: "bottom top",
-          scrub: 1
-        },
+        scrollTrigger: { trigger: ".hero-section", start: "top top", end: "bottom top", scrub: 1 },
         x: -200,
         opacity: 0.1
       });
 
-      // Reveal animations for stats
       gsap.from(".stat-card", {
-        scrollTrigger: {
-          trigger: ".stats-grid",
-          start: "top 80%",
-        },
-        y: 50,
-        opacity: 0,
-        stagger: 0.1,
-        duration: 0.8,
-        ease: "power3.out"
+        scrollTrigger: { trigger: ".stats-grid", start: "top 80%" },
+        y: 50, opacity: 0, stagger: 0.1, duration: 0.8, ease: "power3.out"
       });
 
-      // Feature cards stagger
       gsap.from(".feature-card", {
-        scrollTrigger: {
-          trigger: ".feature-grid",
-          start: "top 80%",
-        },
-        y: 60,
-        opacity: 0,
-        stagger: 0.15,
-        duration: 1,
-        ease: "power3.out"
+        scrollTrigger: { trigger: ".feature-grid", start: "top 80%" },
+        y: 60, opacity: 0, stagger: 0.15, duration: 1, ease: "power3.out"
       });
     };
 
@@ -180,8 +157,7 @@ export default function Home() {
 
     return () => {
       const triggers = window.ScrollTrigger?.getAll() || [];
-      console.log('[Home] Cleaning up ScrollTrigger instances:', triggers.length);
-      triggers.forEach((trigger: any) => trigger.kill());
+      triggers.forEach((t: any) => t.kill());
     };
   }, []);
 
@@ -189,9 +165,11 @@ export default function Home() {
     <div className="bg-[#030303] min-h-screen text-white font-sans selection:bg-blue-600 overflow-x-hidden" ref={scrollContainerRef}>
       <Header currentPage="home" />
 
-      {/* 1. Industrial Hero */}
-      <section ref={heroSectionRef} className="hero-section relative h-screen flex flex-col items-start justify-end p-6 md:p-20 overflow-hidden cursor-none">
-        {/* Background Decorative Element */}
+      {/* 1. Hero */}
+      <section ref={heroSectionRef} className="hero-section relative h-screen flex flex-col items-start justify-end p-6 md:p-20 overflow-hidden">
+        {/* Background layer that gets revealed */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-blue-500/10 to-transparent pointer-events-none"></div>
+        
         <div className="hero-bg-text absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[40vw] font-black opacity-[0.02] whitespace-nowrap pointer-events-none select-none italic">
           COMPUTE_01
         </div>
@@ -202,27 +180,22 @@ export default function Home() {
             <span className="text-[10px] font-black tracking-widest text-blue-500 uppercase">System Online: Riyadh Node</span>
           </div>
 
-          {/* Base text + Effect #7 reveal overlay — wrapped for exact alignment */}
-          <div className="relative">
-            <h1 className="text-6xl md:text-[120px] font-black leading-[0.85] uppercase italic tracking-tighter">
+          {/* Clip-path reveal: EXACT Demo 2 implementation */}
+          <div className="relative cursor-none">
+            <h1 className="text-6xl md:text-[120px] font-black leading-[0.85] uppercase italic tracking-tighter pointer-events-none select-none">
               Next-Gen<br />
               <span className="text-blue-600">Architectural</span><br />
               Intelligence.
             </h1>
-            {/* Colored reveal layer — same text, masked by cursor position */}
+            {/* Overlay: identical text with invert filter + clip-path */}
             <h1
-              ref={hero.colorTextRef as React.RefObject<HTMLHeadingElement>}
-              className="text-6xl md:text-[120px] font-black leading-[0.85] uppercase italic tracking-tighter absolute inset-0 pointer-events-none select-none"
-              style={{
-                color: '#60a5fa',
-                WebkitMask: 'radial-gradient(circle 140px at -999px -999px, black 100%, transparent 100%)',
-                mask: 'radial-gradient(circle 140px at -999px -999px, black 100%, transparent 100%)',
-                textShadow: '0 0 40px rgba(96,165,250,0.6)',
-              }}
+              ref={heroOverlayRef as React.RefObject<HTMLHeadingElement>}
+              className="absolute inset-0 text-6xl md:text-[120px] font-black leading-[0.85] uppercase italic tracking-tighter pointer-events-none select-none"
+              style={{ filter: "invert(100%)", clipPath: "circle(0 at 50% 50%)" }}
               aria-hidden="true"
             >
               Next-Gen<br />
-              <span style={{ color: '#93c5fd' }}>Architectural</span><br />
+              <span className="text-blue-600">Architectural</span><br />
               Intelligence.
             </h1>
           </div>
@@ -234,12 +207,12 @@ export default function Home() {
             </p>
             <div className="flex gap-4 w-full md:w-auto">
               <Link href="/tools">
-                <button className="flex-1 md:flex-none bg-white text-black px-8 py-5 rounded-sm font-black text-xs tracking-widest uppercase hover:bg-blue-600 hover:text-white transition-all cursor-pointer">
+                <button className="flex-1 md:flex-none bg-white text-black px-8 py-5 rounded-sm font-black text-xs tracking-widest uppercase hover:bg-blue-600 hover:text-white transition-all">
                   Initialize
                 </button>
               </Link>
               <Link href="/pricing">
-                <button className="flex-1 md:flex-none border border-white/20 text-white px-8 py-5 rounded-sm font-black text-xs tracking-widest uppercase hover:bg-white/5 transition-all cursor-pointer">
+                <button className="flex-1 md:flex-none border border-white/20 text-white px-8 py-5 rounded-sm font-black text-xs tracking-widest uppercase hover:bg-white/5 transition-all">
                   Registry
                 </button>
               </Link>
@@ -247,36 +220,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Effect #7: eraser circle + highlight ring */}
-        <div
-          ref={hero.maskRef}
-          className="absolute pointer-events-none rounded-full"
-          style={{
-            width: 280,
-            height: 280,
-            background: 'transparent',
-            transform: 'translate(-50%, -50%)',
-            zIndex: 30,
-            left: -999,
-            top: -999,
-          }}
-        />
-        <div
-          ref={hero.highlightRef}
-          className="absolute pointer-events-none rounded-full"
-          style={{
-            width: 280,
-            height: 280,
-            border: '1.5px solid rgba(96,165,250,0.35)',
-            boxShadow: '0 0 30px rgba(96,165,250,0.15), inset 0 0 30px rgba(96,165,250,0.05)',
-            transform: 'translate(-50%, -50%)',
-            zIndex: 31,
-            left: -999,
-            top: -999,
-          }}
-        />
-
-        {/* Scroll Indicator */}
         <div className="absolute bottom-10 right-10 hidden md:block">
           <div className="flex flex-col items-center gap-4">
             <span className="rotate-90 text-[10px] font-black tracking-widest opacity-20 uppercase">Scroll to explore</span>
@@ -285,12 +228,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. Grid-Based Feature Exploration */}
+      {/* 2. Feature Grid */}
       <section className="py-32 px-6 bg-[#050505]">
         <div className="max-w-7xl mx-auto">
           <div className="feature-grid grid grid-cols-1 md:grid-cols-12 gap-6">
-
-            {/* Header Block */}
             <div className="md:col-span-12 mb-12 flex flex-col md:flex-row md:items-end justify-between border-b border-white/5 pb-12">
               <div className="space-y-4">
                 <span className="text-blue-500 text-[10px] font-black tracking-[0.5em] uppercase">Module Spectrum</span>
@@ -301,34 +242,29 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Feature Cards in Masonry-ish Grid */}
             {FEATURED_TOOLS.map((tool, idx) => (
-              <div 
+              <div
                 key={tool.id}
-                className={`${idx % 3 === 0 ? 'md:col-span-8' : 'md:col-span-4'} group relative feature-card`}
+                className={`${idx % 3 === 0 ? "md:col-span-8" : "md:col-span-4"} group relative feature-card`}
                 onMouseEnter={() => setHoveredIndex(idx)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
                 <Link href={tool.path}>
                   <div className="relative h-full min-h-[400px] bg-[#0a0a0c] border border-white/5 rounded-2xl p-10 flex flex-col justify-between overflow-hidden transition-all duration-500 group-hover:border-blue-500/30 cursor-pointer">
-                    {/* Decorative Gradient */}
                     <div className="absolute -right-20 -top-20 w-64 h-64 bg-blue-600/10 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-
                     <div className="relative z-10 flex justify-between items-start">
                       <div className="p-4 bg-white/5 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
                         <tool.icon size={28} />
                       </div>
                       <span className="text-4xl font-black italic opacity-10 group-hover:opacity-100 group-hover:text-blue-500 transition-all">{tool.id}</span>
                     </div>
-
                     <div className="relative z-10 space-y-4 mt-20">
                       <span className="text-blue-500 text-[9px] font-black tracking-[0.3em] uppercase">{tool.tagline}</span>
                       <h3 className="text-4xl font-black uppercase italic tracking-tighter leading-none">{tool.name}</h3>
-                      <p className={`text-white/40 text-sm leading-relaxed max-w-sm transition-opacity duration-500 ${hoveredIndex === idx ? 'opacity-100' : 'opacity-60'}`}>
+                      <p className={`text-white/40 text-sm leading-relaxed max-w-sm transition-opacity duration-500 ${hoveredIndex === idx ? "opacity-100" : "opacity-60"}`}>
                         {tool.description}
                       </p>
                     </div>
-
                     <div className="relative z-10 pt-10 flex items-center justify-between border-t border-white/5 mt-auto">
                       <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white/30 group-hover:text-blue-500 transition-colors">
                         Explore Module <ArrowRight size={14} />
@@ -345,7 +281,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. Terminal Statistics */}
+      {/* 3. Stats */}
       <section className="py-32 px-6 border-y border-white/5">
         <div className="max-w-7xl mx-auto">
           <div className="stats-grid grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-px md:bg-white/5">
@@ -364,29 +300,26 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. Contact / CTA Section */}
-      <section ref={ctaSectionRef} className="py-40 px-6 relative overflow-hidden cursor-none">
+      {/* 4. CTA */}
+      <section ref={ctaSectionRef} className="py-40 px-6 relative overflow-hidden">
         <div className="max-w-4xl mx-auto text-center space-y-12">
           <div className="space-y-4">
             <div className="text-blue-500 text-[10px] font-black tracking-[0.5em] uppercase">Connect / Deploy</div>
 
-            {/* Base text */}
-            <h2 className="text-5xl md:text-8xl font-black uppercase italic tracking-tighter">Ready for<br/>The Future?</h2>
-
-            {/* Effect #7: colored reveal layer */}
-            <h2
-              ref={cta.colorTextRef as React.RefObject<HTMLHeadingElement>}
-              className="text-5xl md:text-8xl font-black uppercase italic tracking-tighter absolute inset-0 flex items-center justify-center pointer-events-none select-none"
-              style={{
-                color: '#60a5fa',
-                WebkitMask: 'radial-gradient(circle 140px at -999px -999px, black 100%, transparent 100%)',
-                mask: 'radial-gradient(circle 140px at -999px -999px, black 100%, transparent 100%)',
-                textShadow: '0 0 40px rgba(96,165,250,0.6)',
-              }}
-              aria-hidden="true"
-            >
-              Ready for<br/>The Future?
-            </h2>
+            {/* Clip-path reveal: EXACT Demo 2 implementation */}
+            <div className="relative inline-block cursor-none">
+              <h2 className="text-5xl md:text-8xl font-black uppercase italic tracking-tighter pointer-events-none select-none">
+                Ready for<br />The Future?
+              </h2>
+              <h2
+                ref={ctaOverlayRef as React.RefObject<HTMLHeadingElement>}
+                className="absolute inset-0 text-5xl md:text-8xl font-black uppercase italic tracking-tighter pointer-events-none select-none"
+                style={{ filter: "invert(100%)", clipPath: "circle(0 at 50% 50%)" }}
+                aria-hidden="true"
+              >
+                Ready for<br />The Future?
+              </h2>
+            </div>
           </div>
 
           <p className="text-white/40 text-lg font-medium max-w-xl mx-auto">
@@ -395,49 +328,20 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-6">
             <Link href="/contact">
-              <button className="bg-blue-600 text-white px-12 py-6 rounded-full font-black text-xs tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all shadow-[0_0_30px_rgba(37,99,235,0.3)] cursor-pointer">
+              <button className="bg-blue-600 text-white px-12 py-6 rounded-full font-black text-xs tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all shadow-[0_0_30px_rgba(37,99,235,0.3)]">
                 Start Project
               </button>
             </Link>
             <Link href="/tools">
-              <button className="border border-white/10 text-white px-12 py-6 rounded-full font-black text-xs tracking-[0.2em] uppercase hover:bg-white/5 transition-all cursor-pointer">
+              <button className="border border-white/10 text-white px-12 py-6 rounded-full font-black text-xs tracking-[0.2em] uppercase hover:bg-white/5 transition-all">
                 Documentation
               </button>
             </Link>
           </div>
         </div>
-
-        {/* Effect #7: eraser + ring for CTA */}
-        <div
-          ref={cta.maskRef}
-          className="absolute pointer-events-none rounded-full"
-          style={{
-            width: 280,
-            height: 280,
-            background: 'transparent',
-            transform: 'translate(-50%, -50%)',
-            zIndex: 30,
-            left: -999,
-            top: -999,
-          }}
-        />
-        <div
-          ref={cta.highlightRef}
-          className="absolute pointer-events-none rounded-full"
-          style={{
-            width: 280,
-            height: 280,
-            border: '1.5px solid rgba(96,165,250,0.35)',
-            boxShadow: '0 0 30px rgba(96,165,250,0.15), inset 0 0 30px rgba(96,165,250,0.05)',
-            transform: 'translate(-50%, -50%)',
-            zIndex: 31,
-            left: -999,
-            top: -999,
-          }}
-        />
       </section>
 
-      {/* Footer */}
+      {/* Footer - CLEAN VERSION NO EFFECTS */}
       <footer className="py-12 px-6 border-t border-white/5 bg-[#050505]">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex items-center gap-4">
@@ -446,7 +350,6 @@ export default function Home() {
             </div>
             <div className="text-sm font-black tracking-[0.3em] uppercase italic">Studio Terminal</div>
           </div>
-
           <div className="flex items-center gap-6 text-[9px] font-black tracking-[0.4em] text-white/20 uppercase">
             <span>© 2025</span>
             <div className="w-px h-3 bg-white/10"></div>
@@ -454,7 +357,6 @@ export default function Home() {
             <div className="w-px h-3 bg-white/10"></div>
             <span className="text-blue-500/60 hover:text-blue-500 cursor-pointer transition-colors">KSA Node</span>
           </div>
-
           <div className="flex gap-6 opacity-30 hover:opacity-100 transition-opacity">
             <Globe size={16} className="cursor-pointer hover:text-blue-500 transition-colors" />
             <Activity size={16} className="cursor-pointer hover:text-blue-500 transition-colors" />
@@ -464,20 +366,10 @@ export default function Home() {
       </footer>
 
       <style>{`
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-          width: 4px;
-        }
-        ::-webkit-scrollbar-track {
-          background: #030303;
-        }
-        ::-webkit-scrollbar-thumb {
-          background: #222;
-          border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-          background: #3b82f6;
-        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #030303; }
+        ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
       `}</style>
     </div>
   );

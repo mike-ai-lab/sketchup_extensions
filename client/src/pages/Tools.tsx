@@ -287,7 +287,7 @@ export default function Tools() {
           scroll-snap-stop: always;
           height: 100vh;
           width: 100%;
-          pointer-events: auto;
+          pointer-events: none;
         }
       `}</style>
 
@@ -326,16 +326,16 @@ export default function Tools() {
         <div className="h-[500vh] relative">
           
           {/* Main Visual Layer */}
-          <div className="sticky top-0 h-screen w-full overflow-hidden flex pointer-events-none">
+          <div className="sticky top-0 h-screen w-full overflow-hidden flex">
             {EXTENSIONS.map((tool, index) => (
               <Slide key={tool.id} tool={tool} index={index} progress={smoothProgress} />
             ))}
           </div>
           
-          {/* Physical Snap Sections */}
-          <div className="absolute top-0 left-0 w-full h-full pointer-events-auto">
+          {/* Physical Snap Sections — pointer-events-none so they don't block button clicks */}
+          <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
             {EXTENSIONS.map((tool) => (
-              <div key={`snap-${tool.id}`} className="snap-section" />
+              <div key={`snap-${tool.id}`} className="snap-section pointer-events-none" />
             ))}
           </div>
         </div>
