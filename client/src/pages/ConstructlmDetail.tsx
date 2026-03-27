@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "wouter";
 import Header from "../components/Header";
+import { PlatformDownloadButton, DownloadStats } from "../components/DownloadButton";
 import { 
   GoogleGeminiLogo,
   OpenAILogo,
@@ -175,17 +176,16 @@ export default function ConstructlmDetail() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
+            <PlatformDownloadButton 
+              appName="constructlm" 
+              version="1.0.0"
+              className="w-full sm:w-auto"
+            />
             <a href="https://github.com/yourusername/ConstructLM" target="_blank" rel="noopener noreferrer">
-              <button className="w-full sm:w-auto bg-pink-600 text-white hover:bg-pink-500 px-10 py-6 rounded-full font-black text-[10px] tracking-widest uppercase transition-all shadow-2xl flex items-center gap-3 justify-center">
-                <Github size={16} />
-                View on GitHub
-                <ExternalLink size={14} />
-              </button>
-            </a>
-            <a href="#features">
               <button className="w-full sm:w-auto border border-white/20 text-white hover:bg-white/5 px-10 py-6 rounded-full font-black text-[10px] tracking-widest uppercase transition-all flex items-center gap-3 justify-center">
-                Explore Features
-                <ArrowRight size={14} />
+                <Github size={16} />
+                View Source
+                <ExternalLink size={14} />
               </button>
             </a>
           </div>
@@ -288,12 +288,11 @@ export default function ConstructlmDetail() {
             Open-source, production-ready, and built for privacy. Start building intelligent document analysis applications today.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="https://github.com/yourusername/ConstructLM" target="_blank" rel="noopener noreferrer">
-              <button className="w-full sm:w-auto bg-pink-600 text-white hover:bg-pink-500 px-12 py-6 rounded-full font-black text-[10px] tracking-widest uppercase transition-all shadow-2xl flex items-center gap-3 justify-center">
-                <Download size={16} />
-                Get Started
-              </button>
-            </a>
+            <PlatformDownloadButton 
+              appName="constructlm" 
+              version="1.0.0"
+              className="w-full sm:w-auto"
+            />
             <Link href="/contact">
               <button className="w-full sm:w-auto border border-white/20 text-white hover:bg-white/5 px-12 py-6 rounded-full font-black text-[10px] tracking-widest uppercase transition-all flex items-center gap-3 justify-center">
                 Contact Us
