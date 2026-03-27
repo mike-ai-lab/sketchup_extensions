@@ -14,7 +14,8 @@ import {
   FileText,
   Activity,
   Globe,
-  Lock
+  Lock,
+  Brain
 } from "lucide-react";
 
 const FEATURED_TOOLS = [
@@ -47,6 +48,15 @@ const FEATURED_TOOLS = [
   },
   {
     id: "04",
+    name: "ConstructLM",
+    tagline: "AI KNOWLEDGE ENGINE",
+    description: "Production-grade RAG system with TRUE local embeddings and 26+ AI models.",
+    color: "#ec4899",
+    icon: Brain,
+    path: "/tools/constructlm"
+  },
+  {
+    id: "05",
     name: "DocMark",
     tagline: "CONTENT ENGINE",
     description: "Real-time markdown editor with live preview and synchronized scrolling.",
@@ -70,58 +80,14 @@ declare global {
   }
 }
 
-// Demo 2: Clip-path Inverted Reveal — EXACT implementation from demo
-function useClipReveal(
-  sectionRef: React.RefObject<HTMLElement | null>,
-  overlayRef: React.RefObject<HTMLElement | null>
-) {
-  useEffect(() => {
-    const section = sectionRef.current;
-    const overlay = overlayRef.current;
-    if (!section || !overlay) return;
-
-    const onMove = (e: MouseEvent) => {
-      const rect = section.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const xPercent = (x / rect.width) * 100;
-      const yPercent = (y / rect.height) * 100;
-      
-      overlay.style.clipPath = `circle(18% at ${xPercent}% ${yPercent}%)`;
-    };
-
-    const onLeave = () => {
-      overlay.style.clipPath = "circle(0 at 50% 50%)";
-    };
-
-    section.addEventListener("mousemove", onMove);
-    section.addEventListener("mouseleave", onLeave);
-    return () => {
-      section.removeEventListener("mousemove", onMove);
-      section.removeEventListener("mouseleave", onLeave);
-    };
-  }, [sectionRef, overlayRef]);
-}
-
 export default function Home() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // Hero clip-path reveal refs
-  const heroSectionRef = useRef<HTMLElement>(null);
-  const heroOverlayRef = useRef<HTMLHeadingElement>(null);
-  useClipReveal(heroSectionRef, heroOverlayRef);
-
-  // CTA clip-path reveal refs
-  const ctaSectionRef = useRef<HTMLElement>(null);
-  const ctaOverlayRef = useRef<HTMLHeadingElement>(null);
-  useClipReveal(ctaSectionRef, ctaOverlayRef);
-
   useEffect(() => {
     const loadGSAP = async () => {
       const loadScript = (src: string) => new Promise((resolve) => {
-        const script = document.createElement("script");
+        const script = document.createElement('script');
         script.src = src;
         script.onload = resolve;
         document.head.appendChild(script);
@@ -136,20 +102,42 @@ export default function Home() {
       const ScrollTrigger = window.ScrollTrigger;
       gsap.registerPlugin(ScrollTrigger);
 
+      // Hero Background Text Parallax
       gsap.to(".hero-bg-text", {
-        scrollTrigger: { trigger: ".hero-section", start: "top top", end: "bottom top", scrub: 1 },
+        scrollTrigger: {
+          trigger: ".hero-section",
+          start: "top top",
+          end: "bottom top",
+          scrub: 1
+        },
         x: -200,
         opacity: 0.1
       });
 
+      // Reveal animations for stats
       gsap.from(".stat-card", {
-        scrollTrigger: { trigger: ".stats-grid", start: "top 80%" },
-        y: 50, opacity: 0, stagger: 0.1, duration: 0.8, ease: "power3.out"
+        scrollTrigger: {
+          trigger: ".stats-grid",
+          start: "top 80%",
+        },
+        y: 50,
+        opacity: 0,
+        stagger: 0.1,
+        duration: 0.8,
+        ease: "power3.out"
       });
 
+      // Feature cards stagger
       gsap.from(".feature-card", {
-        scrollTrigger: { trigger: ".feature-grid", start: "top 80%" },
-        y: 60, opacity: 0, stagger: 0.15, duration: 1, ease: "power3.out"
+        scrollTrigger: {
+          trigger: ".feature-grid",
+          start: "top 80%",
+        },
+        y: 60,
+        opacity: 0,
+        stagger: 0.15,
+        duration: 1,
+        ease: "power3.out"
       });
     };
 
@@ -157,7 +145,8 @@ export default function Home() {
 
     return () => {
       const triggers = window.ScrollTrigger?.getAll() || [];
-      triggers.forEach((t: any) => t.kill());
+      console.log('[Home] Cleaning up ScrollTrigger instances:', triggers.length);
+      triggers.forEach((trigger: any) => trigger.kill());
     };
   }, []);
 
@@ -165,54 +154,38 @@ export default function Home() {
     <div className="bg-[#030303] min-h-screen text-white font-sans selection:bg-blue-600 overflow-x-hidden" ref={scrollContainerRef}>
       <Header currentPage="home" />
 
-      {/* 1. Hero */}
-      <section ref={heroSectionRef} className="hero-section relative h-screen flex flex-col items-start justify-end p-6 md:p-20 overflow-hidden">
-        {/* Background layer that gets revealed */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-blue-500/10 to-transparent pointer-events-none"></div>
-        
+      {/* 1. Industrial Hero */}
+      <section className="hero-section relative h-screen flex flex-col items-center justify-center md:items-start md:justify-end p-6 md:p-20 overflow-hidden">
+        {/* Background Decorative Element */}
         <div className="hero-bg-text absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[40vw] font-black opacity-[0.02] whitespace-nowrap pointer-events-none select-none italic">
           COMPUTE_01
         </div>
 
-        <div className="relative z-10 w-full max-w-5xl space-y-8">
-          <div className="inline-flex items-center gap-3 px-4 py-2 bg-blue-600/10 border border-blue-500/20 rounded-full">
+        <div className="relative z-10 w-full max-w-5xl space-y-6 md:space-y-8 text-center md:text-left">
+          <div className="inline-flex items-center gap-3 px-4 py-2 bg-blue-600/10 border border-blue-500/20 rounded-full mx-auto md:mx-0">
             <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></div>
             <span className="text-[10px] font-black tracking-widest text-blue-500 uppercase">System Online: Riyadh Node</span>
           </div>
 
-          {/* Clip-path reveal: EXACT Demo 2 implementation */}
-          <div className="relative cursor-none">
-            <h1 className="text-6xl md:text-[120px] font-black leading-[0.85] uppercase italic tracking-tighter pointer-events-none select-none">
-              Next-Gen<br />
-              <span className="text-blue-600">Architectural</span><br />
-              Intelligence.
-            </h1>
-            {/* Overlay: identical text with invert filter + clip-path */}
-            <h1
-              ref={heroOverlayRef as React.RefObject<HTMLHeadingElement>}
-              className="absolute inset-0 text-6xl md:text-[120px] font-black leading-[0.85] uppercase italic tracking-tighter pointer-events-none select-none"
-              style={{ filter: "invert(100%)", clipPath: "circle(0 at 50% 50%)" }}
-              aria-hidden="true"
-            >
-              Next-Gen<br />
-              <span className="text-blue-600">Architectural</span><br />
-              Intelligence.
-            </h1>
-          </div>
+          <h1 className="text-5xl sm:text-6xl md:text-[120px] font-black leading-[0.85] uppercase italic tracking-tighter">
+            Next-Gen<br />
+            <span className="text-blue-600">Architectural</span><br />
+            Intelligence.
+          </h1>
 
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-8 pt-10">
-            <p className="max-w-sm text-white/40 font-medium text-sm leading-relaxed border-l border-white/10 pl-6">
+          <div className="flex flex-col md:flex-row items-center md:items-center gap-6 md:gap-8 pt-6 md:pt-10">
+            <p className="max-w-sm text-white/40 font-medium text-sm leading-relaxed md:border-l border-white/10 md:pl-6 text-center md:text-left">
               Empowering architects in Saudi Arabia with high-precision 
               computational tools and automated BIM workflows.
             </p>
-            <div className="flex gap-4 w-full md:w-auto">
+            <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto max-w-md justify-center md:justify-start">
               <Link href="/tools">
-                <button className="flex-1 md:flex-none bg-white text-black px-8 py-5 rounded-sm font-black text-xs tracking-widest uppercase hover:bg-blue-600 hover:text-white transition-all">
+                <button className="w-full sm:w-auto bg-white text-black hover:bg-white/90 px-10 py-6 rounded-full font-black text-[10px] tracking-widest uppercase transition-all cursor-pointer shadow-2xl whitespace-nowrap">
                   Initialize
                 </button>
               </Link>
               <Link href="/pricing">
-                <button className="flex-1 md:flex-none border border-white/20 text-white px-8 py-5 rounded-sm font-black text-xs tracking-widest uppercase hover:bg-white/5 transition-all">
+                <button className="w-full sm:w-auto border border-white/20 text-white hover:bg-white/5 px-10 py-6 rounded-full font-black text-[10px] tracking-widest uppercase transition-all cursor-pointer whitespace-nowrap">
                   Registry
                 </button>
               </Link>
@@ -220,6 +193,7 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Scroll Indicator */}
         <div className="absolute bottom-10 right-10 hidden md:block">
           <div className="flex flex-col items-center gap-4">
             <span className="rotate-90 text-[10px] font-black tracking-widest opacity-20 uppercase">Scroll to explore</span>
@@ -228,10 +202,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. Feature Grid */}
+      {/* 2. Grid-Based Feature Exploration */}
       <section className="py-32 px-6 bg-[#050505]">
         <div className="max-w-7xl mx-auto">
           <div className="feature-grid grid grid-cols-1 md:grid-cols-12 gap-6">
+
+            {/* Header Block */}
             <div className="md:col-span-12 mb-12 flex flex-col md:flex-row md:items-end justify-between border-b border-white/5 pb-12">
               <div className="space-y-4">
                 <span className="text-blue-500 text-[10px] font-black tracking-[0.5em] uppercase">Module Spectrum</span>
@@ -242,29 +218,34 @@ export default function Home() {
               </p>
             </div>
 
+            {/* Feature Cards in Masonry-ish Grid */}
             {FEATURED_TOOLS.map((tool, idx) => (
-              <div
+              <div 
                 key={tool.id}
-                className={`${idx % 3 === 0 ? "md:col-span-8" : "md:col-span-4"} group relative feature-card`}
+                className={`${idx % 3 === 0 ? 'md:col-span-8' : 'md:col-span-4'} group relative feature-card`}
                 onMouseEnter={() => setHoveredIndex(idx)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
                 <Link href={tool.path}>
                   <div className="relative h-full min-h-[400px] bg-[#0a0a0c] border border-white/5 rounded-2xl p-10 flex flex-col justify-between overflow-hidden transition-all duration-500 group-hover:border-blue-500/30 cursor-pointer">
+                    {/* Decorative Gradient */}
                     <div className="absolute -right-20 -top-20 w-64 h-64 bg-blue-600/10 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+
                     <div className="relative z-10 flex justify-between items-start">
                       <div className="p-4 bg-white/5 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
                         <tool.icon size={28} />
                       </div>
                       <span className="text-4xl font-black italic opacity-10 group-hover:opacity-100 group-hover:text-blue-500 transition-all">{tool.id}</span>
                     </div>
+
                     <div className="relative z-10 space-y-4 mt-20">
                       <span className="text-blue-500 text-[9px] font-black tracking-[0.3em] uppercase">{tool.tagline}</span>
                       <h3 className="text-4xl font-black uppercase italic tracking-tighter leading-none">{tool.name}</h3>
-                      <p className={`text-white/40 text-sm leading-relaxed max-w-sm transition-opacity duration-500 ${hoveredIndex === idx ? "opacity-100" : "opacity-60"}`}>
+                      <p className={`text-white/40 text-sm leading-relaxed max-w-sm transition-opacity duration-500 ${hoveredIndex === idx ? 'opacity-100' : 'opacity-60'}`}>
                         {tool.description}
                       </p>
                     </div>
+
                     <div className="relative z-10 pt-10 flex items-center justify-between border-t border-white/5 mt-auto">
                       <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white/30 group-hover:text-blue-500 transition-colors">
                         Explore Module <ArrowRight size={14} />
@@ -281,7 +262,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. Stats */}
+      {/* 3. Terminal Statistics */}
       <section className="py-32 px-6 border-y border-white/5">
         <div className="max-w-7xl mx-auto">
           <div className="stats-grid grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-px md:bg-white/5">
@@ -300,40 +281,26 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. CTA */}
-      <section ref={ctaSectionRef} className="py-40 px-6 relative overflow-hidden">
-        <div className="max-w-4xl mx-auto text-center space-y-12">
-          <div className="space-y-4">
+      {/* 4. Contact / CTA Section */}
+      <section className="py-20 md:py-40 px-6 relative overflow-hidden min-h-[80vh] flex items-center justify-center">
+        <div className="max-w-4xl mx-auto text-center space-y-8 md:space-y-12">
+          <div className="space-y-3 md:space-y-4">
             <div className="text-blue-500 text-[10px] font-black tracking-[0.5em] uppercase">Connect / Deploy</div>
-
-            {/* Clip-path reveal: EXACT Demo 2 implementation */}
-            <div className="relative inline-block cursor-none">
-              <h2 className="text-5xl md:text-8xl font-black uppercase italic tracking-tighter pointer-events-none select-none">
-                Ready for<br />The Future?
-              </h2>
-              <h2
-                ref={ctaOverlayRef as React.RefObject<HTMLHeadingElement>}
-                className="absolute inset-0 text-5xl md:text-8xl font-black uppercase italic tracking-tighter pointer-events-none select-none"
-                style={{ filter: "invert(100%)", clipPath: "circle(0 at 50% 50%)" }}
-                aria-hidden="true"
-              >
-                Ready for<br />The Future?
-              </h2>
-            </div>
+            <h2 className="text-4xl sm:text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-[0.9]">Ready for<br/>The Future?</h2>
           </div>
 
-          <p className="text-white/40 text-lg font-medium max-w-xl mx-auto">
+          <p className="text-white/40 text-base md:text-lg font-medium max-w-xl mx-auto px-4">
             Bring advanced parametric capabilities to your studio. 
             Custom engine development for Riyadh's most ambitious projects.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-6">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6 px-4">
             <Link href="/contact">
-              <button className="bg-blue-600 text-white px-12 py-6 rounded-full font-black text-xs tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all shadow-[0_0_30px_rgba(37,99,235,0.3)]">
+              <button className="w-full sm:w-auto bg-blue-600 text-white px-10 md:px-12 py-5 md:py-6 rounded-full font-black text-xs tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all shadow-[0_0_30px_rgba(37,99,235,0.3)] cursor-pointer">
                 Start Project
               </button>
             </Link>
             <Link href="/tools">
-              <button className="border border-white/10 text-white px-12 py-6 rounded-full font-black text-xs tracking-[0.2em] uppercase hover:bg-white/5 transition-all">
+              <button className="w-full sm:w-auto border border-white/10 text-white px-10 md:px-12 py-5 md:py-6 rounded-full font-black text-xs tracking-[0.2em] uppercase hover:bg-white/5 transition-all cursor-pointer">
                 Documentation
               </button>
             </Link>
@@ -341,23 +308,25 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer - CLEAN VERSION NO EFFECTS */}
-      <footer className="py-12 px-6 border-t border-white/5 bg-[#050505]">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="flex items-center gap-4">
+      {/* Footer */}
+      <footer className="py-10 md:py-12 px-6 border-t border-white/5 bg-[#050505]">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8">
+          <div className="flex items-center gap-4 order-1 md:order-1">
             <div className="w-8 h-8 bg-white flex items-center justify-center rounded-sm">
               <Terminal size={16} className="text-black" />
             </div>
             <div className="text-sm font-black tracking-[0.3em] uppercase italic">Studio Terminal</div>
           </div>
-          <div className="flex items-center gap-6 text-[9px] font-black tracking-[0.4em] text-white/20 uppercase">
+
+          <div className="flex flex-wrap items-center justify-center gap-3 md:gap-6 text-[9px] font-black tracking-[0.4em] text-white/20 uppercase order-3 md:order-2">
             <span>© 2025</span>
             <div className="w-px h-3 bg-white/10"></div>
             <span>Muhamad Shkeir</span>
             <div className="w-px h-3 bg-white/10"></div>
             <span className="text-blue-500/60 hover:text-blue-500 cursor-pointer transition-colors">KSA Node</span>
           </div>
-          <div className="flex gap-6 opacity-30 hover:opacity-100 transition-opacity">
+
+          <div className="flex gap-6 opacity-30 hover:opacity-100 transition-opacity order-2 md:order-3">
             <Globe size={16} className="cursor-pointer hover:text-blue-500 transition-colors" />
             <Activity size={16} className="cursor-pointer hover:text-blue-500 transition-colors" />
             <Lock size={16} className="cursor-pointer hover:text-blue-500 transition-colors" />
@@ -366,10 +335,20 @@ export default function Home() {
       </footer>
 
       <style>{`
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #030303; }
-        ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+          width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+          background: #030303;
+        }
+        ::-webkit-scrollbar-thumb {
+          background: #222;
+          border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+          background: #3b82f6;
+        }
       `}</style>
     </div>
   );

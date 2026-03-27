@@ -9,7 +9,8 @@ import {
   Scissors,
   Database,
   FileText,
-  Grid3x3
+  Grid3x3,
+  Brain
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -48,6 +49,17 @@ const EXTENSIONS = [
     link: "/tools/specbase"
   },
   {
+    id: "constructlm",
+    name: "ConstructLM",
+    description: "Production-grade RAG system with TRUE local embeddings. Multi-model AI support with 26+ models, zero embedding costs, and complete privacy.",
+    tagline: "AI KNOWLEDGE ENGINE",
+    accent: "#ec4899",
+    details: ["Local RAG", "26+ Models", "Zero API Cost"],
+    icon: Brain,
+    price: "Free",
+    link: "/tools/constructlm"
+  },
+  {
     id: "docmark",
     name: "DocMark",
     description: "Real-time markdown editor with live preview and synchronized scrolling. Perfect for technical documentation and content creation.",
@@ -78,7 +90,7 @@ interface SlideProps {
 }
 
 const Slide = ({ tool, index, progress }: SlideProps) => {
-  const totalSlides = 5;
+  const totalSlides = 6;
   const actualSnapPoint = index / (totalSlides - 1); // 0, 0.25, 0.5, 0.75, 1.0
   const nextSnapPoint = index < totalSlides - 1 ? (index + 1) / (totalSlides - 1) : 1;
   const prevSnapPoint = index > 0 ? (index - 1) / (totalSlides - 1) : 0;
@@ -323,7 +335,7 @@ export default function Tools() {
       </div>
 
       <div ref={scrollContainerRef} className="snap-container relative">
-        <div className="h-[500vh] relative">
+        <div className="h-[600vh] relative">
           
           {/* Main Visual Layer */}
           <div className="sticky top-0 h-screen w-full overflow-hidden flex">
