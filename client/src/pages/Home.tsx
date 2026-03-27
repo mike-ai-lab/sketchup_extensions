@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import { Link } from "wouter";
 import Header from "../components/Header";
 import { 
@@ -74,6 +74,50 @@ declare global {
 export default function Home() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const heroSectionRef = useRef<HTMLElement>(null);
+  const ctaSectionRef = useRef<HTMLElement>(null);
+
+  // Effect #7: Text Reveal Mask — tracks cursor per-section
+  const useTextReveal = (sectionRef: React.RefObject<HTMLElement | null>) => {
+    const maskRef = useRef<HTMLDivElement>(null);
+    const highlightRef = useRef<HTMLDivElement>(null);
+    const colorTextRef = useRef<HTMLElement | null>(null);
+
+    const onMouseMove = useCallback((e: MouseEvent) => {
+      const rect = sectionRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const xPct = (x / rect.width) * 100;
+      const yPct = (y / rect.height) * 100;
+
+      if (maskRef.current) {
+        maskRef.current.style.left = `${x}px`;
+        maskRef.current.style.top = `${y}px`;
+      }
+      if (highlightRef.current) {
+        highlightRef.current.style.left = `${x}px`;
+        highlightRef.current.style.top = `${y}px`;
+      }
+      if (colorTextRef.current) {
+        const mask = `radial-gradient(circle 140px at ${xPct}% ${yPct}%, black 100%, transparent 100%)`;
+        colorTextRef.current.style.webkitMask = mask;
+        (colorTextRef.current.style as any).mask = mask;
+      }
+    }, [sectionRef]);
+
+    useEffect(() => {
+      const el = sectionRef.current;
+      if (!el) return;
+      el.addEventListener('mousemove', onMouseMove);
+      return () => el.removeEventListener('mousemove', onMouseMove);
+    }, [sectionRef, onMouseMove]);
+
+    return { maskRef, highlightRef, colorTextRef };
+  };
+
+  const hero = useTextReveal(heroSectionRef);
+  const cta = useTextReveal(ctaSectionRef);
 
   useEffect(() => {
     const loadGSAP = async () => {
@@ -146,7 +190,7 @@ export default function Home() {
       <Header currentPage="home" />
 
       {/* 1. Industrial Hero */}
-      <section className="hero-section relative h-screen flex flex-col items-start justify-end p-6 md:p-20 overflow-hidden">
+      <section ref={heroSectionRef} className="hero-section relative h-screen flex flex-col items-start justify-end p-6 md:p-20 overflow-hidden cursor-none">
         {/* Background Decorative Element */}
         <div className="hero-bg-text absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[40vw] font-black opacity-[0.02] whitespace-nowrap pointer-events-none select-none italic">
           COMPUTE_01
@@ -158,11 +202,30 @@ export default function Home() {
             <span className="text-[10px] font-black tracking-widest text-blue-500 uppercase">System Online: Riyadh Node</span>
           </div>
 
-          <h1 className="text-6xl md:text-[120px] font-black leading-[0.85] uppercase italic tracking-tighter">
-            Next-Gen<br />
-            <span className="text-blue-600">Architectural</span><br />
-            Intelligence.
-          </h1>
+          {/* Base text + Effect #7 reveal overlay — wrapped for exact alignment */}
+          <div className="relative">
+            <h1 className="text-6xl md:text-[120px] font-black leading-[0.85] uppercase italic tracking-tighter">
+              Next-Gen<br />
+              <span className="text-blue-600">Architectural</span><br />
+              Intelligence.
+            </h1>
+            {/* Colored reveal layer — same text, masked by cursor position */}
+            <h1
+              ref={hero.colorTextRef as React.RefObject<HTMLHeadingElement>}
+              className="text-6xl md:text-[120px] font-black leading-[0.85] uppercase italic tracking-tighter absolute inset-0 pointer-events-none select-none"
+              style={{
+                color: '#60a5fa',
+                WebkitMask: 'radial-gradient(circle 140px at -999px -999px, black 100%, transparent 100%)',
+                mask: 'radial-gradient(circle 140px at -999px -999px, black 100%, transparent 100%)',
+                textShadow: '0 0 40px rgba(96,165,250,0.6)',
+              }}
+              aria-hidden="true"
+            >
+              Next-Gen<br />
+              <span style={{ color: '#93c5fd' }}>Architectural</span><br />
+              Intelligence.
+            </h1>
+          </div>
 
           <div className="flex flex-col md:flex-row items-start md:items-center gap-8 pt-10">
             <p className="max-w-sm text-white/40 font-medium text-sm leading-relaxed border-l border-white/10 pl-6">
@@ -171,18 +234,47 @@ export default function Home() {
             </p>
             <div className="flex gap-4 w-full md:w-auto">
               <Link href="/tools">
-                <button className="flex-1 md:flex-none bg-white text-black px-8 py-5 rounded-sm font-black text-xs tracking-widest uppercase hover:bg-blue-600 hover:text-white transition-all">
+                <button className="flex-1 md:flex-none bg-white text-black px-8 py-5 rounded-sm font-black text-xs tracking-widest uppercase hover:bg-blue-600 hover:text-white transition-all cursor-pointer">
                   Initialize
                 </button>
               </Link>
               <Link href="/pricing">
-                <button className="flex-1 md:flex-none border border-white/20 text-white px-8 py-5 rounded-sm font-black text-xs tracking-widest uppercase hover:bg-white/5 transition-all">
+                <button className="flex-1 md:flex-none border border-white/20 text-white px-8 py-5 rounded-sm font-black text-xs tracking-widest uppercase hover:bg-white/5 transition-all cursor-pointer">
                   Registry
                 </button>
               </Link>
             </div>
           </div>
         </div>
+
+        {/* Effect #7: eraser circle + highlight ring */}
+        <div
+          ref={hero.maskRef}
+          className="absolute pointer-events-none rounded-full"
+          style={{
+            width: 280,
+            height: 280,
+            background: 'transparent',
+            transform: 'translate(-50%, -50%)',
+            zIndex: 30,
+            left: -999,
+            top: -999,
+          }}
+        />
+        <div
+          ref={hero.highlightRef}
+          className="absolute pointer-events-none rounded-full"
+          style={{
+            width: 280,
+            height: 280,
+            border: '1.5px solid rgba(96,165,250,0.35)',
+            boxShadow: '0 0 30px rgba(96,165,250,0.15), inset 0 0 30px rgba(96,165,250,0.05)',
+            transform: 'translate(-50%, -50%)',
+            zIndex: 31,
+            left: -999,
+            top: -999,
+          }}
+        />
 
         {/* Scroll Indicator */}
         <div className="absolute bottom-10 right-10 hidden md:block">
@@ -273,29 +365,76 @@ export default function Home() {
       </section>
 
       {/* 4. Contact / CTA Section */}
-      <section className="py-40 px-6">
+      <section ref={ctaSectionRef} className="py-40 px-6 relative overflow-hidden cursor-none">
         <div className="max-w-4xl mx-auto text-center space-y-12">
           <div className="space-y-4">
             <div className="text-blue-500 text-[10px] font-black tracking-[0.5em] uppercase">Connect / Deploy</div>
+
+            {/* Base text */}
             <h2 className="text-5xl md:text-8xl font-black uppercase italic tracking-tighter">Ready for<br/>The Future?</h2>
+
+            {/* Effect #7: colored reveal layer */}
+            <h2
+              ref={cta.colorTextRef as React.RefObject<HTMLHeadingElement>}
+              className="text-5xl md:text-8xl font-black uppercase italic tracking-tighter absolute inset-0 flex items-center justify-center pointer-events-none select-none"
+              style={{
+                color: '#60a5fa',
+                WebkitMask: 'radial-gradient(circle 140px at -999px -999px, black 100%, transparent 100%)',
+                mask: 'radial-gradient(circle 140px at -999px -999px, black 100%, transparent 100%)',
+                textShadow: '0 0 40px rgba(96,165,250,0.6)',
+              }}
+              aria-hidden="true"
+            >
+              Ready for<br/>The Future?
+            </h2>
           </div>
+
           <p className="text-white/40 text-lg font-medium max-w-xl mx-auto">
             Bring advanced parametric capabilities to your studio. 
             Custom engine development for Riyadh's most ambitious projects.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-6">
             <Link href="/contact">
-              <button className="bg-blue-600 text-white px-12 py-6 rounded-full font-black text-xs tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all shadow-[0_0_30px_rgba(37,99,235,0.3)]">
+              <button className="bg-blue-600 text-white px-12 py-6 rounded-full font-black text-xs tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all shadow-[0_0_30px_rgba(37,99,235,0.3)] cursor-pointer">
                 Start Project
               </button>
             </Link>
             <Link href="/tools">
-              <button className="border border-white/10 text-white px-12 py-6 rounded-full font-black text-xs tracking-[0.2em] uppercase hover:bg-white/5 transition-all">
+              <button className="border border-white/10 text-white px-12 py-6 rounded-full font-black text-xs tracking-[0.2em] uppercase hover:bg-white/5 transition-all cursor-pointer">
                 Documentation
               </button>
             </Link>
           </div>
         </div>
+
+        {/* Effect #7: eraser + ring for CTA */}
+        <div
+          ref={cta.maskRef}
+          className="absolute pointer-events-none rounded-full"
+          style={{
+            width: 280,
+            height: 280,
+            background: 'transparent',
+            transform: 'translate(-50%, -50%)',
+            zIndex: 30,
+            left: -999,
+            top: -999,
+          }}
+        />
+        <div
+          ref={cta.highlightRef}
+          className="absolute pointer-events-none rounded-full"
+          style={{
+            width: 280,
+            height: 280,
+            border: '1.5px solid rgba(96,165,250,0.35)',
+            boxShadow: '0 0 30px rgba(96,165,250,0.15), inset 0 0 30px rgba(96,165,250,0.05)',
+            transform: 'translate(-50%, -50%)',
+            zIndex: 31,
+            left: -999,
+            top: -999,
+          }}
+        />
       </section>
 
       {/* Footer */}
