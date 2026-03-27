@@ -26,19 +26,31 @@ function Router() {
   const [location] = useLocation();
 
   useEffect(() => {
-    // Only scroll to top if there's no hash in the URL
-    if (!window.location.hash) {
-      window.scrollTo(0, 0);
-    } else {
-      // Scroll to the hash element
-      setTimeout(() => {
-        const id = window.location.hash.substring(1);
-        const element = document.getElementById(id);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
+    // Set manual scroll restoration to prevent browser interference
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
     }
+
+    // Use requestAnimationFrame for better timing
+    requestAnimationFrame(() => {
+      // Only scroll to top if there's no hash in the URL
+      if (!window.location.hash) {
+        window.scrollTo(0, 0);
+        console.log('[Router] Scrolled to top for:', location);
+      } else {
+        // Scroll to the hash element with increased timeout for DOM load
+        setTimeout(() => {
+          const id = window.location.hash.substring(1);
+          const element = document.getElementById(id);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            console.log('[Router] Scrolled to hash:', id);
+          } else {
+            console.warn('[Router] Hash element not found:', id);
+          }
+        }, 150);
+      }
+    });
   }, [location]);
 
   return (

@@ -73,7 +73,9 @@ export default function ParametrixDetail() {
       const gsap = window.gsap;
       const ScrollTrigger = window.ScrollTrigger;
       gsap.registerPlugin(ScrollTrigger);
-      ScrollTrigger.normalizeScroll(true);
+      
+      // REMOVED: ScrollTrigger.normalizeScroll(true) - causes global scroll conflicts
+      // This was interfering with scroll behavior on other pages
 
       const ctx = gsap.context(() => {
         // Hero Entrance

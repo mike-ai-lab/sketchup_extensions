@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link } from "wouter";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
 import Header from "../components/Header";
 import { 
   Terminal,
@@ -22,7 +22,8 @@ const EXTENSIONS = [
     accent: "#3b82f6",
     details: ["Multi-Face", "Rail Systems", "Pattern Control"],
     icon: Box,
-    price: "$49"
+    price: "$49",
+    link: "/tools/parametrix"
   },
   {
     id: "autonestcut",
@@ -32,7 +33,8 @@ const EXTENSIONS = [
     accent: "#10b981",
     details: ["Smart Nesting", "Cut Lists", "Material Optimization"],
     icon: Scissors,
-    price: "$39"
+    price: "$39",
+    link: "/tools/autonestcut"
   },
   {
     id: "specbase",
@@ -42,7 +44,8 @@ const EXTENSIONS = [
     accent: "#6366f1",
     details: ["AI Search", "Document Analysis", "100% Private"],
     icon: Database,
-    price: "Free"
+    price: "Free",
+    link: "/tools/specbase"
   },
   {
     id: "docmark",
@@ -52,7 +55,8 @@ const EXTENSIONS = [
     accent: "#a855f7",
     details: ["Live Preview", "Sync Scrolling", "PDF Export"],
     icon: FileText,
-    price: "Free"
+    price: "Free",
+    link: "/tools/docmark"
   },
   {
     id: "utilities",
@@ -62,237 +66,283 @@ const EXTENSIONS = [
     accent: "#f59e0b",
     details: ["Quick Align", "Layer Manager", "Array Tools"],
     icon: Grid3x3,
-    price: "Free-$15"
+    price: "Free-$15",
+    link: "/tools/utilities"
   }
 ];
 
-const Slide = ({ tool, index, progress }: { tool: typeof EXTENSIONS[0], index: number, progress: any }) => {
-  // Staggered timing ranges for this specific slide
-  // 5 tools at 0%, 25%, 50%, 75%, 100%
-  const start = index * 0.25;
-  const end = (index + 1) * 0.25;
+interface SlideProps {
+  tool: typeof EXTENSIONS[0];
+  index: number;
+  progress: MotionValue<number>;
+}
 
-  // Horizontal translation of the whole slide
-  const x = useTransform(progress, [0, 1], ["0%", "-400%"]);
+const Slide = ({ tool, index, progress }: SlideProps) => {
+  const totalSlides = 5;
+  const actualSnapPoint = index / (totalSlides - 1); // 0, 0.25, 0.5, 0.75, 1.0
+  const nextSnapPoint = index < totalSlides - 1 ? (index + 1) / (totalSlides - 1) : 1;
+  const prevSnapPoint = index > 0 ? (index - 1) / (totalSlides - 1) : 0;
   
-  // Nested staggered animations for elements within the slide
-  const titleMove = useTransform(progress, [start, start + 0.1, start + 0.15], [200, 0, -50]);
-  const descOpacity = useTransform(progress, [start + 0.05, start + 0.12, start + 0.18], [0, 1, 0]);
-  const boxRotate = useTransform(progress, [start, end], [0, 360]);
-  const boxScale = useTransform(progress, [start, start + 0.1, start + 0.2], [0.5, 1.2, 0.8]);
+  const x = useTransform(progress, [0, 1], ["0%", `-${(totalSlides - 1) * 100}%`]);
+  
+  const midToPrev = (actualSnapPoint + prevSnapPoint) / 2;
+  const midToNext = (actualSnapPoint + nextSnapPoint) / 2;
+  
+  // Fix: Clamp contentAlign for last module to prevent jump
+  const contentAlign = useTransform(
+    progress,
+    [
+      midToPrev, 
+      actualSnapPoint, 
+      index === totalSlides - 1 ? 1.0 : midToNext
+    ],
+    [
+      30, 
+      0, 
+      index === totalSlides - 1 ? 0 : -30
+    ]
+  );
+
+  const textOpacity = useTransform(
+    progress,
+    [
+      midToPrev,
+      actualSnapPoint - 0.02,
+      actualSnapPoint,
+      actualSnapPoint + 0.02,
+      midToNext
+    ],
+    [0.15, 0.6, 1, 0.6, 0.15]
+  );
+
+  // Different animation per module
+  let boxRotate, boxScale, titleY, descY, buttonY, buttonScale;
+
+  if (index === 0) {
+    boxRotate = useTransform(progress, [prevSnapPoint, actualSnapPoint, nextSnapPoint], [180, 0, -180]);
+    boxScale = useTransform(progress, [prevSnapPoint, midToPrev, actualSnapPoint, midToNext, nextSnapPoint], [0.7, 0.9, 1.2, 0.9, 0.7]);
+    titleY = useTransform(progress, [midToPrev, actualSnapPoint, midToNext], [80, 0, -80]);
+    descY = useTransform(progress, [midToPrev, actualSnapPoint, midToNext], [120, 0, -120]);
+    buttonY = useTransform(progress, [midToPrev, actualSnapPoint, midToNext], [150, 0, -150]);
+    buttonScale = useTransform(progress, [midToPrev, actualSnapPoint, midToNext], [0.8, 1, 0.8]);
+  } else if (index === 1) {
+    boxRotate = useTransform(progress, [prevSnapPoint, actualSnapPoint, nextSnapPoint], [360, 0, -360]);
+    boxScale = useTransform(progress, [prevSnapPoint, midToPrev, actualSnapPoint, midToNext, nextSnapPoint], [0.6, 0.85, 1.3, 0.85, 0.6]);
+    titleY = useTransform(progress, [midToPrev, actualSnapPoint, midToNext], [100, 0, -100]);
+    descY = useTransform(progress, [midToPrev, actualSnapPoint, midToNext], [60, 0, -60]);
+    buttonY = useTransform(progress, [midToPrev, actualSnapPoint, midToNext], [180, 0, -180]);
+    buttonScale = useTransform(progress, [midToPrev, actualSnapPoint, midToNext], [0.7, 1.1, 0.7]);
+  } else if (index === 2) {
+    boxRotate = useTransform(progress, [prevSnapPoint, midToPrev, actualSnapPoint, midToNext, nextSnapPoint], [90, 45, 0, -45, -90]);
+    boxScale = useTransform(progress, [prevSnapPoint, midToPrev, actualSnapPoint, midToNext, nextSnapPoint], [0.75, 1.0, 1.25, 1.0, 0.75]);
+    titleY = useTransform(progress, [midToPrev, actualSnapPoint, midToNext], [50, 0, -50]);
+    descY = useTransform(progress, [midToPrev, actualSnapPoint, midToNext], [150, 0, -150]);
+    buttonY = useTransform(progress, [midToPrev, actualSnapPoint, midToNext], [100, 0, -100]);
+    buttonScale = useTransform(progress, [midToPrev, actualSnapPoint, midToNext], [0.85, 1.05, 0.85]);
+  } else if (index === 3) {
+    boxRotate = useTransform(progress, [prevSnapPoint, actualSnapPoint, nextSnapPoint], [120, 0, -120]);
+    boxScale = useTransform(progress, [prevSnapPoint, midToPrev, actualSnapPoint, midToNext, nextSnapPoint], [0.8, 0.95, 1.15, 0.95, 0.8]);
+    titleY = useTransform(progress, [midToPrev, actualSnapPoint, midToNext], [70, 0, -70]);
+    descY = useTransform(progress, [midToPrev, actualSnapPoint, midToNext], [90, 0, -90]);
+    buttonY = useTransform(progress, [midToPrev, actualSnapPoint, midToNext], [130, 0, -130]);
+    buttonScale = useTransform(progress, [midToPrev, actualSnapPoint, midToNext], [0.9, 1, 0.9]);
+  } else {
+    // Last module - stays at max
+    boxRotate = useTransform(progress, [prevSnapPoint, actualSnapPoint, Math.min(nextSnapPoint, 1.0)], [120, 0, 0]);
+    boxScale = useTransform(progress, [prevSnapPoint, midToPrev, actualSnapPoint, Math.min(midToNext, 1.0), Math.min(nextSnapPoint, 1.0)], [0.8, 0.95, 1.15, 1.15, 1.15]);
+    titleY = useTransform(progress, [midToPrev, actualSnapPoint, midToNext], [70, 0, 0]);
+    descY = useTransform(progress, [midToPrev, actualSnapPoint, midToNext], [90, 0, 0]);
+    buttonY = useTransform(progress, [midToPrev, actualSnapPoint, midToNext], [130, 0, 0]);
+    buttonScale = useTransform(progress, [midToPrev, actualSnapPoint, midToNext], [0.9, 1, 1]);
+  }
 
   return (
     <motion.div 
       style={{ x }}
-      className="relative w-screen h-screen flex-shrink-0 flex items-center justify-center px-10 md:px-24"
+      className="relative w-screen h-screen flex-shrink-0 flex items-center justify-center px-6 sm:px-10 md:px-24"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 w-full max-w-7xl items-center">
-        
-        {/* Left: Text Content (Staggered Entrance) */}
-        <div className="lg:col-span-7 space-y-8">
-          <motion.div style={{ x: titleMove }}>
-             <span className="text-[10px] font-black tracking-[0.6em] text-white/20 uppercase">Module // 0{index + 1}</span>
-             <h2 className="text-6xl md:text-9xl font-black italic uppercase tracking-tighter leading-none mt-4">
-               <span style={{ color: tool.accent }}>{tool.name}</span>
-             </h2>
-             <span className="text-sm font-black tracking-[0.4em] text-white/40 uppercase mt-2 block">{tool.tagline}</span>
+      <motion.div 
+        style={{ x: contentAlign }}
+        className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 w-full max-w-7xl items-center"
+      >
+        <div className="lg:col-span-7 space-y-6 lg:space-y-8 relative z-20">
+          <motion.div style={{ y: titleY }} className="relative z-20">
+            <span className="text-[10px] font-black tracking-[0.6em] text-white/20 uppercase">{tool.tagline}</span>
+            <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black italic uppercase tracking-tighter leading-none mt-4 whitespace-nowrap overflow-visible">
+              <span style={{ color: tool.accent }}>{tool.name}</span>
+            </h2>
           </motion.div>
 
           <motion.p 
-            style={{ opacity: descOpacity }}
-            className="text-white/40 max-w-md text-lg italic font-medium"
+            style={{ opacity: textOpacity, y: descY }}
+            className="text-white/60 max-w-md text-base sm:text-lg italic font-medium transition-opacity duration-100 relative z-20"
           >
             {tool.description}
           </motion.p>
 
-          <motion.div 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className="flex flex-wrap gap-4"
-          >
-            {tool.details.map((d: string, i: number) => (
-              <div key={i} className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-[9px] font-black uppercase tracking-widest italic">
+          <div className="flex flex-wrap gap-3 lg:gap-4 relative z-20">
+            {tool.details.map((d, i) => (
+              <div key={i} className="px-4 py-1.5 lg:px-5 lg:py-2 bg-white/5 border border-white/10 rounded-full text-[9px] font-black uppercase tracking-widest italic text-white/60">
                 {d}
               </div>
             ))}
-          </motion.div>
+          </div>
 
-          <div className="pt-10 flex items-center gap-6">
-            <Link href={`/tools/${tool.id}`}>
-              <Button className="bg-white text-black hover:bg-white/90 px-12 py-8 rounded-full font-black uppercase tracking-widest text-[10px] group shadow-2xl">
+          <motion.div className="pt-4 lg:pt-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 relative z-20" style={{ y: buttonY, scale: buttonScale }}>
+            <Link href={tool.link}>
+              <Button className="bg-white text-black hover:bg-white/90 px-10 py-6 lg:px-12 lg:py-8 rounded-full font-black uppercase tracking-widest text-[10px] group shadow-2xl whitespace-nowrap">
                 View Details
                 <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
-            <div className="text-2xl font-black" style={{ color: tool.accent }}>{tool.price}</div>
-          </div>
+            <div className="text-2xl lg:text-3xl font-black" style={{ color: tool.accent }}>{tool.price}</div>
+          </motion.div>
         </div>
 
-        {/* Right: Visual 3D Component (Nested Rotation/Scale) */}
-        <div className="lg:col-span-5 relative flex justify-center items-center">
-           <motion.div 
-             style={{ rotate: boxRotate, scale: boxScale }}
-             className="relative w-64 h-64 md:w-96 md:h-96"
-           >
-             <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent blur-3xl opacity-30"></div>
-             <div className="relative h-full w-full bg-[#0c0c0e] border border-white/5 rounded-[60px] flex items-center justify-center shadow-2xl overflow-hidden">
-                <div className="absolute inset-0 opacity-10">
-                  <svg width="100%" height="100%"><pattern id={`g-${index}`} width="30" height="30" patternUnits="userSpaceOnUse"><path d="M 30 0 L 0 0 0 30" fill="none" stroke="white" strokeWidth="0.5"/></pattern><rect width="100%" height="100%" fill={`url(#g-${index})`} /></svg>
-                </div>
-                <tool.icon size={140} strokeWidth={1} style={{ color: tool.accent }} />
-             </div>
-           </motion.div>
+        <div className="lg:col-span-5 relative flex justify-center items-center mt-8 lg:mt-0 z-10">
+          <motion.div 
+            style={{ 
+              rotate: boxRotate, 
+              scale: boxScale
+            }}
+            className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 transition-all"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent blur-3xl opacity-20"></div>
+            <div className="relative h-full w-full bg-[#0c0c0e] border border-white/5 rounded-[40px] md:rounded-[60px] flex items-center justify-center shadow-2xl overflow-hidden">
+              <div className="absolute inset-0 opacity-10">
+                <svg width="100%" height="100%">
+                  <pattern id={`g-${index}`} width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5"/>
+                  </pattern>
+                  <rect width="100%" height="100%" fill={`url(#g-${index})`} />
+                </svg>
+              </div>
+              <tool.icon size={120} strokeWidth={1} style={{ color: tool.accent }} className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-40 lg:h-40" />
+            </div>
+          </motion.div>
         </div>
-      </div>
-    </motion.div>
-  );
-};
-
-const TimelineDot = ({ index, progress }: { index: number; progress: any }) => {
-  const active = useTransform(progress, [index * 0.25, (index + 1) * 0.25], [1, 0.2]);
-  return (
-    <motion.div style={{ opacity: active }} className="flex items-center gap-4 group cursor-pointer">
-      <div className="w-2 h-2 rounded-full bg-white"></div>
-      <span className="text-[10px] font-black tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
-        0{index + 1}
-      </span>
+      </motion.div>
     </motion.div>
   );
 };
 
 export default function Tools() {
-  const containerRef = useRef(null);
-  const [isSnapping, setIsSnapping] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [debugProgress, setDebugProgress] = useState(0);
   
-  // Driving the entire timeline with Vertical Scroll
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    container: scrollContainerRef,
   });
 
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  const smoothProgress = useSpring(scrollYProgress, { 
+    stiffness: 80,
+    damping: 30,
+    mass: 0.5
+  });
 
   useEffect(() => {
-    const media = window.matchMedia("(max-width: 767px)");
-    const update = () => setIsMobile(media.matches);
-    update();
-    media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
+    const unsubscribe = smoothProgress.on('change', (v) => setDebugProgress(v));
+    return () => unsubscribe();
+  }, [smoothProgress]);
+
+  // CRITICAL: Prevent body scroll and restore on unmount
+  useEffect(() => {
+    // Save original overflow style
+    const originalOverflow = document.body.style.overflow;
+    const originalHeight = document.body.style.height;
+    
+    // Disable body scroll while Tools page is mounted
+    document.body.style.overflow = 'hidden';
+    document.body.style.height = '100vh';
+    
+    // Debug logging
+    console.log('[Tools] Body scroll locked', { originalOverflow, originalHeight });
+    
+    // Cleanup: Restore original scroll behavior when leaving page
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.body.style.height = originalHeight;
+      console.log('[Tools] Body scroll restored', { originalOverflow, originalHeight });
+    };
   }, []);
 
-  useEffect(() => {
-    if (isMobile) return;
-
-    let snapTimeout: NodeJS.Timeout;
-    let lastScrollTime = Date.now();
-
-    const handleScroll = () => {
-      lastScrollTime = Date.now();
-      clearTimeout(snapTimeout);
-
-      snapTimeout = setTimeout(() => {
-        const timeSinceLastScroll = Date.now() - lastScrollTime;
-        if (timeSinceLastScroll < 150 || isSnapping) return;
-
-        const scrollTop = window.scrollY;
-        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = scrollTop / totalHeight;
-        
-        // Find nearest snap point - 5 tools at equal intervals: 0%, 25%, 50%, 75%, 100%
-        const snapPoints = [0, 0.25, 0.5, 0.75, 1.0];
-        const nearest = snapPoints.reduce((prev, curr) => 
-          Math.abs(curr - progress) < Math.abs(prev - progress) ? curr : prev
-        );
-        
-        const distance = Math.abs(nearest - progress);
-        
-        // Only snap if within 8% of a snap point (but not too close to avoid jitter)
-        if (distance < 0.08 && distance > 0.001) {
-          setIsSnapping(true);
-          const targetScroll = nearest * totalHeight;
-          
-          window.scrollTo({
-            top: targetScroll,
-            behavior: 'smooth'
-          });
-          
-          setTimeout(() => setIsSnapping(false), 600);
-        }
-      }, 150);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      clearTimeout(snapTimeout);
-    };
-  }, [isMobile, isSnapping]);
-
-  if (isMobile) {
-    return (
-      <div className="bg-[#050505] text-white selection:bg-white selection:text-black overflow-x-hidden">
-        <Header currentPage="tools" />
-        <main className="px-4 pt-24 pb-10 space-y-4">
-          <p className="text-[10px] tracking-[0.5em] uppercase font-black text-white/40">Mobile Modules</p>
-          <h1 className="text-4xl font-black uppercase italic tracking-tight">Tools</h1>
-          <p className="text-sm text-white/60 max-w-md">
-            Swipe vertically to browse modules. Animations are optimized for touch to avoid gesture conflicts.
-          </p>
-          <div className="space-y-4 pt-3">
-            {EXTENSIONS.map((tool) => (
-              <Link key={tool.id} href={`/tools/${tool.id}`}>
-                <article className="rounded-3xl border border-white/10 bg-[#0c0c0e] p-5 space-y-4">
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <p className="text-[9px] tracking-[0.4em] uppercase font-black text-white/40">{tool.tagline}</p>
-                      <h2 className="text-2xl font-black italic uppercase leading-none mt-2" style={{ color: tool.accent }}>
-                        {tool.name}
-                      </h2>
-                    </div>
-                    <tool.icon size={34} color={tool.accent} />
-                  </div>
-                  <p className="text-sm text-white/60">{tool.description}</p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex flex-wrap gap-2">
-                      {tool.details.map((detail) => (
-                        <span key={detail} className="px-2.5 py-1 rounded-lg bg-white/5 text-[9px] uppercase tracking-wider">
-                          {detail}
-                        </span>
-                      ))}
-                    </div>
-                    <span className="text-sm font-black" style={{ color: tool.accent }}>{tool.price}</span>
-                  </div>
-                </article>
-              </Link>
-            ))}
-          </div>
-        </main>
-      </div>
-    );
-  }
-
   return (
-    <div className="bg-[#050505] text-white selection:bg-white selection:text-black overflow-x-hidden">
+    <div className="bg-[#050505] text-white selection:bg-white selection:text-black h-screen w-full fixed inset-0 font-sans">
+      <style>{`
+        .snap-container {
+          scroll-snap-type: y mandatory;
+          overflow-y: scroll;
+          overflow-x: hidden;
+          height: 100vh;
+          width: 100%;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+          position: relative;
+        }
+        .snap-container::-webkit-scrollbar {
+          display: none;
+        }
+        .snap-section {
+          scroll-snap-align: start;
+          scroll-snap-stop: always;
+          height: 100vh;
+          width: 100%;
+          pointer-events: auto;
+        }
+      `}</style>
+
       <Header currentPage="tools" />
 
-      {/* Progress Timeline Indicator */}
+      {/* Progress Dots */}
       <div className="fixed left-12 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-12">
-        {EXTENSIONS.map((_, i) => (
-          <TimelineDot key={i} index={i} progress={smoothProgress} />
-        ))}
+        {EXTENSIONS.map((tool, i) => {
+          const snapPoint = i / (EXTENSIONS.length - 1);
+          const isActive = Math.abs(debugProgress - snapPoint) < 0.05;
+          return (
+            <motion.div 
+              key={i} 
+              style={{ opacity: isActive ? 1 : 0.2 }}
+              className="flex items-center gap-4 transition-opacity group cursor-pointer"
+              onClick={() => {
+                const container = scrollContainerRef.current;
+                if (container) {
+                  container.scrollTo({
+                    top: (container.scrollHeight / EXTENSIONS.length) * i,
+                    behavior: 'smooth'
+                  });
+                }
+              }}
+            >
+              <div className="w-2 h-2 rounded-full bg-white"></div>
+              <span className="text-[10px] font-black tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                {tool.name}
+              </span>
+            </motion.div>
+          );
+        })}
       </div>
 
-      {/* Main Scroll Container (Long Vertical Height) */}
-      <div ref={containerRef} className="h-[400vh] relative">
-        <div className="sticky top-0 h-screen w-full overflow-hidden flex">
-          {EXTENSIONS.map((tool, index) => (
-            <Slide key={tool.id} tool={tool} index={index} progress={smoothProgress} />
-          ))}
+      <div ref={scrollContainerRef} className="snap-container relative">
+        <div className="h-[500vh] relative">
+          
+          {/* Main Visual Layer */}
+          <div className="sticky top-0 h-screen w-full overflow-hidden flex pointer-events-none">
+            {EXTENSIONS.map((tool, index) => (
+              <Slide key={tool.id} tool={tool} index={index} progress={smoothProgress} />
+            ))}
+          </div>
+          
+          {/* Physical Snap Sections */}
+          <div className="absolute top-0 left-0 w-full h-full pointer-events-auto">
+            {EXTENSIONS.map((tool) => (
+              <div key={`snap-${tool.id}`} className="snap-section" />
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Bottom Info Bar */}
-      <div className="fixed bottom-12 left-12 right-12 z-50 hidden md:flex justify-between items-end pointer-events-none">
+      {/* Footer Meta */}
+      <div className="fixed bottom-12 left-12 right-12 z-50 flex justify-between items-end pointer-events-none">
         <div className="flex items-center gap-4 text-[9px] font-black uppercase tracking-[0.4em] text-white/20">
           <Terminal size={14} /> Sequence Timeline Active
         </div>
@@ -300,11 +350,11 @@ export default function Tools() {
           © 2025 Studiø / Muhamad Shkeir
         </div>
       </div>
-      
+
       {/* Scroll Guide */}
       <motion.div
         style={{ opacity: useTransform(smoothProgress, [0, 0.05], [1, 0]) }}
-        className="fixed bottom-24 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-4"
+        className="fixed bottom-32 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-4 pointer-events-none"
       >
         <span className="text-[9px] font-black uppercase tracking-[0.6em] text-white/40">Scroll to Explore</span>
         <motion.div 
