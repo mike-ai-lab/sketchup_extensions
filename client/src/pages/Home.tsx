@@ -59,12 +59,12 @@ const FEATURED_TOOLS = [
   },
   {
     id: "05",
-    name: "MI Events",
+    name: "Semantra",
     tagline: "UNIFIED INTELLIGENCE",
     description: "All-in-One AI assistant with voice dictation, image generation, and intelligent chat.",
     color: "#06b6d4",
     icon: Sparkles,
-    path: "/tools/mievents"
+    path: "/tools/semantra"
   },
   {
     id: "06",

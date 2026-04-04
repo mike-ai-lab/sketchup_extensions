@@ -155,7 +155,7 @@ export default function SemantraDetail() {
           </div>
 
           <h1 className="text-5xl sm:text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-[0.9]">
-            <span className="text-cyan-500">MI Events</span>
+            <span className="text-cyan-500">Semantra</span>
           </h1>
 
           <p className="text-xl md:text-2xl text-white/60 max-w-3xl mx-auto font-medium">
@@ -286,7 +286,7 @@ export default function SemantraDetail() {
             Ready to Start?
           </h2>
           <p className="text-white/60 text-lg max-w-2xl mx-auto">
-            Download MI Events and experience the future of unified AI assistance. Free to use with your own API key.
+            Download Semantra and experience the future of unified AI assistance. Free to use with your own API key.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <button className="w-full sm:w-auto bg-cyan-600 hover:bg-cyan-500 text-white px-12 py-6 rounded-full font-black text-[10px] tracking-widest uppercase transition-all flex items-center gap-3 justify-center active:scale-95 shadow-2xl shadow-cyan-600/20">
@@ -306,7 +306,7 @@ export default function SemantraDetail() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-4">
             <Brain size={24} className="text-cyan-500" />
-            <span className="font-black tracking-widest uppercase text-sm">MI Events</span>
+            <span className="font-black tracking-widest uppercase text-sm">Semantra</span>
           </div>
           <div className="text-white/40 text-xs">
             Proprietary • Built with ❤️ by IA. Muhamad Shkeir

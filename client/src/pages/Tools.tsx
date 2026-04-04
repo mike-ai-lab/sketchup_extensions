@@ -63,14 +63,14 @@ const EXTENSIONS = [
   },
   {
     id: "mievents",
-    name: "MI Events",
+    name: "Semantra",
     description: "All-in-One AI assistant with voice dictation, image generation, and intelligent chat. Multi-modal AI powered by Google Gemini.",
     tagline: "UNIFIED INTELLIGENCE",
     accent: "#06b6d4",
     details: ["AI Chat", "Voice Dictation", "Image Gen"],
     icon: Sparkles,
     price: "Free",
-    link: "/tools/mievents"
+    link: "/tools/semantra"
   },
   {
     id: "lexicode",

@@ -69,7 +69,7 @@ function Router() {
       <Route path="/tools/autonestcut" component={AutoNestCutDetail} />
       <Route path="/tools/docmark" component={DocmarkDetail} />
       <Route path="/tools/constructlm" component={ConstructlmDetail} />
-      <Route path="/tools/mievents" component={SemantraDetail} />
+      <Route path="/tools/semantra" component={SemantraDetail} />
       <Route path="/tools/lexicode" component={LexicodeDetail} />
       <Route path="/tools/utilities" component={UtilitiesDetail} />
       {/* <Route path="/resources" component={Resources} /> */}
