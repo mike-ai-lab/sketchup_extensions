@@ -10,7 +10,8 @@ import {
   Database,
   FileText,
   Grid3x3,
-  Brain
+  Brain,
+  Sparkles
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -60,6 +61,17 @@ const EXTENSIONS = [
     link: "/tools/constructlm"
   },
   {
+    id: "mievents",
+    name: "MI Events",
+    description: "All-in-One AI assistant with voice dictation, image generation, and intelligent chat. Multi-modal AI powered by Google Gemini.",
+    tagline: "UNIFIED INTELLIGENCE",
+    accent: "#06b6d4",
+    details: ["AI Chat", "Voice Dictation", "Image Gen"],
+    icon: Sparkles,
+    price: "Free",
+    link: "/tools/mievents"
+  },
+  {
     id: "docmark",
     name: "DocMark",
     description: "Real-time markdown editor with live preview and synchronized scrolling. Perfect for technical documentation and content creation.",
@@ -90,7 +102,7 @@ interface SlideProps {
 }
 
 const Slide = ({ tool, index, progress }: SlideProps) => {
-  const totalSlides = 6;
+  const totalSlides = 7;
   const actualSnapPoint = index / (totalSlides - 1); // 0, 0.25, 0.5, 0.75, 1.0
   const nextSnapPoint = index < totalSlides - 1 ? (index + 1) / (totalSlides - 1) : 1;
   const prevSnapPoint = index > 0 ? (index - 1) / (totalSlides - 1) : 0;
@@ -335,7 +347,7 @@ export default function Tools() {
       </div>
 
       <div ref={scrollContainerRef} className="snap-container relative">
-        <div className="h-[600vh] relative">
+        <div className="h-[700vh] relative">
           
           {/* Main Visual Layer */}
           <div className="sticky top-0 h-screen w-full overflow-hidden flex">

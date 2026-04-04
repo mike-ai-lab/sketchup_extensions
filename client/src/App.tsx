@@ -16,6 +16,7 @@ import AutoNestCutDetail from "./pages/AutoNestCutDetail";
 import DocmarkDetail from "./pages/DocmarkDetail";
 import UtilitiesDetail from "./pages/UtilitiesDetail";
 import ConstructlmDetail from "./pages/ConstructlmDetail";
+import SemantraDetail from "./pages/SemantraDetail";
 import Resources from "./pages/Resources";
 import ProductPage from "./pages/ProductPage";
 import Contact from "./pages/Contact";
@@ -67,6 +68,7 @@ function Router() {
       <Route path="/tools/autonestcut" component={AutoNestCutDetail} />
       <Route path="/tools/docmark" component={DocmarkDetail} />
       <Route path="/tools/constructlm" component={ConstructlmDetail} />
+      <Route path="/tools/mievents" component={SemantraDetail} />
       <Route path="/tools/utilities" component={UtilitiesDetail} />
       {/* <Route path="/resources" component={Resources} /> */}
       <Route path="/products/:slug" component={ProductPage} />

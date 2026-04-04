@@ -15,7 +15,8 @@ import {
   Activity,
   Globe,
   Lock,
-  Brain
+  Brain,
+  Sparkles
 } from "lucide-react";
 
 const FEATURED_TOOLS = [
@@ -57,6 +58,15 @@ const FEATURED_TOOLS = [
   },
   {
     id: "05",
+    name: "MI Events",
+    tagline: "UNIFIED INTELLIGENCE",
+    description: "All-in-One AI assistant with voice dictation, image generation, and intelligent chat.",
+    color: "#06b6d4",
+    icon: Sparkles,
+    path: "/tools/mievents"
+  },
+  {
+    id: "06",
     name: "DocMark",
     tagline: "CONTENT ENGINE",
     description: "Real-time markdown editor with live preview and synchronized scrolling.",

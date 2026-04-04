@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "F:\\gemini_dictation_and_assistant"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "list_directory",
+        "read_text_file"
+      ],
+      "disabledTools": []
+    }
+  }
+}
