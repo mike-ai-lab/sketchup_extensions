@@ -4,7 +4,7 @@
   "installCommand": "pnpm install",
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/((?!privacy-policy\\.html|terms-of-service\\.html|.*\\.html$).*)",
       "destination": "/index.html"
     }
   ]
