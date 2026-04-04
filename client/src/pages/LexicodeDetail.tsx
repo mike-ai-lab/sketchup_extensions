@@ -327,8 +327,17 @@ export default function LexicodeDetail() {
             <Code2 size={24} className="text-emerald-500" />
             <span className="font-black tracking-widest uppercase text-sm">LexiCode</span>
           </div>
-          <div className="text-white/40 text-xs">
-            MIT License • Open Source • Built with ❤️
+          <div className="flex flex-wrap items-center justify-center gap-4 text-xs">
+            <span className="text-white/40">MIT License • Open Source • Built with ❤️</span>
+            <div className="w-px h-3 bg-white/10"></div>
+            <a 
+              href="/privacy-policy.html" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/40 hover:text-emerald-500 transition-colors"
+            >
+              Privacy Policy
+            </a>
           </div>
           <div className="flex gap-6">
             <Layers size={18} className="text-white/40 hover:text-emerald-500 transition-colors cursor-pointer" />

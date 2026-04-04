@@ -140,12 +140,19 @@ export default function SpecbaseDetail() {
 
       <div className="flex justify-center py-20 px-8">
         <footer className="bg-[#0c0c0e] border border-white/5 rounded-full px-12 py-6 shadow-2xl flex flex-col md:flex-row items-center gap-8">
-          <div className="flex items-center gap-6 text-[10px] font-black tracking-[0.4em] text-white/30 uppercase">
-            <span>© 2025 Studiø</span>
-            <div className="w-1 h-1 bg-white/10 rounded-full"></div>
-            <span>Muhamad Shkeir</span>
-            <div className="w-1 h-1 bg-white/10 rounded-full"></div>
-            <span className="text-indigo-500">Riyadh, KSA</span>
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex items-center gap-6 text-[10px] font-black tracking-[0.4em] text-white/30 uppercase">
+              <span>© 2025 Studiø</span>
+              <div className="w-1 h-1 bg-white/10 rounded-full"></div>
+              <span>Muhamad Shkeir</span>
+              <div className="w-1 h-1 bg-white/10 rounded-full"></div>
+              <span className="text-indigo-500">Riyadh, KSA</span>
+            </div>
+            <div className="flex items-center gap-6 text-[9px] font-bold tracking-[0.3em] text-white/20 uppercase">
+              <a href="/privacy-policy.html" className="hover:text-indigo-500 transition-colors">Privacy Policy</a>
+              <div className="w-1 h-1 bg-white/10 rounded-full"></div>
+              <a href="/terms-of-service.html" className="hover:text-indigo-500 transition-colors">Terms of Service</a>
+            </div>
           </div>
         </footer>
       </div>

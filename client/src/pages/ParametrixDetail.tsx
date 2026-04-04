@@ -230,13 +230,24 @@ export default function ParametrixDetail() {
 
       {/* Footer CTA */}
       <div className="flex justify-center py-20 px-4 sm:px-8">
-        <footer className="bg-[#0c0c0e] border border-white/5 rounded-[32px] sm:rounded-full px-6 sm:px-12 py-6 shadow-2xl flex flex-col md:flex-row items-center gap-8">
-          <div className="flex items-center gap-6 text-[10px] font-black tracking-[0.4em] text-white/30 uppercase">
-            <span>© 2025 Studiø</span>
-            <div className="w-1 h-1 bg-white/10 rounded-full"></div>
-            <span>Muhamad Shkeir</span>
-            <div className="w-1 h-1 bg-white/10 rounded-full"></div>
-            <span className="text-blue-500">Riyadh, KSA</span>
+        <footer className="bg-[#0c0c0e] border border-white/5 rounded-[32px] sm:rounded-full px-6 sm:px-12 py-6 shadow-2xl">
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex items-center gap-6 text-[10px] font-black tracking-[0.4em] text-white/30 uppercase">
+              <span>© 2025 Studiø</span>
+              <div className="w-1 h-1 bg-white/10 rounded-full"></div>
+              <span>Muhamad Shkeir</span>
+              <div className="w-1 h-1 bg-white/10 rounded-full"></div>
+              <span className="text-blue-500">Riyadh, KSA</span>
+            </div>
+            <div className="flex items-center gap-4">
+              <a href="/privacy-policy.html" target="_blank" rel="noopener noreferrer" className="text-[9px] font-black tracking-[0.4em] text-white/20 uppercase hover:text-blue-500 transition-colors">
+                Privacy Policy
+              </a>
+              <div className="w-px h-3 bg-white/10"></div>
+              <a href="/terms-of-service.html" target="_blank" rel="noopener noreferrer" className="text-[9px] font-black tracking-[0.4em] text-white/20 uppercase hover:text-blue-500 transition-colors">
+                Terms of Service
+              </a>
+            </div>
           </div>
         </footer>
       </div>

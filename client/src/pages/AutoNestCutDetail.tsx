@@ -145,6 +145,11 @@ export default function AutoNestCutDetail() {
             <div className="w-1 h-1 bg-white/10 rounded-full"></div>
             <span className="text-green-500">Riyadh, KSA</span>
           </div>
+          <div className="flex items-center gap-6 text-[10px] font-black tracking-[0.4em] text-white/30 uppercase">
+            <a href="/privacy-policy.html" className="hover:text-green-500 transition-colors">Privacy</a>
+            <div className="w-1 h-1 bg-white/10 rounded-full"></div>
+            <a href="/terms-of-service.html" className="hover:text-green-500 transition-colors">Terms</a>
+          </div>
         </footer>
       </div>
 

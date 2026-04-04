@@ -272,6 +272,27 @@ export default function UtilitiesDetail() {
         </div>
       </main>
 
+      <footer className="absolute bottom-0 left-0 right-0 py-6 px-6 border-t border-white/5 bg-[#050505]/80 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex items-center gap-4">
+            <Grid3x3 size={20} className="text-blue-500" />
+            <span className="font-black tracking-widest uppercase text-xs">Utilities</span>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-4 text-[10px]">
+            <span className="text-white/40">© 2025 Studiø • Muhamad Shkeir</span>
+            <div className="w-px h-3 bg-white/10"></div>
+            <a 
+              href="/privacy-policy.html" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/40 hover:text-blue-500 transition-colors uppercase tracking-widest"
+            >
+              Privacy
+            </a>
+          </div>
+        </div>
+      </footer>
+
       <style>{`
         .perspective-2000 { perspective: 2000px; }
         .stroke-text { -webkit-text-stroke: 1px rgba(255,255,255,0.2); color: transparent; }
