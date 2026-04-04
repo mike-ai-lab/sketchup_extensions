@@ -5,7 +5,7 @@
       "args": [
         "-y",
         "@modelcontextprotocol/server-filesystem",
-        "F:\\gemini_dictation_and_assistant"
+        "C:\\Users\\Administrator\\markdown-live-preview\\USER2\\lexicode-workspace"
       ],
       "disabled": false,
       "autoApprove": [

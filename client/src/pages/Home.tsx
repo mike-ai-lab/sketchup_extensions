@@ -16,7 +16,8 @@ import {
   Globe,
   Lock,
   Brain,
-  Sparkles
+  Sparkles,
+  Code2
 } from "lucide-react";
 
 const FEATURED_TOOLS = [
@@ -67,6 +68,15 @@ const FEATURED_TOOLS = [
   },
   {
     id: "06",
+    name: "LexiCode",
+    tagline: "AI-POWERED EDITOR",
+    description: "AI-assisted document creation with Monaco Editor and support for 16 file types.",
+    color: "#10b981",
+    icon: Code2,
+    path: "/tools/lexicode"
+  },
+  {
+    id: "07",
     name: "DocMark",
     tagline: "CONTENT ENGINE",
     description: "Real-time markdown editor with live preview and synchronized scrolling.",

@@ -11,7 +11,8 @@ import {
   FileText,
   Grid3x3,
   Brain,
-  Sparkles
+  Sparkles,
+  Code2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -72,6 +73,17 @@ const EXTENSIONS = [
     link: "/tools/mievents"
   },
   {
+    id: "lexicode",
+    name: "LexiCode",
+    description: "AI-assisted document creation with Monaco Editor, real-time preview, and multi-format export. Support for 16 file types.",
+    tagline: "AI-POWERED EDITOR",
+    accent: "#10b981",
+    details: ["16 File Types", "AI Assistant", "Live Preview"],
+    icon: Code2,
+    price: "Free",
+    link: "/tools/lexicode"
+  },
+  {
     id: "docmark",
     name: "DocMark",
     description: "Real-time markdown editor with live preview and synchronized scrolling. Perfect for technical documentation and content creation.",
@@ -102,7 +114,7 @@ interface SlideProps {
 }
 
 const Slide = ({ tool, index, progress }: SlideProps) => {
-  const totalSlides = 7;
+  const totalSlides = 8;
   const actualSnapPoint = index / (totalSlides - 1); // 0, 0.25, 0.5, 0.75, 1.0
   const nextSnapPoint = index < totalSlides - 1 ? (index + 1) / (totalSlides - 1) : 1;
   const prevSnapPoint = index > 0 ? (index - 1) / (totalSlides - 1) : 0;
@@ -347,7 +359,7 @@ export default function Tools() {
       </div>
 
       <div ref={scrollContainerRef} className="snap-container relative">
-        <div className="h-[700vh] relative">
+        <div className="h-[800vh] relative">
           
           {/* Main Visual Layer */}
           <div className="sticky top-0 h-screen w-full overflow-hidden flex">
