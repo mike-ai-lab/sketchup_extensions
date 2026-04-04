@@ -330,26 +330,56 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="py-10 md:py-12 px-6 border-t border-white/5 bg-[#050505]">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8">
-          <div className="flex items-center gap-4 order-1 md:order-1">
-            <div className="w-8 h-8 bg-white flex items-center justify-center rounded-sm">
-              <Terminal size={16} className="text-black" />
+        <div className="max-w-7xl mx-auto">
+          {/* Main Footer Content */}
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8 mb-8">
+            <div className="flex items-center gap-4 order-1 md:order-1">
+              <div className="w-8 h-8 bg-white flex items-center justify-center rounded-sm">
+                <Terminal size={16} className="text-black" />
+              </div>
+              <div className="text-sm font-black tracking-[0.3em] uppercase italic">Studio Terminal</div>
             </div>
-            <div className="text-sm font-black tracking-[0.3em] uppercase italic">Studio Terminal</div>
+
+            <div className="flex flex-wrap items-center justify-center gap-3 md:gap-6 text-[9px] font-black tracking-[0.4em] text-white/20 uppercase order-3 md:order-2">
+              <span>© 2025</span>
+              <div className="w-px h-3 bg-white/10"></div>
+              <span>Muhamad Shkeir</span>
+              <div className="w-px h-3 bg-white/10"></div>
+              <span className="text-blue-500/60 hover:text-blue-500 cursor-pointer transition-colors">KSA Node</span>
+            </div>
+
+            <div className="flex gap-6 opacity-30 hover:opacity-100 transition-opacity order-2 md:order-3">
+              <Globe size={16} className="cursor-pointer hover:text-blue-500 transition-colors" />
+              <Activity size={16} className="cursor-pointer hover:text-blue-500 transition-colors" />
+              <Lock size={16} className="cursor-pointer hover:text-blue-500 transition-colors" />
+            </div>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-3 md:gap-6 text-[9px] font-black tracking-[0.4em] text-white/20 uppercase order-3 md:order-2">
-            <span>© 2025</span>
+          {/* Legal Links */}
+          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 pt-6 border-t border-white/5">
+            <a 
+              href="/privacy-policy.html" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[9px] font-black tracking-[0.4em] text-white/20 uppercase hover:text-white/60 transition-colors"
+            >
+              Privacy Policy
+            </a>
             <div className="w-px h-3 bg-white/10"></div>
-            <span>Muhamad Shkeir</span>
+            <a 
+              href="/terms-of-service.html" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[9px] font-black tracking-[0.4em] text-white/20 uppercase hover:text-white/60 transition-colors"
+            >
+              Terms of Service
+            </a>
             <div className="w-px h-3 bg-white/10"></div>
-            <span className="text-blue-500/60 hover:text-blue-500 cursor-pointer transition-colors">KSA Node</span>
-          </div>
-
-          <div className="flex gap-6 opacity-30 hover:opacity-100 transition-opacity order-2 md:order-3">
-            <Globe size={16} className="cursor-pointer hover:text-blue-500 transition-colors" />
-            <Activity size={16} className="cursor-pointer hover:text-blue-500 transition-colors" />
-            <Lock size={16} className="cursor-pointer hover:text-blue-500 transition-colors" />
+            <Link href="/contact">
+              <span className="text-[9px] font-black tracking-[0.4em] text-white/20 uppercase hover:text-white/60 transition-colors cursor-pointer">
+                Contact
+              </span>
+            </Link>
           </div>
         </div>
       </footer>

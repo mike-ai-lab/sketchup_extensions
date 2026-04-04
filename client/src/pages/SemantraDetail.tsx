@@ -303,16 +303,38 @@ export default function SemantraDetail() {
       </section>
 
       <footer className="py-12 px-6 border-t border-white/5">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex items-center gap-4">
-            <Brain size={24} className="text-cyan-500" />
-            <span className="font-black tracking-widest uppercase text-sm">Semantra</span>
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-6">
+            <div className="flex items-center gap-4">
+              <Brain size={24} className="text-cyan-500" />
+              <span className="font-black tracking-widest uppercase text-sm">Semantra</span>
+            </div>
+            <div className="text-white/40 text-xs">
+              Proprietary • Built with ❤️ by IA. Muhamad Shkeir
+            </div>
+            <div className="flex gap-6">
+              <Globe size={18} className="text-white/40 hover:text-cyan-500 transition-colors cursor-pointer" />
+            </div>
           </div>
-          <div className="text-white/40 text-xs">
-            Proprietary • Built with ❤️ by IA. Muhamad Shkeir
-          </div>
-          <div className="flex gap-6">
-            <Globe size={18} className="text-white/40 hover:text-cyan-500 transition-colors cursor-pointer" />
+          
+          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 pt-6 border-t border-white/5">
+            <a 
+              href="/privacy-policy.html" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[9px] font-black tracking-[0.4em] text-white/20 uppercase hover:text-white/60 transition-colors"
+            >
+              Privacy Policy
+            </a>
+            <div className="w-px h-3 bg-white/10"></div>
+            <a 
+              href="/terms-of-service.html" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[9px] font-black tracking-[0.4em] text-white/20 uppercase hover:text-white/60 transition-colors"
+            >
+              Terms of Service
+            </a>
           </div>
         </div>
       </footer>
