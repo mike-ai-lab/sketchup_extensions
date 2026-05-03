@@ -36,10 +36,10 @@ export default function AutoNestCutDetail() {
               Designed for woodworkers and fabricators. Generate automated cut lists with intelligent nesting algorithms that minimize waste and maximize efficiency.
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
-              <a href="/downloads/AutoNestCut_v26_5.rbz" download className="bg-green-600 hover:bg-green-500 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95 shadow-2xl shadow-green-600/20">
+              <a href="/downloads/AutoNestCut_v26_5.rbz" download className="bg-green-600 hover:bg-green-500 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center justify-center gap-4 active:scale-95 shadow-2xl shadow-green-600/20 w-full sm:w-auto">
                 Download Extension <Download size={18} />
               </a>
-              <a href="https://autonestcutserver-moeshks-projects.vercel.app/" target="_blank" rel="noopener noreferrer" className="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95">
+              <a href="https://autonestcutserver-moeshks-projects.vercel.app/" target="_blank" rel="noopener noreferrer" className="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center justify-center gap-4 active:scale-95 w-full sm:w-auto">
                 <Download size={18} /> Documentation
               </a>
             </div>
