@@ -56,8 +56,13 @@ router.get('/download/:appName/:version', async (req, res) => {
       downloaded_at: new Date()
     });
     
-    // Determine file URL based on platform
-    const fileUrls: Record<string, string> = {
+    // Determine file URL based on app and platform
+    const fileUrls: Record<string, Record<string, string>> = {
+      'autonestcut': {
+        'windows': `/downloads/AutoNestCut_v26_5.rbz`,
+        'mac': `/downloads/AutoNestCut_v26_5.rbz`,
+        'linux': `/downloads/AutoNestCut_v26_5.rbz`
+      },
       'constructlm': {
         'windows': `https://github.com/yourusername/ConstructLM/releases/download/v${version}/ConstructLM-Setup-${version}.exe`,
         'mac': `https://github.com/yourusername/ConstructLM/releases/download/v${version}/ConstructLM-${version}.dmg`,
@@ -65,10 +70,10 @@ router.get('/download/:appName/:version', async (req, res) => {
       }
     };
     
-    const downloadUrl = fileUrls[appName]?.[platform];
+    const downloadUrl = fileUrls[appName.toLowerCase()]?.[platform];
     
     if (!downloadUrl) {
-      return res.status(404).json({ error: 'Download not found' });
+      return res.status(404).json({ error: 'Download not found for ' + appName });
     }
     
     // Redirect to actual file
