@@ -1,64 +1,54 @@
-import { Link } from "wouter";
+﻿import { Link } from "wouter";
 import Header from "../components/Header";
 import { 
   ArrowRight, CheckCircle2, Download, Scissors, 
   Grid3x3, Layers, Settings, Star, ChevronLeft, Zap, Box
 } from "lucide-react";
-
 const FEATURES = [
   { icon: Scissors, title: "Automated Cut Lists", description: "Generate optimized cut lists automatically from your SketchUp components" },
   { icon: Grid3x3, title: "Intelligent Nesting", description: "Smart nesting algorithms minimize material waste and maximize efficiency" },
   { icon: Layers, title: "Smart Cutting Plans", description: "Visual cutting plans with clear labeling and dimensions for workshop use" },
   { icon: Settings, title: "Material Optimization", description: "Optimize material usage across multiple sheet sizes and types" }
 ];
-
 const SPECS = [
   { label: "Version", value: "1.0.0" },
   { label: "Compatibility", value: "SketchUp 2019+" },
   { label: "License", value: "Perpetual / 7-Day Trial" },
   { label: "Support", value: "Email & Docs" }
 ];
-
 export default function AutoNestCutDetail() {
   return (
     <div className="bg-[#050505] min-h-screen text-white font-sans selection:bg-green-600 overflow-x-hidden">
       <Header currentPage="tools" />
-
       <section className="pt-40 pb-20 px-8 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <div className="space-y-8">
             <div className="inline-flex items-center gap-3 px-3 py-1 bg-green-500/10 border border-green-500/20 text-green-500 text-[10px] font-black uppercase tracking-widest rounded">
               <Zap size={12} /> Fabrication Engine
             </div>
-            
             <h1 className="text-[120px] font-black tracking-tighter leading-[0.75] uppercase italic stroke-text">
               AutoNestCut
             </h1>
-            
             <p className="text-2xl font-medium text-white/60 leading-tight">
               Intelligent Cut List & <br/>Nesting Optimizer
             </p>
-
             <p className="text-white/40 leading-relaxed max-w-lg">
               Designed for woodworkers and fabricators. Generate automated cut lists with intelligent nesting algorithms that minimize waste and maximize efficiency.
             </p>
-
             <div className="flex flex-wrap gap-4 pt-4">
-              <button className="bg-green-600 hover:bg-green-500 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95 shadow-2xl shadow-green-600/20">
-                Start Free Trial <ArrowRight size={18} />
-              </button>
-              <button className="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95">
+              <a href="/downloads/AutoNestCut_v26_5.rbz" download className="bg-green-600 hover:bg-green-500 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95 shadow-2xl shadow-green-600/20">
+                Download Extension <Download size={18} />
+              </a>
+              <a href="https://autonestcutserver-moeshks-projects.vercel.app/" target="_blank" rel="noopener noreferrer" className="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95">
                 <Download size={18} /> Documentation
-              </button>
+              </a>
             </div>
-            
             <div className="flex items-center gap-6 pt-4 text-[9px] font-bold text-white/20 uppercase tracking-[0.3em]">
               <span className="flex items-center gap-2"><Star size={12} className="text-green-500 fill-green-500" /> 7-Day Trial</span>
               <span className="flex items-center gap-2"><Star size={12} className="text-green-500 fill-green-500" /> No CC Required</span>
               <span className="flex items-center gap-2"><Star size={12} className="text-green-500 fill-green-500" /> $39 Perpetual</span>
             </div>
           </div>
-
           <div className="relative flex justify-center items-center">
             <div className="w-[500px] h-[500px] bg-[#0c0c0e] border border-white/5 rounded-[60px] flex items-center justify-center relative overflow-hidden group">
                <div className="absolute inset-0 bg-green-600/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -75,14 +65,12 @@ export default function AutoNestCutDetail() {
           </div>
         </div>
       </section>
-
       <section className="py-32 px-8 bg-[#08080a]">
         <div className="max-w-7xl mx-auto">
           <div className="mb-20 space-y-4">
             <h2 className="text-4xl font-black uppercase italic tracking-tighter">System Features</h2>
             <div className="w-20 h-1 bg-green-500"></div>
           </div>
-          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {FEATURES.map((f, i) => (
               <div key={i} className="bg-[#0c0c0e] border border-white/5 p-10 rounded-[40px] hover:border-green-500/50 transition-colors group">
@@ -96,7 +84,6 @@ export default function AutoNestCutDetail() {
           </div>
         </div>
       </section>
-
       <section className="py-32 px-8 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-32">
           <div className="space-y-12">
@@ -117,7 +104,6 @@ export default function AutoNestCutDetail() {
               ))}
             </div>
           </div>
-
           <div className="bg-[#0c0c0e] border border-white/5 p-12 rounded-[50px]">
             <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-10">Technical Specifications</h3>
             <div className="space-y-6">
@@ -135,7 +121,6 @@ export default function AutoNestCutDetail() {
           </div>
         </div>
       </section>
-
       <div className="flex justify-center py-20 px-8">
         <footer className="bg-[#0c0c0e] border border-white/5 rounded-full px-12 py-6 shadow-2xl flex flex-col md:flex-row items-center gap-8">
           <div className="flex items-center gap-6 text-[10px] font-black tracking-[0.4em] text-white/30 uppercase">
@@ -152,7 +137,6 @@ export default function AutoNestCutDetail() {
           </div>
         </footer>
       </div>
-
       <style>{`
         .stroke-text {
           -webkit-text-stroke: 1px rgba(255,255,255,0.2);
