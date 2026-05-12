@@ -5,16 +5,16 @@ import {
   Grid3x3, Layers, Settings, Star, ChevronLeft, Zap, Box
 } from "lucide-react";
 const FEATURES = [
-  { icon: Scissors, title: "Automated Cut Lists", description: "Generate optimized cut lists automatically from your SketchUp components" },
-  { icon: Grid3x3, title: "Intelligent Nesting", description: "Smart nesting algorithms minimize material waste and maximize efficiency" },
-  { icon: Layers, title: "Smart Cutting Plans", description: "Visual cutting plans with clear labeling and dimensions for workshop use" },
-  { icon: Settings, title: "Material Optimization", description: "Optimize material usage across multiple sheet sizes and types" }
+  { icon: Scissors, title: "Automated Cut Lists", description: "Generate detailed cut lists with dimensions, quantities, and material specifications from your SketchUp components" },
+  { icon: Grid3x3, title: "Intelligent Nesting", description: "Advanced nesting algorithms optimize sheet layout to minimize waste and reduce material costs by up to 30%" },
+  { icon: Layers, title: "Interactive 3D Viewer", description: "Visualize nested parts in 3D with exploded views, highlighting, and assembly diagrams for easy workshop reference" },
+  { icon: Settings, title: "Multi-Format Export", description: "Export to PDF, CSV, SVG, and HTML formats. Generate CNC-ready files and professional reports" }
 ];
 const SPECS = [
-  { label: "Version", value: "1.0.0" },
-  { label: "Compatibility", value: "SketchUp 2019+" },
+  { label: "Version", value: "2.6.5" },
+  { label: "Compatibility", value: "SketchUp 2020+" },
   { label: "License", value: "Perpetual / 7-Day Trial" },
-  { label: "Support", value: "Email & Docs" }
+  { label: "Support", value: "Email: muhamad.shkeir@gmail.com" }
 ];
 export default function AutoNestCutDetail() {
   return (
@@ -33,20 +33,20 @@ export default function AutoNestCutDetail() {
               Intelligent Cut List & <br/>Nesting Optimizer
             </p>
             <p className="text-white/40 leading-relaxed max-w-lg">
-              Designed for woodworkers and fabricators. Generate automated cut lists with intelligent nesting algorithms that minimize waste and maximize efficiency.
+              AutoNestCut transforms your SketchUp workflow by automating cut list generation and material nesting. Reduce waste, save time, and generate production-ready cutting plans with intelligent algorithms designed for woodworkers, fabricators, and construction professionals.
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
-              <a href="/downloads/AutoNestCut_v26_5.rbz" download className="bg-green-600 hover:bg-green-500 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center justify-center gap-4 active:scale-95 shadow-2xl shadow-green-600/20 w-full sm:w-auto">
+              <a href="/downloads/AutoNestCut_v26_5.rbz" download className="bg-green-600 hover:bg-green-500 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95 shadow-2xl shadow-green-600/20">
                 Download Extension <Download size={18} />
               </a>
-              <a href="https://autonestcutserver-moeshks-projects.vercel.app/" target="_blank" rel="noopener noreferrer" className="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center justify-center gap-4 active:scale-95 w-full sm:w-auto">
-                <Download size={18} /> Documentation
+              <a href="https://autonestcutserver-moeshks-projects.vercel.app/" target="_blank" rel="noopener noreferrer" className="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95">
+                <ArrowRight size={18} /> Purchase License
               </a>
             </div>
             <div className="flex items-center gap-6 pt-4 text-[9px] font-bold text-white/20 uppercase tracking-[0.3em]">
               <span className="flex items-center gap-2"><Star size={12} className="text-green-500 fill-green-500" /> 7-Day Trial</span>
               <span className="flex items-center gap-2"><Star size={12} className="text-green-500 fill-green-500" /> No CC Required</span>
-              <span className="flex items-center gap-2"><Star size={12} className="text-green-500 fill-green-500" /> $39 Perpetual</span>
+              <span className="flex items-center gap-2"><Star size={12} className="text-green-500 fill-green-500" /> $69 Lifetime</span>
             </div>
           </div>
           <div className="relative flex justify-center items-center">
@@ -90,9 +90,9 @@ export default function AutoNestCutDetail() {
             <h2 className="text-4xl font-black uppercase italic tracking-tighter">Why AutoNestCut</h2>
             <div className="space-y-8">
               {[
-                { t: "Reduce Material Waste", d: "Save up to 30% on material costs with intelligent nesting algorithms." },
-                { t: "Workshop-Ready Plans", d: "Clear cutting diagrams with labels and dimensions for immediate use." },
-                { t: "Multiple Sheet Sizes", d: "Support for various material sizes and types with flexible optimization." }
+                { t: "Reduce Material Waste by 30%", d: "Advanced nesting algorithms intelligently arrange parts to minimize offcuts and maximize sheet utilization, saving you money on every project." },
+                { t: "Workshop-Ready Reports", d: "Generate professional PDF reports with cutting diagrams, QR code labels, material lists, and assembly instructions ready for immediate production use." },
+                { t: "Multiple Export Formats", d: "Export to PDF, CSV, SVG for CNC machines, and interactive HTML reports. Supports custom material databases and pricing calculations." }
               ].map((item, i) => (
                 <div key={i} className="flex gap-6">
                    <div className="mt-1"><CheckCircle2 className="text-green-500" size={24} /></div>

@@ -1,0 +1,149 @@
+21:24:18.470 tools:77 In HTML, <a> cannot be a descendant of <a>.
+This will cause a hydration error.
+
+  ...
+    <TooltipProvider data-loc="client\src...">
+      <TooltipProvider data-loc="client\src..." data-slot="tooltip-pr..." delayDuration={0}>
+        <TooltipProviderProvider scope={undefined} isOpenDelayedRef={{current:true}} delayDuration={0} onOpen={function} ...>
+          <Toaster>
+          <Router data-loc="client\src...">
+            <Switch data-loc="client\src...">
+              <Route data-loc="client\src..." path="/tools/sit..." component={function SiteTrackDetail} match={[...]}>
+                <SiteTrackDetail params={{}}>
+                  <div data-loc="client\src..." className="min-h-scre...">
+                    <Header>
+                    <section data-loc="client\src..." ref={{current:null}} className="hero-secti...">
+                      <div>
+                      <div>
+                      <div data-loc="client\src..." className="relative z...">
+                        <div>
+                        <h1>
+                        <p>
+                        <div data-loc="client\src..." className="flex flex-...">
+                          <a>
+>                         <a
+>                           data-loc="client\src\pages\SiteTrackDetail.tsx:166"
+>                           onClick={function}
+>                           href="/tools"
+>                           className={undefined}
+>                           ref={null}
+>                         >
+>                           <a
+>                             data-loc="client\src\pages\SiteTrackDetail.tsx:167"
+>                             className="px-8 py-4 border border-gray-700 rounded-lg font-semibold hover:border-emeral..."
+>                           >
+                        ...
+                    ...
+
+console.error @ tools:77
+validateDOMNesting @ react-dom-client.development.js:2605
+completeWork @ react-dom-client.development.js:12556
+runWithFiberInDEV @ react-dom-client.development.js:871
+completeUnitOfWork @ react-dom-client.development.js:17777
+performUnitOfWork @ react-dom-client.development.js:17658
+workLoopSync @ react-dom-client.development.js:17469
+renderRootSync @ react-dom-client.development.js:17450
+performWorkOnRoot @ react-dom-client.development.js:16504
+performSyncWorkOnRoot @ react-dom-client.development.js:18972
+flushSyncWorkAcrossRoots_impl @ react-dom-client.development.js:18814
+processRootScheduleInMicrotask @ react-dom-client.development.js:18853
+(anonymous) @ react-dom-client.development.js:18991
+<a>
+(anonymous) @ react-jsx-dev-runtime.development.js:335
+$RefreshSig$ @ SiteTrackDetail.tsx:167
+react_stack_bottom_frame @ react-dom-client.development.js:25904
+renderWithHooks @ react-dom-client.development.js:7662
+updateFunctionComponent @ react-dom-client.development.js:10166
+beginWork @ react-dom-client.development.js:11778
+runWithFiberInDEV @ react-dom-client.development.js:871
+performUnitOfWork @ react-dom-client.development.js:17641
+workLoopSync @ react-dom-client.development.js:17469
+renderRootSync @ react-dom-client.development.js:17450
+performWorkOnRoot @ react-dom-client.development.js:16504
+performSyncWorkOnRoot @ react-dom-client.development.js:18972
+flushSyncWorkAcrossRoots_impl @ react-dom-client.development.js:18814
+processRootScheduleInMicrotask @ react-dom-client.development.js:18853
+(anonymous) @ react-dom-client.development.js:18991
+<SiteTrackDetail>
+(anonymous) @ react.development.js:1054
+(anonymous) @ index.js:213
+(anonymous) @ index.js:268
+react_stack_bottom_frame @ react-dom-client.development.js:25904
+renderWithHooks @ react-dom-client.development.js:7662
+updateFunctionComponent @ react-dom-client.development.js:10166
+beginWork @ react-dom-client.development.js:11778
+runWithFiberInDEV @ react-dom-client.development.js:871
+performUnitOfWork @ react-dom-client.development.js:17641
+workLoopSync @ react-dom-client.development.js:17469
+renderRootSync @ react-dom-client.development.js:17450
+performWorkOnRoot @ react-dom-client.development.js:16504
+performSyncWorkOnRoot @ react-dom-client.development.js:18972
+flushSyncWorkAcrossRoots_impl @ react-dom-client.development.js:18814
+processRootScheduleInMicrotask @ react-dom-client.development.js:18853
+(anonymous) @ react-dom-client.development.js:18991
+21:24:18.471 tools:77 <a> cannot contain a nested <a>.
+See this log for the ancestor stack trace.
+console.error @ tools:77
+(anonymous) @ react-dom-client.development.js:2618
+runWithFiberInDEV @ react-dom-client.development.js:871
+validateDOMNesting @ react-dom-client.development.js:2617
+completeWork @ react-dom-client.development.js:12556
+runWithFiberInDEV @ react-dom-client.development.js:871
+completeUnitOfWork @ react-dom-client.development.js:17777
+performUnitOfWork @ react-dom-client.development.js:17658
+workLoopSync @ react-dom-client.development.js:17469
+renderRootSync @ react-dom-client.development.js:17450
+performWorkOnRoot @ react-dom-client.development.js:16504
+performSyncWorkOnRoot @ react-dom-client.development.js:18972
+flushSyncWorkAcrossRoots_impl @ react-dom-client.development.js:18814
+processRootScheduleInMicrotask @ react-dom-client.development.js:18853
+(anonymous) @ react-dom-client.development.js:18991
+<a>
+(anonymous) @ react.development.js:1054
+(anonymous) @ index.js:319
+react_stack_bottom_frame @ react-dom-client.development.js:25904
+renderWithHooks @ react-dom-client.development.js:7662
+updateForwardRef @ react-dom-client.development.js:9724
+beginWork @ react-dom-client.development.js:12117
+runWithFiberInDEV @ react-dom-client.development.js:871
+performUnitOfWork @ react-dom-client.development.js:17641
+workLoopSync @ react-dom-client.development.js:17469
+renderRootSync @ react-dom-client.development.js:17450
+performWorkOnRoot @ react-dom-client.development.js:16504
+performSyncWorkOnRoot @ react-dom-client.development.js:18972
+flushSyncWorkAcrossRoots_impl @ react-dom-client.development.js:18814
+processRootScheduleInMicrotask @ react-dom-client.development.js:18853
+(anonymous) @ react-dom-client.development.js:18991
+<ForwardRef>
+(anonymous) @ react-jsx-dev-runtime.development.js:335
+$RefreshSig$ @ SiteTrackDetail.tsx:166
+react_stack_bottom_frame @ react-dom-client.development.js:25904
+renderWithHooks @ react-dom-client.development.js:7662
+updateFunctionComponent @ react-dom-client.development.js:10166
+beginWork @ react-dom-client.development.js:11778
+runWithFiberInDEV @ react-dom-client.development.js:871
+performUnitOfWork @ react-dom-client.development.js:17641
+workLoopSync @ react-dom-client.development.js:17469
+renderRootSync @ react-dom-client.development.js:17450
+performWorkOnRoot @ react-dom-client.development.js:16504
+performSyncWorkOnRoot @ react-dom-client.development.js:18972
+flushSyncWorkAcrossRoots_impl @ react-dom-client.development.js:18814
+processRootScheduleInMicrotask @ react-dom-client.development.js:18853
+(anonymous) @ react-dom-client.development.js:18991
+<SiteTrackDetail>
+(anonymous) @ react.development.js:1054
+(anonymous) @ index.js:213
+(anonymous) @ index.js:268
+react_stack_bottom_frame @ react-dom-client.development.js:25904
+renderWithHooks @ react-dom-client.development.js:7662
+updateFunctionComponent @ react-dom-client.development.js:10166
+beginWork @ react-dom-client.development.js:11778
+runWithFiberInDEV @ react-dom-client.development.js:871
+performUnitOfWork @ react-dom-client.development.js:17641
+workLoopSync @ react-dom-client.development.js:17469
+renderRootSync @ react-dom-client.development.js:17450
+performWorkOnRoot @ react-dom-client.development.js:16504
+performSyncWorkOnRoot @ react-dom-client.development.js:18972
+flushSyncWorkAcrossRoots_impl @ react-dom-client.development.js:18814
+processRootScheduleInMicrotask @ react-dom-client.development.js:18853
+(anonymous) @ react-dom-client.development.js:18991

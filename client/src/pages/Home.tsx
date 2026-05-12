@@ -17,7 +17,8 @@ import {
   Lock,
   Brain,
   Sparkles,
-  Code2
+  Code2,
+  MapPin
 } from "lucide-react";
 
 const FEATURED_TOOLS = [
@@ -83,6 +84,15 @@ const FEATURED_TOOLS = [
     color: "#a855f7",
     icon: FileText,
     path: "/tools/docmark"
+  },
+  {
+    id: "08",
+    name: "SiteTrack Pro",
+    tagline: "FIELD TRACKING",
+    description: "Real-time GPS tracking and lead management for field teams with cloud sync.",
+    color: "#10b981",
+    icon: MapPin,
+    path: "/tools/sitetrack"
   }
 ];
 
@@ -403,3 +413,4 @@ export default function Home() {
     </div>
   );
 }
+

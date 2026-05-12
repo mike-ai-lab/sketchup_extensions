@@ -12,7 +12,8 @@ import {
   Grid3x3,
   Brain,
   Sparkles,
-  Code2
+  Code2,
+  MapPin
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -95,6 +96,18 @@ const EXTENSIONS = [
     link: "/tools/docmark"
   },
   {
+    id: "sitetrack",
+    name: "SiteTrack Pro",
+    description: "Real-time GPS tracking and lead management platform for field teams. Track locations, manage leads, and sync data across devices with Firebase integration.",
+    tagline: "FIELD TRACKING PLATFORM",
+    accent: "#10b981",
+    details: ["GPS Tracking", "Lead Management", "Cloud Sync"],
+    icon: MapPin,
+    price: "Free",
+    link: "/tools/sitetrack"
+  },
+
+  {
     id: "utilities",
     name: "Utilities",
     description: "Collection of focused extensions for quick alignment, layer management, array tools, and measurement utilities.",
@@ -114,8 +127,8 @@ interface SlideProps {
 }
 
 const Slide = ({ tool, index, progress }: SlideProps) => {
-  const totalSlides = 8;
-  const actualSnapPoint = index / (totalSlides - 1); // 0, 0.25, 0.5, 0.75, 1.0
+  const totalSlides = EXTENSIONS.length;
+  const actualSnapPoint = index / (totalSlides - 1);
   const nextSnapPoint = index < totalSlides - 1 ? (index + 1) / (totalSlides - 1) : 1;
   const prevSnapPoint = index > 0 ? (index - 1) / (totalSlides - 1) : 0;
   
@@ -359,7 +372,7 @@ export default function Tools() {
       </div>
 
       <div ref={scrollContainerRef} className="snap-container relative">
-        <div className="h-[800vh] relative">
+        <div className={`h-[${EXTENSIONS.length * 100}vh] relative`} style={{ height: `${EXTENSIONS.length * 100}vh` }}>
           
           {/* Main Visual Layer */}
           <div className="sticky top-0 h-screen w-full overflow-hidden flex">
@@ -402,3 +415,5 @@ export default function Tools() {
     </div>
   );
 }
+
+

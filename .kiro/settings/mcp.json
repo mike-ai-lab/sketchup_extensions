@@ -7,10 +7,12 @@
         "@modelcontextprotocol/server-filesystem",
         "C:\\Users\\Administrator\\markdown-live-preview\\USER2\\lexicode-workspace"
       ],
-      "disabled": false,
+      "disabled": true,
       "autoApprove": [
         "list_directory",
-        "read_text_file"
+        "read_text_file",
+        "write_file",
+        "list_allowed_directories"
       ],
       "disabledTools": []
     }
