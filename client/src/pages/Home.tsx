@@ -18,7 +18,8 @@ import {
   Brain,
   Sparkles,
   Code2,
-  MapPin
+  MapPin,
+  Mic
 } from "lucide-react";
 
 const FEATURED_TOOLS = [
@@ -93,6 +94,15 @@ const FEATURED_TOOLS = [
     color: "#10b981",
     icon: MapPin,
     path: "/tools/sitetrack"
+  },
+  {
+    id: "09",
+    name: "GeminiDictate",
+    tagline: "VOICE INTELLIGENCE",
+    description: "Floating AI voice widget — dictate into any app, rewrite prompts, take notes, or have live Gemini conversations.",
+    color: "#10b981",
+    icon: Mic,
+    path: "/tools/geminidictate"
   }
 ];
 
@@ -185,20 +195,28 @@ export default function Home() {
       <Header currentPage="home" />
 
       {/* 1. Industrial Hero */}
-      <section className="hero-section relative h-screen flex flex-col items-center justify-center md:items-start md:justify-end p-6 md:p-20 overflow-hidden">
+      <section className="hero-section relative h-screen flex flex-col items-center justify-center md:items-start md:justify-center px-6 md:px-20 pb-6 md:pb-20 pt-24 md:pt-28 overflow-hidden">
         {/* Background Decorative Element */}
         <div className="hero-bg-text absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[40vw] font-black opacity-[0.02] whitespace-nowrap pointer-events-none select-none italic">
           COMPUTE_01
         </div>
 
         <div className="relative z-10 w-full max-w-5xl space-y-6 md:space-y-8 text-center md:text-left">
-          <div className="inline-flex items-center gap-3 px-4 py-2 bg-blue-600/10 border border-blue-500/20 rounded-full mx-auto md:mx-0">
+          {/* Badge — mobile only (above h1) */}
+          <div className="md:hidden inline-flex items-center gap-3 px-4 py-2 bg-blue-600/10 border border-blue-500/20 rounded-full mx-auto">
             <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></div>
             <span className="text-[10px] font-black tracking-widest text-blue-500 uppercase">System Online: Riyadh Node</span>
           </div>
 
           <h1 className="text-5xl sm:text-6xl md:text-[120px] font-black leading-[0.85] uppercase italic tracking-tighter">
-            Next-Gen<br />
+            <span className="md:flex md:items-center md:gap-6">
+              <span>Next-Gen</span>
+              {/* Badge — desktop only (beside Next-Gen) */}
+              <div className="hidden md:inline-flex items-center gap-3 px-4 py-2 bg-blue-600/10 border border-blue-500/20 rounded-full text-[10px] font-black tracking-widest text-blue-500 uppercase not-italic leading-none self-center">
+                <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse shrink-0"></div>
+                System Online: Riyadh Node
+              </div>
+            </span>
             <span className="text-blue-600">Architectural</span><br />
             Intelligence.
           </h1>
@@ -223,13 +241,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-10 right-10 hidden md:block">
-          <div className="flex flex-col items-center gap-4">
-            <span className="rotate-90 text-[10px] font-black tracking-widest opacity-20 uppercase">Scroll to explore</span>
-            <div className="w-[1px] h-20 bg-gradient-to-b from-white/20 to-transparent"></div>
-          </div>
-        </div>
+        {/* Scroll Indicator removed */}
       </section>
 
       {/* 2. Grid-Based Feature Exploration */}

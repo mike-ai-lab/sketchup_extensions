@@ -13,7 +13,8 @@ import {
   Brain,
   Sparkles,
   Code2,
-  MapPin
+  MapPin,
+  Mic
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -117,6 +118,17 @@ const EXTENSIONS = [
     icon: Grid3x3,
     price: "Free-$15",
     link: "/tools/utilities"
+  },
+  {
+    id: "geminidictate",
+    name: "GeminiDictate",
+    description: "Floating AI voice widget for Windows. Dictate into any app, rewrite prompts with Gemini, take voice notes, or have live two-way voice conversations.",
+    tagline: "VOICE INTELLIGENCE",
+    accent: "#10b981",
+    details: ["5 Modes", "Live Captions", "Windows App"],
+    icon: Mic,
+    price: "Free",
+    link: "/tools/geminidictate"
   }
 ];
 
@@ -340,18 +352,18 @@ export default function Tools() {
         }
       `}</style>
 
-      <Header currentPage="tools" />
+      <Header currentPage="tools" hideLogo />
 
-      {/* Progress Dots */}
-      <div className="fixed left-12 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-12">
+      {/* Tool Index */}
+      <div className="fixed left-8 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col justify-center" style={{maxHeight: '80vh', gap: '16px'}}>
         {EXTENSIONS.map((tool, i) => {
           const snapPoint = i / (EXTENSIONS.length - 1);
-          const isActive = Math.abs(debugProgress - snapPoint) < 0.05;
+          const isActive = Math.abs(debugProgress - snapPoint) < 0.08;
           return (
-            <motion.div 
-              key={i} 
-              style={{ opacity: isActive ? 1 : 0.2 }}
-              className="flex items-center gap-4 transition-opacity group cursor-pointer"
+            <motion.div
+              key={i}
+              animate={{ opacity: isActive ? 1 : 0.25 }}
+              className="flex items-center gap-3 cursor-pointer group"
               onClick={() => {
                 const container = scrollContainerRef.current;
                 if (container) {
@@ -362,8 +374,8 @@ export default function Tools() {
                 }
               }}
             >
-              <div className="w-2 h-2 rounded-full bg-white"></div>
-              <span className="text-[10px] font-black tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className={`rounded-full bg-white transition-all duration-300 ${isActive ? 'w-3 h-3' : 'w-1.5 h-1.5'}`}></div>
+              <span className={`text-[9px] font-black tracking-widest uppercase transition-all duration-300 whitespace-nowrap ${isActive ? 'opacity-100 text-white' : 'opacity-0 group-hover:opacity-60'}`}>
                 {tool.name}
               </span>
             </motion.div>
@@ -400,18 +412,6 @@ export default function Tools() {
         </div>
       </div>
 
-      {/* Scroll Guide */}
-      <motion.div
-        style={{ opacity: useTransform(smoothProgress, [0, 0.05], [1, 0]) }}
-        className="fixed bottom-32 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-4 pointer-events-none"
-      >
-        <span className="text-[9px] font-black uppercase tracking-[0.6em] text-white/40">Scroll to Explore</span>
-        <motion.div 
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="w-[1px] h-12 bg-gradient-to-b from-white to-transparent"
-        />
-      </motion.div>
     </div>
   );
 }
