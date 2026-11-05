@@ -19,7 +19,8 @@ import {
   Sparkles,
   Code2,
   MapPin,
-  Mic
+  Mic,
+  Keyboard
 } from "lucide-react";
 
 const FEATURED_TOOLS = [
@@ -103,6 +104,15 @@ const FEATURED_TOOLS = [
     color: "#10b981",
     icon: Mic,
     path: "/tools/geminidictate"
+  },
+  {
+    id: "10",
+    name: "Edit Shortcuts Bar",
+    tagline: "TOOLBAR SHORTCUTS",
+    description: "Adds Cut, Copy, Paste, Paste in Place, and Select All as clickable SketchUp toolbar icons.",
+    color: "#0ea5e9",
+    icon: Keyboard,
+    path: "/tools/editshortcutsbar"
   }
 ];
 

@@ -20,6 +20,7 @@ import SemantraDetail from "./pages/SemantraDetail";
 import LexicodeDetail from "./pages/LexicodeDetail";
 import SiteTrackDetail from "./pages/SiteTrackDetail";
 import GeminiDictateDetail from "./pages/GeminiDictateDetail";
+import EditShortcutsBarDetail from "./pages/EditShortcutsBarDetail";
 import Resources from "./pages/Resources";
 import ProductPage from "./pages/ProductPage";
 import Contact from "./pages/Contact";
@@ -76,6 +77,7 @@ function Router() {
       <Route path="/tools/utilities" component={UtilitiesDetail} />
         <Route path="/tools/sitetrack" component={SiteTrackDetail} />
       <Route path="/tools/geminidictate" component={GeminiDictateDetail} />
+      <Route path="/tools/editshortcutsbar" component={EditShortcutsBarDetail} />
       {/* <Route path="/resources" component={Resources} /> */}
       <Route path="/products/:slug" component={ProductPage} />
       <Route path="/contact" component={Contact} />

@@ -14,7 +14,8 @@ import {
   Sparkles,
   Code2,
   MapPin,
-  Mic
+  Mic,
+  Keyboard
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -129,6 +130,17 @@ const EXTENSIONS = [
     icon: Mic,
     price: "Free",
     link: "/tools/geminidictate"
+  },
+  {
+    id: "editshortcutsbar",
+    name: "Edit Shortcuts Bar",
+    description: "Adds Cut, Copy, Paste, Paste in Place, and Select All as clickable toolbar icons in SketchUp — trigger edit commands with one click instead of the keyboard.",
+    tagline: "TOOLBAR SHORTCUTS",
+    accent: "#0ea5e9",
+    details: ["Edit Commands", "Toolbar Icons", "Keyboard-Free"],
+    icon: Keyboard,
+    price: "Free",
+    link: "/tools/editshortcutsbar"
   }
 ];
 
