@@ -219,6 +219,20 @@ then ask only for these fields — **in a single message**:
 
 ## Step 1 — Package the Distributable (if applicable)
 
+> **Download infrastructure is already set up.** The `DownloadModal` component
+> (`client/src/components/DownloadModal.tsx`) handles everything globally:
+> - Collects name / email / country from the user
+> - Posts the lead to Formspree (ID: `xkjjyeov`) → you receive an email per download
+> - Fires a branded confirmation email to the user via the Served backend
+>   (`https://autonestcutserver-moeshks-projects.vercel.app/send-download-email`)
+>
+> **You only need to:** put the file in `client/public/downloads/`, pass the right props to
+> `DownloadModal`, and wire a `useState` + button. That's it — no other email or lead config needed.
+>
+> **Critical:** always use `client/public/downloads/` — NOT root `public/downloads/`.
+> Vite's `publicDir` is `client/public/`, so only files there get bundled into `dist/public/`
+> and served on Vercel. Files in root `public/` are invisible in production.
+
 ### 1A — SketchUp Extension → RBZ
 
 An RBZ is a ZIP renamed `.rbz`. SketchUp requires the loader `.rb` and companion folder at the archive root.
@@ -259,9 +273,9 @@ Remove-Item $staging -Recurse -Force
 
 Copy into the workspace:
 ```powershell
-New-Item -ItemType Directory -Path ".\public\downloads" -Force
-Copy-Item "C:\Users\Administrator\Desktop\$name.rbz" ".\public\downloads\$name.rbz" -Force
-Get-Item ".\public\downloads\$name.rbz"   # verify size
+New-Item -ItemType Directory -Path ".\client\public\downloads" -Force
+Copy-Item "C:\Users\Administrator\Desktop\$name.rbz" ".\client\public\downloads\$name.rbz" -Force
+Get-Item ".\client\public\downloads\$name.rbz"   # verify size
 ```
 
 Set `DOWNLOAD_URL = /downloads/$name.rbz`.
@@ -277,6 +291,12 @@ Get-Item ".\public\downloads\<TOOL_NAME>_v<VERSION>.<ext>"
 ```
 
 If it needs to be built first, run the build command found in `package.json` scripts or README, then copy the output.
+
+```powershell
+New-Item -ItemType Directory -Path ".\client\public\downloads" -Force
+Copy-Item "<PATH_TO_BUILT_FILE>" ".\client\public\downloads\<TOOL_NAME>_v<VERSION>.<ext>" -Force
+Get-Item ".\client\public\downloads\<TOOL_NAME>_v<VERSION>.<ext>"
+```
 
 Set `DOWNLOAD_URL = /downloads/<TOOL_NAME>_v<VERSION>.<ext>`.
 
@@ -294,8 +314,10 @@ The page structure is the same for all tool types but the CTA section differs.
 Follow the template below, then apply the CTA variant for your tool type.
 
 ```tsx
+import { useState } from "react";
 import { ArrowRight, Download, ExternalLink, {TOOL_ICON}, {FEATURE_ICONS}, Zap, ShieldCheck, CheckCircle2 } from "lucide-react";
 import Header from "../components/Header";
+import DownloadModal from "../components/DownloadModal";
 
 const FEATURES = [
   { icon: IconName, title: "...", description: "..." },
@@ -315,9 +337,20 @@ const TAGS  = {DETAIL_TAGS};
 const ACCENT = "{TOOL_ACCENT_COLOR}";
 
 export default function {TOOL_NAME}Detail() {
+  const [modalOpen, setModalOpen] = useState(false);
   return (
     <div className="bg-[#050505] min-h-screen text-white font-sans overflow-x-hidden">
       <Header currentPage="tools" />
+
+      {/* Download modal — handles Formspree lead capture + Resend confirmation email automatically */}
+      {/* Only include if DOWNLOAD_URL is not null */}
+      <DownloadModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        fileName="{TOOL_NAME} v{VERSION}"
+        downloadUrl="{DOWNLOAD_URL}"
+        accentColor="{TOOL_ACCENT_COLOR}"
+      />
 
       {/* Hero */}
       <section className="pt-40 pb-20 px-8 max-w-7xl mx-auto">
@@ -341,24 +374,28 @@ export default function {TOOL_NAME}Detail() {
 
             {/* ── CTA — pick one variant below ── */}
             <div className="flex flex-wrap gap-4 pt-4">
-              {/* VARIANT A: Free download (RBZ or desktop app) */}
-              <a href="{DOWNLOAD_URL}" download className="group flex items-center gap-3 px-8 py-4 font-black text-sm uppercase tracking-widest text-black rounded-full transition-all hover:scale-105" style={{ backgroundColor: ACCENT }}>
+              {/* VARIANT A: Free download (RBZ or desktop app) — opens DownloadModal */}
+              <button
+                onClick={() => setModalOpen(true)}
+                className="group flex items-center gap-3 px-8 py-4 font-black text-sm uppercase tracking-widest text-black rounded-full transition-all hover:scale-105"
+                style={{ backgroundColor: ACCENT }}
+              >
                 <Download size={16} /> Download Free
                 <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
-              </a>
+              </button>
 
               {/* VARIANT B: Paid / trial (desktop or web app) */}
               {/* 
-              <a href="{TRIAL_URL}" className="group flex items-center gap-3 px-8 py-4 font-black text-sm uppercase tracking-widest text-black rounded-full transition-all hover:scale-105" style={{ backgroundColor: ACCENT }}>
+              <button onClick={() => setModalOpen(true)} className="group flex items-center gap-3 px-8 py-4 font-black text-sm uppercase tracking-widest text-black rounded-full transition-all hover:scale-105" style={{ backgroundColor: ACCENT }}>
                 <Zap size={16} /> Start Trial
                 <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
-              </a>
+              </button>
               <a href="{BUY_URL}" className="flex items-center gap-3 px-8 py-4 font-black text-sm uppercase tracking-widest rounded-full border transition-all hover:scale-105" style={{ borderColor: `${ACCENT}40`, color: ACCENT }}>
                 Buy {TOOL_PRICE}
               </a>
               */}
 
-              {/* VARIANT C: Web app — open live URL */}
+              {/* VARIANT C: Web app — open live URL (no modal needed) */}
               {/*
               <a href="{LIVE_URL}" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 px-8 py-4 font-black text-sm uppercase tracking-widest text-black rounded-full transition-all hover:scale-105" style={{ backgroundColor: ACCENT }}>
                 <ExternalLink size={16} /> Open App
@@ -611,7 +648,7 @@ Skip entirely if `IS_PAID = false`.
 
 ## Step 7 — Verify TypeScript & Build
 
-```bash
+```powershell
 pnpm run check
 pnpm run build
 ```
@@ -624,7 +661,7 @@ Fix all errors before committing. A broken build must never be pushed.
 
 Stage only the files changed in this workflow:
 
-```bash
+```powershell
 git add client/src/pages/{TOOL_NAME}Detail.tsx
 git add client/src/App.tsx
 git add client/src/pages/Tools.tsx
@@ -632,12 +669,15 @@ git add client/src/pages/Home.tsx
 # if paid:
 git add client/src/pages/Pricing.tsx
 # if download file added:
-git add public/downloads/
+git add client/public/downloads/
 ```
 
-```bash
+```powershell
 git commit -m "feat: publish {TOOL_NAME} — detail page, routes, home/tools integration"
 ```
+
+> **PowerShell note:** Do NOT chain commands with `&&` — it is not valid in PowerShell.
+> Run each `git` command on its own line, or use `;` as the separator.
 
 ---
 
@@ -645,7 +685,7 @@ git commit -m "feat: publish {TOOL_NAME} — detail page, routes, home/tools int
 
 Push to `main`. Both Netlify and Vercel auto-deploy on push.
 
-```bash
+```powershell
 git push origin main
 ```
 
