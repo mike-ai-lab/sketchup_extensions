@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type TouchEvent } from "react";
 import { Link } from "wouter";
 import Header from "../components/Header";
+import DownloadModal from "../components/DownloadModal";
 import { 
   Ruler, Layers, Grid3x3, RotateCw, 
   FileCode, AlignCenter, X,
@@ -78,6 +79,7 @@ const UTILITIES = [
 export default function UtilitiesDetail() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [modalTool, setModalTool] = useState<{ name: string; url: string } | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
   const touchStartXRef = useRef<number | null>(null);
@@ -151,9 +153,9 @@ export default function UtilitiesDetail() {
     loadGSAP();
   }, [activeIndex, isMobile]);
 
-  const handleDownload = (downloadUrl: string | null) => {
-    if (downloadUrl) {
-      window.location.href = downloadUrl;
+  const openModal = (item: typeof UTILITIES[0]) => {
+    if (item.downloadUrl) {
+      setModalTool({ name: item.title, url: item.downloadUrl });
     }
   };
 
@@ -179,6 +181,13 @@ export default function UtilitiesDetail() {
   return (
     <div className="bg-[#050505] min-h-screen text-white font-sans overflow-hidden">
       <Header currentPage="tools" />
+      <DownloadModal
+        isOpen={!!modalTool}
+        onClose={() => setModalTool(null)}
+        fileName={modalTool?.name ?? ""}
+        downloadUrl={modalTool?.url ?? ""}
+        accentColor="#3b82f6"
+      />
 
       <main className="h-screen flex flex-col items-center justify-center relative perspective-2000">
         <header className="absolute top-24 text-center space-y-4 px-4">
@@ -198,7 +207,8 @@ export default function UtilitiesDetail() {
               ref={(el) => {
                 cardRefs.current[i] = el;
               }}
-              className="absolute flex items-center pointer-events-none"
+              className="absolute flex items-center"
+              style={{ pointerEvents: i === activeIndex ? "auto" : "none" }}
             >
               <div className="w-[260px] h-[260px] md:w-[300px] md:h-[300px] bg-[#0c0c0e] border border-white/10 rounded-[32px] md:rounded-[40px] shadow-2xl flex flex-col items-center justify-center p-8 md:p-10 z-20 pointer-events-auto relative group overflow-hidden">
                 <div className="p-6 bg-blue-500/10 rounded-3xl text-blue-500 mb-6 group-hover:scale-110 transition-transform">
@@ -224,7 +234,7 @@ export default function UtilitiesDetail() {
                       </div>
                       {item.downloadUrl ? (
                         <button 
-                          onClick={() => handleDownload(item.downloadUrl)}
+                          onClick={() => openModal(item)}
                           className="px-6 py-2 bg-black text-white text-[10px] font-black tracking-widest uppercase rounded-full flex items-center gap-2 hover:bg-blue-600 transition-colors"
                         >
                           Download <Download size={14} />
@@ -250,6 +260,18 @@ export default function UtilitiesDetail() {
               <h4 className="text-base font-black uppercase italic tracking-tight">{UTILITIES[activeIndex].title}</h4>
               <p className="text-xs text-white/60 mt-2">{UTILITIES[activeIndex].description}</p>
               <div className="text-[10px] uppercase tracking-[0.2em] text-blue-500 mt-3">{UTILITIES[activeIndex].category}</div>
+              {UTILITIES[activeIndex].downloadUrl ? (
+                <button
+                  onClick={() => openModal(UTILITIES[activeIndex])}
+                  className="mt-4 w-full px-6 py-3 bg-blue-600 text-white text-[10px] font-black tracking-widest uppercase rounded-full flex items-center justify-center gap-2 hover:bg-blue-500 transition-colors"
+                >
+                  Download <Download size={14} />
+                </button>
+              ) : (
+                <button disabled className="mt-4 w-full px-6 py-3 bg-white/10 text-white/30 text-[10px] font-black tracking-widest uppercase rounded-full flex items-center justify-center gap-2 cursor-not-allowed">
+                  Coming Soon <Download size={14} />
+                </button>
+              )}
             </div>
           </div>
         )}

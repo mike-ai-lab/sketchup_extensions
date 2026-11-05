@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { ArrowRight, Download, Keyboard, MousePointer2, Layers, Zap, ShieldCheck, CheckCircle2, Copy } from "lucide-react";
 import Header from "../components/Header";
+import DownloadModal from "../components/DownloadModal";
 
 const FEATURES = [
   {
@@ -37,9 +39,17 @@ const TAGS  = ["Edit Commands", "Toolbar Icons", "Keyboard-Free"];
 const ACCENT = "#0ea5e9";
 
 export default function EditShortcutsBarDetail() {
+  const [modalOpen, setModalOpen] = useState(false);
   return (
     <div className="bg-[#050505] min-h-screen text-white font-sans overflow-x-hidden">
       <Header currentPage="tools" />
+      <DownloadModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        fileName="Edit Shortcuts Bar v1.1.0"
+        downloadUrl="/downloads/EditShortcutsBar_v1.1.0.rbz"
+        accentColor="#0ea5e9"
+      />
 
       {/* Hero */}
       <section className="pt-40 pb-20 px-8 max-w-7xl mx-auto">
@@ -63,16 +73,15 @@ export default function EditShortcutsBarDetail() {
             </p>
 
             <div className="flex flex-wrap gap-4 pt-4">
-              <a
-                href="/downloads/EditShortcutsBar_v1.1.0.rbz"
-                download
+              <button
+                onClick={() => setModalOpen(true)}
                 className="group flex items-center gap-3 px-8 py-4 font-black text-sm uppercase tracking-widest text-black rounded-full transition-all hover:scale-105"
                 style={{ backgroundColor: ACCENT }}
               >
                 <Download size={16} />
                 Download Free
                 <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
-              </a>
+              </button>
             </div>
 
             <div className="flex items-center gap-6 pt-4 text-[9px] font-bold text-white/20 uppercase tracking-[0.3em]">

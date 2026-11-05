@@ -1,4 +1,6 @@
-﻿import Header from "../components/Header";
+﻿import { useState } from "react";
+import Header from "../components/Header";
+import DownloadModal from "../components/DownloadModal";
 import { CheckCircle2, ExternalLink, Mic, MessageSquare, FileText, StickyNote, Sparkles, Download } from "lucide-react";
 
 const FEATURES = [
@@ -18,9 +20,17 @@ const SPECS = [
 const DOWNLOAD_URL = "/downloads/GeminiDictate_v1.0.zip";
 
 export default function GeminiDictateDetail() {
+  const [modalOpen, setModalOpen] = useState(false);
   return (
     <div className="bg-[#050505] min-h-screen text-white font-sans selection:bg-emerald-600 overflow-x-hidden">
       <Header currentPage="tools" />
+      <DownloadModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        fileName="GeminiDictate v1.0"
+        downloadUrl="/downloads/GeminiDictate_v1.0.zip"
+        accentColor="#10b981"
+      />
 
       {/* Hero */}
       <section className="pt-40 pb-20 px-8 max-w-7xl mx-auto">
@@ -39,11 +49,12 @@ export default function GeminiDictateDetail() {
               A floating overlay widget that lets you dictate into any app, rewrite prompts with Gemini, take voice notes, and have live two-way voice conversations, all without leaving your workflow.
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
-              <a href={DOWNLOAD_URL} download>
-                <button className="bg-emerald-600 hover:bg-emerald-500 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95 shadow-2xl shadow-emerald-600/20">
-                  Download Free <Download size={18} />
-                </button>
-              </a>
+              <button
+                onClick={() => setModalOpen(true)}
+                className="bg-emerald-600 hover:bg-emerald-500 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95 shadow-2xl shadow-emerald-600/20"
+              >
+                Download Free <Download size={18} />
+              </button>
               <a href="https://github.com/mike-ai-lab/sketchup_extensions" target="_blank" rel="noopener noreferrer">
                 <button className="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95">
                   <ExternalLink size={18} /> View Source
@@ -119,12 +130,12 @@ export default function GeminiDictateDetail() {
                 </div>
               ))}
             </div>
-            <a href={DOWNLOAD_URL} download>
-              <button className="bg-emerald-600 hover:bg-emerald-500 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95 shadow-2xl shadow-emerald-600/20 mt-4">
-                Download v1.0 <Download size={18} />
-              </button>
-            </a>
-          </div>
+            <button
+              onClick={() => setModalOpen(true)}
+              className="bg-emerald-600 hover:bg-emerald-500 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95 shadow-2xl shadow-emerald-600/20 mt-4"
+            >
+              Download v1.0 <Download size={18} />
+            </button>          </div>
 
           <div className="bg-[#0c0c0e] border border-white/5 p-12 rounded-[50px]">
             <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-10">Technical Specifications</h3>

@@ -1,5 +1,7 @@
-﻿import { Link } from "wouter";
+﻿import { useState } from "react";
+import { Link } from "wouter";
 import Header from "../components/Header";
+import DownloadModal from "../components/DownloadModal";
 import { 
   ArrowRight, CheckCircle2, Download, Scissors, 
   Grid3x3, Layers, Settings, Star, ChevronLeft, Zap, Box
@@ -17,9 +19,17 @@ const SPECS = [
   { label: "Support", value: "Email: muhamad.shkeir@gmail.com" }
 ];
 export default function AutoNestCutDetail() {
+  const [modalOpen, setModalOpen] = useState(false);
   return (
     <div className="bg-[#050505] min-h-screen text-white font-sans selection:bg-green-600 overflow-x-hidden">
       <Header currentPage="tools" />
+      <DownloadModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        fileName="AutoNestCut v2.6.5"
+        downloadUrl="/downloads/AutoNestCut_v26_5.rbz"
+        accentColor="#10b981"
+      />
       <section className="pt-40 pb-20 px-8 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <div className="space-y-8">
@@ -36,9 +46,12 @@ export default function AutoNestCutDetail() {
               AutoNestCut transforms your SketchUp workflow by automating cut list generation and material nesting. Reduce waste, save time, and generate production-ready cutting plans with intelligent algorithms designed for woodworkers, fabricators, and construction professionals.
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
-              <a href="/downloads/AutoNestCut_v26_5.rbz" download className="bg-green-600 hover:bg-green-500 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95 shadow-2xl shadow-green-600/20">
+              <button
+                onClick={() => setModalOpen(true)}
+                className="bg-green-600 hover:bg-green-500 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95 shadow-2xl shadow-green-600/20"
+              >
                 Download Extension <Download size={18} />
-              </a>
+              </button>
               <a href="https://autonestcutserver-moeshks-projects.vercel.app/" target="_blank" rel="noopener noreferrer" className="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-10 py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center gap-4 active:scale-95">
                 <ArrowRight size={18} /> Purchase License
               </a>
