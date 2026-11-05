@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Download, X, Loader2, MapPin, User, Mail, ShieldCheck } from "lucide-react";
 
 const FORMSPREE_ID = "xkjjyeov";
+const SERVED_URL = "https://autonestcutserver-moeshks-projects.vercel.app";
 
 interface DownloadModalProps {
   isOpen: boolean;
@@ -55,19 +56,32 @@ export default function DownloadModal({
     setStatus("submitting");
 
     try {
-      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          tool: fileName,
-          name: name.trim(),
-          email: email.trim(),
-          country: country.trim(),
-          downloadUrl,
+      // Fire Formspree (lead record) and confirmation email in parallel
+      const [formRes] = await Promise.all([
+        fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            tool: fileName,
+            name: name.trim(),
+            email: email.trim(),
+            country: country.trim(),
+            downloadUrl,
+          }),
         }),
-      });
+        fetch(`${SERVED_URL}/send-download-email`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: name.trim(),
+            email: email.trim(),
+            tool: fileName,
+            downloadUrl,
+          }),
+        }).catch(() => null), // non-blocking — don't fail the flow if email fails
+      ]);
 
-      if (!res.ok) throw new Error("Formspree error");
+      if (!formRes.ok) throw new Error("Formspree error");
 
       setStatus("done");
 
