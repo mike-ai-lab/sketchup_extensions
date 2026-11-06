@@ -1,0 +1,66 @@
+﻿{
+  "nav": {
+    "home": "ホーム", "tools": "ツール", "pricing": "料金", "contact": "お問い合わせ"
+  },
+  "home": {
+    "hero": {
+      "title": "次世代",
+      "highlight": "建築",
+      "title3": "インテリジェンス。",
+      "subtitle": "高精度の計算ツールと自動化されたBIMワークフローでサウジアラビアの建築家を支援します。",
+      "cta1": "開始",
+      "cta2": "登録"
+    },
+    "tools": {
+      "label": "モジュールスペクトル",
+      "heading": "利用可能なエンジン",
+      "sort": "並び順 / システムアーキテクチャ / 精度",
+      "explore": "モジュールを探索"
+    },
+    "cta": {
+      "label": "接続 / デプロイ",
+      "heading": "未来への",
+      "heading2": "準備はできていますか？",
+      "body": "スタジオに高度なパラメトリック機能をもたらします。",
+      "btn1": "プロジェクトを開始",
+      "btn2": "ドキュメント"
+    }
+  },
+  "pricing": {
+    "heading": "料金",
+    "subtitle": "一回払い。生涯アクセス。サブスクリプションなし、隠れた費用なし。",
+    "oneTime": "一回払い",
+    "mostPopular": "最も人気",
+    "startTrial": "無料トライアル開始",
+    "trialNote": "7日間トライアル • クレジットカード不要",
+    "faqHeading": "よくある質問",
+    "ctaHeading": "始める準備はできていますか？",
+    "ctaBody": "7日間無料で拡張機能をお試しください。クレジットカード不要。いつでもキャンセル可能。",
+    "browse": "拡張機能を閲覧"
+  },
+  "contact": {
+    "heading": "お問い合わせ",
+    "subtitle": "ご質問はありますか？お気軽にどうぞ",
+    "name": "お名前",
+    "namePlaceholder": "フルネームを入力",
+    "email": "メールアドレス",
+    "emailPlaceholder": "your@email.jp",
+    "message": "メッセージ",
+    "messagePlaceholder": "プロジェクトについてお聞かせください...",
+    "send": "メッセージを送信",
+    "emailSupport": "メールサポート",
+    "emailSupportBody": "通常24時間以内にご返答いたします。",
+    "customDev": "カスタム開発",
+    "customDevBody": "カスタム拡張機能が必要ですか？ご要件を話し合いましょう。",
+    "beforeContact": "お問い合わせ前に",
+    "tip1": "よくある質問のドキュメントをご確認ください",
+    "tip2": "技術的な問題はソフトウェアバージョンをご記載ください",
+    "tip3": "カスタム開発にはワークフローをご説明ください"
+  },
+  "footer": {
+    "copyright": "© 2025 Studiø",
+    "author": "ムハンマド・シュケイル",
+    "privacy": "プライバシーポリシー",
+    "terms": "利用規約"
+  }
+}

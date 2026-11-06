@@ -1,0 +1,66 @@
+﻿{
+  "nav": {
+    "home": "Inicio", "tools": "Herramientas", "pricing": "Precios", "contact": "Contacto"
+  },
+  "home": {
+    "hero": {
+      "title": "Próxima Generación",
+      "highlight": "Arquitectónica",
+      "title3": "Inteligencia.",
+      "subtitle": "Empoderando a arquitectos en Arabia Saudita con herramientas computacionales de alta precisión y flujos BIM automatizados.",
+      "cta1": "Inicializar",
+      "cta2": "Registro"
+    },
+    "tools": {
+      "label": "Espectro de Módulos",
+      "heading": "Motores Disponibles",
+      "sort": "Ordenado por / Arquitectura / Precisión",
+      "explore": "Explorar Módulo"
+    },
+    "cta": {
+      "label": "Conectar / Desplegar",
+      "heading": "¿Listo para",
+      "heading2": "El Futuro?",
+      "body": "Lleva capacidades paramétricas avanzadas a tu estudio. Desarrollo de motores personalizados.",
+      "btn1": "Iniciar Proyecto",
+      "btn2": "Documentación"
+    }
+  },
+  "pricing": {
+    "heading": "Precios",
+    "subtitle": "Compra única. Acceso de por vida. Sin suscripciones ni tarifas ocultas.",
+    "oneTime": "único",
+    "mostPopular": "Más Popular",
+    "startTrial": "Prueba Gratuita",
+    "trialNote": "Prueba 7 Días • Sin Tarjeta",
+    "faqHeading": "Preguntas Frecuentes",
+    "ctaHeading": "¿Listo para Empezar?",
+    "ctaBody": "Prueba cualquier extensión gratis por 7 días. Sin tarjeta de crédito. Cancela cuando quieras.",
+    "browse": "Ver Extensiones"
+  },
+  "contact": {
+    "heading": "Contacto",
+    "subtitle": "¿Tienes preguntas? Estamos aquí para ayudarte",
+    "name": "Nombre",
+    "namePlaceholder": "Tu nombre completo",
+    "email": "Correo",
+    "emailPlaceholder": "tu@correo.com",
+    "message": "Mensaje",
+    "messagePlaceholder": "Cuéntanos sobre tu proyecto...",
+    "send": "Enviar Mensaje",
+    "emailSupport": "Soporte por Email",
+    "emailSupportBody": "Respondemos en 24 horas.",
+    "customDev": "Desarrollo Personalizado",
+    "customDevBody": "¿Necesitas una extensión personalizada? Hablemos.",
+    "beforeContact": "Antes de Contactar",
+    "tip1": "Consulta nuestra documentación",
+    "tip2": "Incluye tu versión de software",
+    "tip3": "Describe tu flujo de trabajo"
+  },
+  "footer": {
+    "copyright": "© 2025 Studiø",
+    "author": "Muhamad Shkeir",
+    "privacy": "Política de Privacidad",
+    "terms": "Términos de Servicio"
+  }
+}

@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import Header from "../components/Header";
 import { 
   Box, 
@@ -131,6 +132,7 @@ declare global {
 }
 
 export default function Home() {
+  const { t } = useTranslation();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -212,39 +214,27 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 w-full max-w-5xl space-y-6 md:space-y-8 text-center md:text-left">
-          {/* Badge — mobile only (above h1) */}
-          <div className="md:hidden inline-flex items-center gap-3 px-4 py-2 bg-blue-600/10 border border-blue-500/20 rounded-full mx-auto">
-            <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></div>
-            <span className="text-[10px] font-black tracking-widest text-blue-500 uppercase">System Online: Riyadh Node</span>
-          </div>
-
           <h1 className="text-5xl sm:text-6xl md:text-[120px] font-black leading-[0.85] uppercase italic tracking-tighter">
             <span className="md:flex md:items-center md:gap-6">
-              <span>Next-Gen</span>
-              {/* Badge — desktop only (beside Next-Gen) */}
-              <div className="hidden md:inline-flex items-center gap-3 px-4 py-2 bg-blue-600/10 border border-blue-500/20 rounded-full text-[10px] font-black tracking-widest text-blue-500 uppercase not-italic leading-none self-center">
-                <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse shrink-0"></div>
-                System Online: Riyadh Node
-              </div>
+            <span>{t('home.hero.title')}</span>
             </span>
-            <span className="text-blue-600">Architectural</span><br />
-            Intelligence.
+            <span className="text-blue-600">{t('home.hero.highlight')}</span><br />
+            {t('home.hero.title3')}
           </h1>
 
           <div className="flex flex-col md:flex-row items-center md:items-center gap-6 md:gap-8 pt-6 md:pt-10">
             <p className="max-w-sm text-white/40 font-medium text-sm leading-relaxed md:border-l border-white/10 md:pl-6 text-center md:text-left">
-              Empowering architects in Saudi Arabia with high-precision 
-              computational tools and automated BIM workflows.
+              {t('home.hero.subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto max-w-md justify-center md:justify-start">
               <Link href="/tools">
                 <button className="w-full sm:w-auto bg-white text-black hover:bg-white/90 px-10 py-6 rounded-full font-black text-[10px] tracking-widest uppercase transition-all cursor-pointer shadow-2xl whitespace-nowrap">
-                  Initialize
+                  {t('home.hero.cta1')}
                 </button>
               </Link>
               <Link href="/pricing">
                 <button className="w-full sm:w-auto border border-white/20 text-white hover:bg-white/5 px-10 py-6 rounded-full font-black text-[10px] tracking-widest uppercase transition-all cursor-pointer whitespace-nowrap">
-                  Registry
+                  {t('home.hero.cta2')}
                 </button>
               </Link>
             </div>
@@ -262,11 +252,11 @@ export default function Home() {
             {/* Header Block */}
             <div className="md:col-span-12 mb-12 flex flex-col md:flex-row md:items-end justify-between border-b border-white/5 pb-12">
               <div className="space-y-4">
-                <span className="text-blue-500 text-[10px] font-black tracking-[0.5em] uppercase">Module Spectrum</span>
-                <h2 className="text-4xl md:text-6xl font-black uppercase italic tracking-tighter">Available Engines</h2>
+                <span className="text-blue-500 text-[10px] font-black tracking-[0.5em] uppercase">{t('home.tools.label')}</span>
+                <h2 className="text-4xl md:text-6xl font-black uppercase italic tracking-tighter">{t('home.tools.heading')}</h2>
               </div>
               <p className="text-white/30 text-xs font-bold uppercase tracking-widest mt-6 md:mt-0">
-                Sorted by / System Architecture / Precision
+                {t('home.tools.sort')}
               </p>
             </div>
 
@@ -300,7 +290,7 @@ export default function Home() {
 
                     <div className="relative z-10 pt-10 flex items-center justify-between border-t border-white/5 mt-auto">
                       <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white/30 group-hover:text-blue-500 transition-colors">
-                        Explore Module <ArrowRight size={14} />
+                        {t('home.tools.explore')} <ArrowRight size={14} />
                       </div>
                       <div className="flex gap-1">
                         {[1, 2, 3].map(i => <div key={i} className="w-1 h-1 bg-white/10 rounded-full group-hover:bg-blue-500/50"></div>)}
@@ -337,23 +327,22 @@ export default function Home() {
       <section className="py-20 md:py-40 px-6 relative overflow-hidden min-h-[80vh] flex items-center justify-center">
         <div className="max-w-4xl mx-auto text-center space-y-8 md:space-y-12">
           <div className="space-y-3 md:space-y-4">
-            <div className="text-blue-500 text-[10px] font-black tracking-[0.5em] uppercase">Connect / Deploy</div>
-            <h2 className="text-4xl sm:text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-[0.9]">Ready for<br/>The Future?</h2>
+            <div className="text-blue-500 text-[10px] font-black tracking-[0.5em] uppercase">{t('home.cta.label')}</div>
+            <h2 className="text-4xl sm:text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-[0.9]">{t('home.cta.heading')}<br/>{t('home.cta.heading2')}</h2>
           </div>
 
           <p className="text-white/40 text-base md:text-lg font-medium max-w-xl mx-auto px-4">
-            Bring advanced parametric capabilities to your studio. 
-            Custom engine development for Riyadh's most ambitious projects.
+            {t('home.cta.body')}
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6 px-4">
             <Link href="/contact">
               <button className="w-full sm:w-auto bg-blue-600 text-white px-10 md:px-12 py-5 md:py-6 rounded-full font-black text-xs tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all shadow-[0_0_30px_rgba(37,99,235,0.3)] cursor-pointer">
-                Start Project
+                {t('home.cta.btn1')}
               </button>
             </Link>
             <Link href="/tools">
               <button className="w-full sm:w-auto border border-white/10 text-white px-10 md:px-12 py-5 md:py-6 rounded-full font-black text-xs tracking-[0.2em] uppercase hover:bg-white/5 transition-all cursor-pointer">
-                Documentation
+                {t('home.cta.btn2')}
               </button>
             </Link>
           </div>

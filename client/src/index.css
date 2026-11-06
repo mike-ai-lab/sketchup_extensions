@@ -214,6 +214,27 @@
 }
 
 /* ========================================
+   LIGHT THEME — invert the whole site,
+   then counter-invert things that should
+   keep their real color (images, logos,
+   hue-sensitive accent colors).
+   ======================================== */
+
+html:not(.dark) {
+  filter: invert(1) hue-rotate(180deg);
+  transition: filter 0.3s ease;
+}
+
+/* Counter-invert so these render correctly in light mode */
+html:not(.dark) img,
+html:not(.dark) video,
+html:not(.dark) canvas,
+html:not(.dark) [style*="background-image"],
+html:not(.dark) .no-invert {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* ========================================
    NEUMORPHIC DESIGN SYSTEM
    ======================================== */
 

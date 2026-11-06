@@ -1,0 +1,66 @@
+﻿{
+  "nav": {
+    "home": "首页", "tools": "工具", "pricing": "价格", "contact": "联系"
+  },
+  "home": {
+    "hero": {
+      "title": "下一代",
+      "highlight": "建筑",
+      "title3": "智能。",
+      "subtitle": "为沙特阿拉伯的建筑师提供高精度计算工具和自动化BIM工作流程。",
+      "cta1": "开始",
+      "cta2": "注册"
+    },
+    "tools": {
+      "label": "模块频谱",
+      "heading": "可用引擎",
+      "sort": "按照 / 系统架构 / 精度 排序",
+      "explore": "探索模块"
+    },
+    "cta": {
+      "label": "连接 / 部署",
+      "heading": "准备好迎接",
+      "heading2": "未来了吗？",
+      "body": "为您的工作室带来先进的参数化能力。为利雅得最雄心勃勃的项目定制引擎开发。",
+      "btn1": "启动项目",
+      "btn2": "文档"
+    }
+  },
+  "pricing": {
+    "heading": "价格",
+    "subtitle": "一次性购买。终身访问。无订阅，无隐藏费用。",
+    "oneTime": "一次性",
+    "mostPopular": "最受欢迎",
+    "startTrial": "开始免费试用",
+    "trialNote": "7天试用 • 无需信用卡",
+    "faqHeading": "常见问题",
+    "ctaHeading": "准备开始了吗？",
+    "ctaBody": "免费试用任何扩展7天。无需信用卡。随时取消。",
+    "browse": "浏览扩展"
+  },
+  "contact": {
+    "heading": "联系",
+    "subtitle": "有问题吗？我们在这里帮助您",
+    "name": "姓名",
+    "namePlaceholder": "您的全名",
+    "email": "电子邮件",
+    "emailPlaceholder": "您的@邮箱.com",
+    "message": "消息",
+    "messagePlaceholder": "告诉我们您的项目或问题...",
+    "send": "发送消息",
+    "emailSupport": "电子邮件支持",
+    "emailSupportBody": "我们通常在24小时内回复所有咨询。",
+    "customDev": "定制开发",
+    "customDevBody": "需要定制扩展或工具？让我们讨论您的需求。",
+    "beforeContact": "联系前",
+    "tip1": "查看我们的文档了解常见问题",
+    "tip2": "提供您的软件版本以解决技术问题",
+    "tip3": "描述您的工作流程以进行定制开发"
+  },
+  "footer": {
+    "copyright": "© 2025 Studiø",
+    "author": "穆罕默德·谢基尔",
+    "privacy": "隐私政策",
+    "terms": "服务条款"
+  }
+}

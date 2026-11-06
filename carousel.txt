@@ -1,0 +1,202 @@
+import React, { useEffect } from 'react';
+
+/**
+ * App Component
+ * * Optimized Swiper.js implementation for Muhamad.
+ * Fix: Increased card-bg width (160%) and offset to prevent white edging during parallax swiping.
+ * Added: pointer-events management to ensure smooth release on all devices.
+ */
+const App = () => {
+  useEffect(() => {
+    const linkSwiper = document.createElement('link');
+    linkSwiper.rel = 'stylesheet';
+    linkSwiper.href = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css';
+    document.head.appendChild(linkSwiper);
+
+    const linkFontAwesome = document.createElement('link');
+    linkFontAwesome.rel = 'stylesheet';
+    linkFontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+    document.head.appendChild(linkFontAwesome);
+
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
+    script.async = true;
+    script.onload = () => {
+      if (window.Swiper) {
+        new window.Swiper(".mySwiper", {
+          speed: 900,
+          parallax: true,
+          loop: true,
+          grabCursor: true,
+          threshold: 5,
+          resistanceRatio: 0, // Prevents rubber-banding that reveals edges
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          }
+        });
+      }
+    };
+    document.body.appendChild(script);
+
+    return () => {
+      document.head.removeChild(linkSwiper);
+      document.head.removeChild(linkFontAwesome);
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-[#f3f4f6] overflow-hidden m-0 font-sans">
+      <style>{`
+        .swiper {
+          width: 100%;
+          max-width: 900px;
+          height: 480px;
+          padding: 20px;
+          overflow: visible; 
+        }
+
+        .swiper-slide {
+          border-radius: 40px;
+          overflow: hidden;
+          position: relative;
+          box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.15);
+          background: #fff; /* Fallback */
+        }
+
+        /* Fixed: Increased width and adjusted left offset to cover parallax gaps */
+        .card-bg {
+          position: absolute;
+          top: 0;
+          left: -30%; 
+          width: 160%; 
+          height: 100%;
+          z-index: 1;
+          will-change: transform;
+        }
+
+        .card-content {
+          position: relative;
+          z-index: 2;
+          display: flex;
+          height: 100%;
+          padding: 60px;
+          color: white;
+        }
+
+        .text-column {
+          width: 65%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: flex-start;
+          pointer-events: none;
+        }
+
+        .btn-learn {
+          pointer-events: auto;
+          background-color: white;
+          padding: 14px 32px;
+          border-radius: 14px;
+          font-weight: 800;
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          border: none;
+          cursor: pointer;
+        }
+
+        .image-column {
+          width: 35%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          opacity: 0.25;
+          font-size: 140px;
+          pointer-events: none;
+        }
+
+        .featured-tag {
+          font-size: 0.65rem;
+          font-weight: 800;
+          letter-spacing: 2px;
+          margin-bottom: 20px;
+          background: rgba(255,255,255,0.2);
+          backdrop-filter: blur(10px);
+          padding: 6px 14px;
+          border-radius: 50px;
+        }
+
+        .swiper-slide h2 {
+          font-size: 4rem;
+          margin: 0 0 10px 0;
+          font-weight: 900;
+          letter-spacing: -2px;
+          line-height: 1;
+        }
+
+        .swiper-slide p {
+          font-size: 1.1rem;
+          margin-bottom: 30px;
+          max-width: 400px;
+          opacity: 0.9;
+        }
+
+        .swiper-pagination-bullet-active {
+          width: 30px !important;
+          border-radius: 4px !important;
+          background: #d68e00 !important;
+          opacity: 1 !important;
+        }
+      `}</style>
+
+      <div className="swiper mySwiper">
+        <div className="swiper-wrapper">
+          
+          <div className="swiper-slide">
+            <div className="card-bg" style={{ background: 'linear-gradient(135deg, #ffa700 0%, #d68e00 100%)' }} data-swiper-parallax="-35%"></div>
+            <div className="card-content">
+              <div className="text-column">
+                <div className="featured-tag" data-swiper-parallax="-100">
+                  <i className="fa-solid fa-star"></i> FEATURED
+                </div>
+                <h2 data-swiper-parallax="-200">SPECBASE</h2>
+                <p data-swiper-parallax="-300">Curated architectural specifications localized for Saudi building codes and regional materials.</p>
+                <button className="btn-learn" style={{ color: '#d68e00' }}>
+                  Explore <i className="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+              <div className="image-column" data-swiper-parallax="-500">
+                <i className="fa-solid fa-database"></i>
+              </div>
+            </div>
+          </div>
+
+          <div className="swiper-slide">
+            <div className="card-bg" style={{ background: 'linear-gradient(135deg, #2980b9, #2c3e50)' }} data-swiper-parallax="-35%"></div>
+            <div className="card-content">
+              <div className="text-column">
+                <div className="featured-tag" data-swiper-parallax="-100">
+                  <i className="fa-solid fa-bolt"></i> INNOVATION
+                </div>
+                <h2 data-swiper-parallax="-200">DESIGN AI</h2>
+                <p data-swiper-parallax="-300">Generative floor plans that optimize spatial flow while respecting cultural privacy standards.</p>
+                <button className="btn-learn" style={{ color: '#2980b9' }}>
+                  Try Beta <i className="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+              <div className="image-column" data-swiper-parallax="-500">
+                <i className="fa-solid fa-brain"></i>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div className="swiper-pagination"></div>
+      </div>
+    </div>
+  );
+};
+
+export default App;

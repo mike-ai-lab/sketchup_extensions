@@ -1,0 +1,66 @@
+﻿{
+  "nav": {
+    "home": "Startseite", "tools": "Werkzeuge", "pricing": "Preise", "contact": "Kontakt"
+  },
+  "home": {
+    "hero": {
+      "title": "Nächste Generation",
+      "highlight": "Architektonische",
+      "title3": "Intelligenz.",
+      "subtitle": "Architekten in Saudi-Arabien mit hochpräzisen Rechenwerkzeugen und automatisierten BIM-Workflows stärken.",
+      "cta1": "Initialisieren",
+      "cta2": "Registrierung"
+    },
+    "tools": {
+      "label": "Modul-Spektrum",
+      "heading": "Verfügbare Engines",
+      "sort": "Sortiert nach / Architektur / Präzision",
+      "explore": "Modul erkunden"
+    },
+    "cta": {
+      "label": "Verbinden / Einsetzen",
+      "heading": "Bereit für",
+      "heading2": "Die Zukunft?",
+      "body": "Bringen Sie fortschrittliche parametrische Fähigkeiten in Ihr Studio.",
+      "btn1": "Projekt starten",
+      "btn2": "Dokumentation"
+    }
+  },
+  "pricing": {
+    "heading": "Preise",
+    "subtitle": "Einmalige Zahlung. Lebenslanger Zugang. Keine Abonnements, keine versteckten Gebühren.",
+    "oneTime": "einmalig",
+    "mostPopular": "Beliebteste",
+    "startTrial": "Kostenlose Testversion",
+    "trialNote": "7-Tage-Test • Keine Kreditkarte",
+    "faqHeading": "Häufige Fragen",
+    "ctaHeading": "Bereit zu Starten?",
+    "ctaBody": "Testen Sie jede Erweiterung kostenlos für 7 Tage. Keine Kreditkarte erforderlich.",
+    "browse": "Erweiterungen durchsuchen"
+  },
+  "contact": {
+    "heading": "Kontakt",
+    "subtitle": "Haben Sie Fragen? Wir sind hier um zu helfen",
+    "name": "Name",
+    "namePlaceholder": "Ihr vollständiger Name",
+    "email": "E-Mail",
+    "emailPlaceholder": "ihre@email.de",
+    "message": "Nachricht",
+    "messagePlaceholder": "Erzählen Sie uns von Ihrem Projekt...",
+    "send": "Nachricht senden",
+    "emailSupport": "E-Mail-Support",
+    "emailSupportBody": "Wir antworten in der Regel innerhalb von 24 Stunden.",
+    "customDev": "Individuelle Entwicklung",
+    "customDevBody": "Brauchen Sie eine individuelle Erweiterung? Lassen Sie uns sprechen.",
+    "beforeContact": "Vor der Kontaktaufnahme",
+    "tip1": "Überprüfen Sie unsere Dokumentation",
+    "tip2": "Geben Sie Ihre Softwareversion an",
+    "tip3": "Beschreiben Sie Ihren Arbeitsablauf"
+  },
+  "footer": {
+    "copyright": "© 2025 Studiø",
+    "author": "Muhamad Shkeir",
+    "privacy": "Datenschutzrichtlinie",
+    "terms": "Nutzungsbedingungen"
+  }
+}

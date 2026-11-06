@@ -5,6 +5,7 @@ import { createRoot } from "react-dom/client";
 import superjson from "superjson";
 import App from "./App";
 import "./index.css";
+import "./i18n/config"; // initialise i18n before render
 
 const queryClient = new QueryClient({
   defaultOptions: {

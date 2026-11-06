@@ -1,0 +1,66 @@
+﻿{
+  "nav": {
+    "home": "Home", "tools": "Tools", "pricing": "Pricing", "contact": "Contact"
+  },
+  "home": {
+    "hero": {
+      "title": "Next-Gen",
+      "highlight": "Architectural",
+      "title3": "Intelligence.",
+      "subtitle": "Empowering architects in Saudi Arabia with high-precision computational tools and automated BIM workflows.",
+      "cta1": "Initialize",
+      "cta2": "Registry"
+    },
+    "tools": {
+      "label": "Module Spectrum",
+      "heading": "Available Engines",
+      "sort": "Sorted by / System Architecture / Precision",
+      "explore": "Explore Module"
+    },
+    "cta": {
+      "label": "Connect / Deploy",
+      "heading": "Ready for",
+      "heading2": "The Future?",
+      "body": "Bring advanced parametric capabilities to your studio. Custom engine development for Riyadh's most ambitious projects.",
+      "btn1": "Start Project",
+      "btn2": "Documentation"
+    }
+  },
+  "pricing": {
+    "heading": "Pricing",
+    "subtitle": "One-time purchase. Lifetime access. No subscriptions, no hidden fees.",
+    "oneTime": "one-time",
+    "mostPopular": "Most Popular",
+    "startTrial": "Start Free Trial",
+    "trialNote": "7-Day Trial • No CC Required",
+    "faqHeading": "Frequently Asked",
+    "ctaHeading": "Ready to Start?",
+    "ctaBody": "Try any extension free for 7 days. No credit card required. Cancel anytime.",
+    "browse": "Browse Extensions"
+  },
+  "contact": {
+    "heading": "Contact",
+    "subtitle": "Have questions? We're here to help",
+    "name": "Name",
+    "namePlaceholder": "Your full name",
+    "email": "Email",
+    "emailPlaceholder": "your@email.com",
+    "message": "Message",
+    "messagePlaceholder": "Tell us about your project or question...",
+    "send": "Send Message",
+    "emailSupport": "Email Support",
+    "emailSupportBody": "We typically respond within 24 hours to all inquiries.",
+    "customDev": "Custom Development",
+    "customDevBody": "Need a custom extension or tool? Let's discuss your requirements.",
+    "beforeContact": "Before You Contact",
+    "tip1": "Check our documentation for common questions",
+    "tip2": "Include your software version for technical issues",
+    "tip3": "Describe your workflow for custom development"
+  },
+  "footer": {
+    "copyright": "© 2025 Studiø",
+    "author": "Muhamad Shkeir",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  }
+}

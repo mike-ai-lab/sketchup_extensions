@@ -48,7 +48,15 @@ const EXTENSIONS = [
   }
 ];
 
-const Slide = ({ tool, index, progress }) => {
+import { MotionValue } from "framer-motion";
+
+interface SlideProps {
+  tool: typeof EXTENSIONS[0];
+  index: number;
+  progress: MotionValue<number>;
+}
+
+const Slide = ({ tool, index, progress }: SlideProps) => {
   // Staggered timing ranges for this specific slide
   // This ensures elements enter sequentially as the user scrolls
   const start = index * 0.25;
@@ -92,7 +100,7 @@ const Slide = ({ tool, index, progress }) => {
             whileInView={{ opacity: 1 }}
             className="flex flex-wrap gap-4"
           >
-            {tool.details.map((d, i) => (
+            {tool.details.map((d: string, i: number) => (
               <div key={i} className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-[9px] font-black uppercase tracking-widest italic">
                 {d}
               </div>

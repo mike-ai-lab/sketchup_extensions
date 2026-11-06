@@ -130,7 +130,13 @@ export default function DownloadModal({
               <Download size={28} style={{ color: accentColor }} />
             </div>
             <h3 className="text-xl font-black uppercase italic tracking-tighter">Download Starting</h3>
-            <p className="text-white/40 text-sm">Thanks! Your download should begin automatically.</p>
+            <p className="text-white/50 text-sm leading-relaxed">
+              Your download should begin automatically.<br />
+              If it doesn't start, check your email — we sent you a direct link.
+            </p>
+            <p className="text-white/20 text-[10px] uppercase tracking-widest">
+              Don't see it? Check your spam folder.
+            </p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">

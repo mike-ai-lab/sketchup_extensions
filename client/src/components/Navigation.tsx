@@ -43,8 +43,8 @@ export default function Navigation() {
   }, []);
 
   return (
-    <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 px-4 w-full max-w-4xl">
-      <nav className="neuro-nav backdrop-blur-sm">
+    <div className="fixed top-10 left-1/2 -translate-x-1/2 z-50 px-4 w-full max-w-4xl">
+      <nav className="neuro-nav backdrop-blur-sm" style={{border: '3px solid red'}}>
         <div className="flex items-center justify-between gap-3 sm:gap-6 md:gap-8">
           <Link href="/">
             <span className="text-lg sm:text-xl font-bold cursor-pointer text-[var(--neuro-text)]">Studiø</span>

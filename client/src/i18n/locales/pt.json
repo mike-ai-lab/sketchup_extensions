@@ -1,0 +1,66 @@
+﻿{
+  "nav": {
+    "home": "Início", "tools": "Ferramentas", "pricing": "Preços", "contact": "Contato"
+  },
+  "home": {
+    "hero": {
+      "title": "Próxima Geração",
+      "highlight": "Arquitetônica",
+      "title3": "Inteligência.",
+      "subtitle": "Capacitando arquitetos na Arábia Saudita com ferramentas computacionais de alta precisão e fluxos BIM automatizados.",
+      "cta1": "Inicializar",
+      "cta2": "Registro"
+    },
+    "tools": {
+      "label": "Espectro de Módulos",
+      "heading": "Motores Disponíveis",
+      "sort": "Ordenado por / Arquitetura / Precisão",
+      "explore": "Explorar Módulo"
+    },
+    "cta": {
+      "label": "Conectar / Implantar",
+      "heading": "Pronto para",
+      "heading2": "O Futuro?",
+      "body": "Traga capacidades paramétricas avançadas para seu estúdio.",
+      "btn1": "Iniciar Projeto",
+      "btn2": "Documentação"
+    }
+  },
+  "pricing": {
+    "heading": "Preços",
+    "subtitle": "Compra única. Acesso vitalício. Sem assinaturas, sem taxas ocultas.",
+    "oneTime": "único",
+    "mostPopular": "Mais Popular",
+    "startTrial": "Teste Gratuito",
+    "trialNote": "Teste 7 Dias • Sem Cartão",
+    "faqHeading": "Perguntas Frequentes",
+    "ctaHeading": "Pronto para Começar?",
+    "ctaBody": "Teste qualquer extensão gratuitamente por 7 dias. Sem cartão de crédito.",
+    "browse": "Ver Extensões"
+  },
+  "contact": {
+    "heading": "Contato",
+    "subtitle": "Tem perguntas? Estamos aqui para ajudar",
+    "name": "Nome",
+    "namePlaceholder": "Seu nome completo",
+    "email": "Email",
+    "emailPlaceholder": "seu@email.com",
+    "message": "Mensagem",
+    "messagePlaceholder": "Conte-nos sobre seu projeto...",
+    "send": "Enviar Mensagem",
+    "emailSupport": "Suporte por Email",
+    "emailSupportBody": "Geralmente respondemos em 24 horas.",
+    "customDev": "Desenvolvimento Personalizado",
+    "customDevBody": "Precisa de uma extensão personalizada? Vamos conversar.",
+    "beforeContact": "Antes de Contatar",
+    "tip1": "Consulte nossa documentação",
+    "tip2": "Inclua sua versão do software",
+    "tip3": "Descreva seu fluxo de trabalho"
+  },
+  "footer": {
+    "copyright": "© 2025 Studiø",
+    "author": "Muhamad Shkeir",
+    "privacy": "Política de Privacidade",
+    "terms": "Termos de Serviço"
+  }
+}
