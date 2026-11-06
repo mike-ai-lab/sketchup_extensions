@@ -1,18 +1,39 @@
 import { Link } from "wouter";
-import { Send, Mail, MessageSquare } from "lucide-react";
+import { Send, Mail, MessageSquare, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Header from "../components/Header";
 
+// Formspree endpoint — replace xkjjyeov with your actual form ID if different
+const FORMSPREE_ID = "xkjjyeov";
+
 export default function Contact() {
   const { t } = useTranslation();
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    alert("Message sent! We'll get back to you soon.");
-    setFormData({ name: "", email: "", message: "" });
+    setStatus("sending");
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+      if (res.ok) {
+        setStatus("sent");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -67,10 +88,23 @@ export default function Contact() {
               </div>
               <button
                 type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-500 text-white py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center justify-center gap-3"
+                disabled={status === "sending" || status === "sent"}
+                className="w-full bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition-all flex items-center justify-center gap-3"
               >
-                {t('contact.send')} <Send size={16} />
+                {status === "sending" ? "Sending..." : t('contact.send')} <Send size={16} />
               </button>
+
+              {status === "sent" && (
+                <div className="flex items-center gap-3 px-6 py-4 bg-green-500/10 border border-green-500/20 rounded-2xl">
+                  <CheckCircle2 size={18} className="text-green-400 flex-shrink-0" />
+                  <p className="text-sm text-green-400 font-bold">Message sent — we'll be in touch soon.</p>
+                </div>
+              )}
+              {status === "error" && (
+                <div className="flex items-center gap-3 px-6 py-4 bg-red-500/10 border border-red-500/20 rounded-2xl">
+                  <p className="text-sm text-red-400 font-bold">Something went wrong. Please try again or email us directly.</p>
+                </div>
+              )}
             </form>
           </div>
 
